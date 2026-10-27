@@ -1,0 +1,537 @@
+% C21 -- 26 de octubre de 2026.
+% Fuente exclusiva de contenido: Estable1026.pdf y Screenshots C21/P01--P17.
+% No hay grabación ni transcripción disponibles para esta versión.
+% P02: distinguir esfera cociente de esfera con punto base disjunto.
+% P05--P06: ajustar el orden del producto para la acción izquierda.
+% P13: la unidad X -> L_E X es una E-equivalencia, no siempre estable.
+
+Estudiaremos el complejo celular de un CW espectro y su relación con la homología y la cohomología ordinarias. Después introduciremos las operaciones cohomológicas estables y la localización respecto de una teoría de homología. La localización racional y la localización en un primo proporcionarán los ejemplos principales, y el cuadrado aritmético relacionará estas aproximaciones con la categoría estable.
+
+El cálculo celular y las operaciones se tratan en \cite[observación~2.6.5.5 y ejemplo~3.2.2.12]{malkiewich}, y las filtraciones y sus diferenciales en \cite[III, \S7, pp.~214--218]{adams1974}. Para la localización véase \cite[\S\S3.3 y~5.7]{malkiewich}; para el cuadrado aritmético, \cite[teorema~8.3.6]{may_ponto2012}, aplicado a los espacios de un $\Omega$-espectro.
+
+\begin{nota}
+Esta versión de la clase 21 se ha elaborado únicamente a partir de las diecisiete pizarras disponibles. Se desarrollan sus cálculos y argumentos escritos; no se reconstruyen explicaciones orales. Los resultados estructurales que solo aparecen enunciados se conservan con ese alcance, y se indican las precisiones necesarias para interpretar las fórmulas. El texto podrá completarse cuando se disponga de la transcripción.
+\end{nota}
+
+Escribimos $[X,Y]_s=\hom_{\Ho(\Sp^{\mathbb N})}(X,Y)$. Todos los smash, productos y coproductos de espectros se entienden derivados. En particular,
+\[
+E_n(X)=\pi_n(X\wedge^{\mathrm L}E)
+\cong\pi_n(E\wedge^{\mathrm L}X)=X_n(E).
+\]
+Esta simetría intercambia los dos espectros en la homología; no identifica en general homología con cohomología.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Homología y cohomología celulares de espectros}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El complejo de cadenas celulares}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P01.
+Sea $X$ un CW espectro. Recordemos de la clase 11 que una celda de dimensión $k+n$ en $X_n$, distinta del punto base, representa una celda estable de dimensión $k$. Al suspenderla y aplicar el morfismo estructural obtenemos otro representante de la misma celda. Para una aplicación característica $\Phi\colon(D^{k+n})_+\to X_n$, el diagrama es
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+(D^{k+n+1})_+\arrow[d,"q"']
+\arrow[drr,bend left=15,"\Phi' "]&&\\
+\Sigma(D^{k+n})_+\arrow[r,"\Sigma\Phi"]
+&\Sigma X_n\arrow[r,"\xi_n"]&X_{n+1}.
+\end{tikzcd}
+\]
+La aplicación $q$ es el cociente de suspensión del disco parametrizador explicado en la clase 10. La dimensión estable permanece igual a $k$.
+
+Denotemos por $J_{k+n}^{X_n}$ el conjunto de celdas de dimensión $k+n$ de $X_n$ distintas del punto base, y por $J_k$ el conjunto de $k$-celdas estables de $X$. Definimos
+\[
+C_k^{\mathrm{CW}}(X)
+=\varinjlim\nolimits_n C_{k+n}^{\mathrm{CW}}(X_n,*)
+\cong\varinjlim\nolimits_n\mathbb Z[J_{k+n}^{X_n}]
+\cong\mathbb Z[J_k],
+\qquad k\in\mathbb Z.
+\]
+Las transiciones proceden de la suspensión celular y de $\xi_n$. Con orientaciones y signos de suspensión compatibles, las diferenciales de los niveles inducen
+\[
+\partial_k\colon C_k^{\mathrm{CW}}(X)\longrightarrow C_{k-1}^{\mathrm{CW}}(X),
+\qquad\partial_{k-1}\partial_k=0.
+\]
+El resultado es un complejo de grupos libres que admite dimensiones negativas.
+
+\begin{prop}\label{prop:c21-homologia-celular}
+El complejo celular calcula la homología integral ordinaria del espectro:
+\[
+H_k(C_*^{\mathrm{CW}}(X))\cong H_k(X;\mathbb Z).
+\]
+\end{prop}
+\begin{proof}
+Los colímites filtrados de grupos abelianos son exactos y conmutan con la homología de complejos. El cálculo celular de cada nivel y la \myref{prop:c19-homologia-niveles} dan
+\[
+\begin{aligned}
+H_k(C_*^{\mathrm{CW}}(X))
+&\cong\varinjlim\nolimits_n H_{k+n}(C_*^{\mathrm{CW}}(X_n,*))\\
+&\cong\varinjlim\nolimits_n\widetilde H_{k+n}(X_n;\mathbb Z)
+\cong H_k(X;\mathbb Z).
+\end{aligned}
+\]
+Los signos elegidos para las suspensiones son los mismos que definen las transiciones del último colímite, por lo que el isomorfismo respeta esas aplicaciones.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La filtración celular y la cohomología}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P02--P03.
+Consideremos una filtración que empieza en el espectro cero,
+\[
+\Sigma^\infty *=X^{(-1)}\subseteq X^{(0)}\subseteq X^{(1)}
+\subseteq X^{(2)}\subseteq\cdots,
+\qquad X=\varinjlim\nolimits_jX^{(j)},
+\]
+donde la etapa $X^{(j)}$ adjunta las celdas de dimensión estable $k_j$, con $k_0<k_1<\cdots$. Las dimensiones de las celdas de una etapa son iguales, aunque sus representantes puedan aparecer en niveles diferentes. La adjunción de las celdas de dimensión $k_{j+1}$ da la sucesión de cofibra estable
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X^{(j)}\arrow[r]&X^{(j+1)}\arrow[r]
+&\displaystyle\bigvee_r F_{n_r}S^{n_r+k_{j+1}}\\
+\displaystyle\bigvee_r F_{n_r}S^{n_r+k_{j+1}-1}\arrow[u,"\varphi"]&&
+\end{tikzcd}
+\]
+En particular,
+\[
+\begin{aligned}
+H^m(X^{(j+1)},X^{(j)};\mathbb Z)
+&\cong H^m\Bigl(\bigvee_rF_{n_r}S^{n_r+k_{j+1}};\mathbb Z\Bigr)\\
+&\cong
+\begin{cases}
+\displaystyle\prod_{J_{k_{j+1}}}\mathbb Z,&m=k_{j+1},\\
+0,&m\ne k_{j+1}.
+\end{cases}
+\end{aligned}
+\]
+El producto, en lugar de la suma directa, procede del axioma del wedge para la cohomología. El único grupo no nulo se identifica con
+\[
+\Hom_{\mathbb Z}(C_{k_{j+1}}^{\mathrm{CW}}(X),\mathbb Z).
+\]
+
+\begin{nota}
+En la sucesión de cofibra, $S^d$ es la esfera punteada $D^d/\partial D^d$. El subíndice $+$ que aparece también en esas esferas en la pizarra no debe interpretarse como añadirles otro punto base disjunto: eso introduciría un sumando adicional. Se conserva $+$ para los discos y bordes no punteados de la construcción de celdas.
+\end{nota}
+
+Para indexar por dimensión, insertamos etapas sin celdas cuando faltan dimensiones y escribimos $X^{[p]}$ para el subespectro formado por las celdas estables de dimensión a lo sumo $p$. Las sucesiones exactas de los pares sucesivos dan la sucesión espectral cohomológica con
+\[
+E_1^{p,q}=H^{p+q}(X^{[p]},X^{[p-1]};\mathbb Z)
+\cong
+\begin{cases}
+\Hom_{\mathbb Z}(C_p^{\mathrm{CW}}(X),\mathbb Z),&q=0,\\
+0,&q\ne0.
+\end{cases}
+\]
+Tras esta reindexación, la página inicial toma la forma
+\[
+\begin{tikzcd}[column sep=1.1em,row sep=1.2em]
+q=2&0&0&0&0\\
+q=1&0&0&0&0\\
+q=0&\Hom(C_{-1}^{\mathrm{CW}},\mathbb Z)\arrow[r,"\delta"]
+&\Hom(C_0^{\mathrm{CW}},\mathbb Z)\arrow[r,"\delta"]
+&\Hom(C_1^{\mathrm{CW}},\mathbb Z)\arrow[r,"\delta"]
+&\Hom(C_2^{\mathrm{CW}},\mathbb Z)\\
+&p=-1&p=0&p=1&p=2.
+\end{tikzcd}
+\]
+Aquí se ha omitido $X$ en los términos celulares para aligerar el dibujo. La diferencial $d_1$ es la dual de la diferencial celular:
+\[
+\delta^p\colon\Hom(C_p^{\mathrm{CW}}(X),\mathbb Z)
+\longrightarrow\Hom(C_{p+1}^{\mathrm{CW}}(X),\mathbb Z),
+\qquad\delta^p(a)=a\circ\partial_{p+1}.
+\]
+En efecto, los morfismos de conexión de los pares se obtienen de las aplicaciones de pegado. Al proyectar sobre una celda y restringir a otra se obtiene el mismo grado que define el coeficiente de incidencia de $\partial$; la contravarianza transforma esa matriz en su dual.
+
+Por tanto, $E_2^{p,0}$ es la cohomología del complejo $\Hom(C_*^{\mathrm{CW}}(X),\mathbb Z)$. Para $r\ge2$, una diferencial de bidegrado $(r,1-r)$ sale de la fila cero hacia una fila nula, o entra desde una fila nula. No hay más diferenciales ni extensiones entre distintas piezas del mismo grado total. Así obtenemos
+\[
+H^k(X;\mathbb Z)\cong
+H^k\bigl(\Hom_{\mathbb Z}(C_*^{\mathrm{CW}}(X),\mathbb Z)\bigr).
+\]
+Para una dimensión total fija, la cohomología de los esqueletos se estabiliza al superar esa dimensión en uno; las sucesiones exactas de los pares lo muestran porque sus grupos relativos solo viven en la dimensión de las nuevas celdas. Así se justifica el paso desde los esqueletos a $X$ en esta filtración.
+
+\begin{nota}
+La identificación anterior se enuncia en las pizarras para un CW espectro. Sin embargo, la filtración que allí se escribe, con una primera dimensión $k_0$ y dimensiones crecientes, desarrolla el caso con celdas acotadas inferiormente. Para espectros con celdas en grados arbitrariamente negativos, las pizarras no explicitan el argumento de convergencia. Se registra la fórmula general, pero no se atribuye a ese dibujo una justificación de tal paso.
+\end{nota}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Coeficientes universales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Como el complejo celular es libre, la identificación anterior proporciona la sucesión de coeficientes universales
+\[
+\begin{aligned}
+0\longrightarrow\operatorname{Ext}^1_{\mathbb Z}(H_{k-1}(X;\mathbb Z),\mathbb Z)
+&\longrightarrow H^k(X;\mathbb Z)\\
+&\longrightarrow\Hom_{\mathbb Z}(H_k(X;\mathbb Z),\mathbb Z)
+\longrightarrow0.
+\end{aligned}
+\]
+La aplicación hacia $\Hom$ restringe un cociclo a los ciclos. Para ver el término de la izquierda, pongamos $Z_k=\ker\partial_k$ y $B_k=\operatorname{im}\partial_{k+1}$. Los grupos $Z_k$ y $B_k$ son libres por ser subgrupos de grupos abelianos libres. La sucesión
+\[
+0\longrightarrow Z_k\longrightarrow C_k^{\mathrm{CW}}(X)
+\xrightarrow{\partial_k}B_{k-1}\longrightarrow0
+\]
+se escinde, así que toda aplicación $H_k(X)\to\mathbb Z$ se extiende a un cociclo. El núcleo de la restricción, módulo cobordes, es
+\[
+\frac{\Hom(B_{k-1},\mathbb Z)}
+{\operatorname{im}(\Hom(Z_{k-1},\mathbb Z)\to\Hom(B_{k-1},\mathbb Z))}
+\cong\operatorname{Ext}^1_{\mathbb Z}(H_{k-1}(X),\mathbb Z).
+\]
+Esto prueba la exactitud. La sucesión se escinde al elegir las escisiones celulares, pero esas elecciones no son naturales. Esta justificación no figura en las pizarras.
+
+Este cálculo ordinario es distinto de las sucesiones espectrales de coeficientes universales para teorías generalizadas. Las pizarras no precisan sus hipótesis ni una formulación general.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Operaciones cohomológicas estables}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Operaciones y composición}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P04--P05.
+Sea $E$ un espectro. Por la \myref{prop:c20-yoneda-espectros}, cada elemento
+\[
+f\in E^k(E)=[E,\sh^kE]_s
+\]
+corresponde a una transformación natural de teorías sobre espectros
+\[
+E^n(X)\longrightarrow(\sh^kE)^n(X)=E^{n+k}(X),
+\]
+compatible con los isomorfismos de suspensión. Estas transformaciones son las \emph{operaciones cohomológicas estables de grado $k$}. La correspondencia se escribe
+\[
+E^k(E)\cong\hom(E^*,(\sh^kE)^*).
+\]
+Para $a\colon X\to\sh^nE$, la operación es composición con $\sh^nf$.
+
+El grupo graduado de todas las operaciones es
+\[
+E^*(E)=\bigoplus_{k\in\mathbb Z}E^k(E).
+\]
+Si $f\in E^k(E)$ y $g\in E^m(E)$, la composición graduada da el producto $g\cdot f$ del diagrama
+\[
+\begin{tikzcd}[column sep=large]
+E\arrow[r,"f"]\arrow[rr,bend right=25,"g\cdot f"']
+&\sh^kE\arrow[r,"\sh^kg"]&\sh^{k+m}E.
+\end{tikzcd}
+\]
+La bilinealidad de la composición hace distributivo este producto; la identidad de $E$ es su unidad. Para una tercera operación $h$ de grado $\ell$, las dos asociaciones producen
+\[
+\sh^{k+m}h\circ\sh^kg\circ f,
+\]
+por lo que $E^*(E)$ es un anillo graduado asociativo, no necesariamente conmutativo.
+
+\begin{nota}
+La pizarra rotula el compuesto del diagrama como $f\cdot g$, pero después escribe una acción izquierda sobre $E^*(X)$. Para hacer compatibles ambas fórmulas, aquí se usa el orden usual de composición de operaciones: el compuesto dibujado es $g\cdot f$. Con el primer rótulo se obtiene una acción derecha o una acción izquierda del anillo opuesto.
+\end{nota}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El módulo de cohomología y el ejemplo de Steenrod}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P06.
+La cohomología de cualquier espectro $X$ es un módulo graduado izquierdo sobre $E^*(E)$. Para $a\in E^k(X)$ y $f\in E^{m-k}(E)$, su acción es
+\[
+\begin{tikzcd}[column sep=large]
+X\arrow[r,"a"]\arrow[rr,bend right=25,"f\cdot a"']
+&\sh^kE\arrow[r,"\sh^kf"]&\sh^mE.
+\end{tikzcd}
+\]
+Las propiedades del módulo se siguen de la misma asociatividad y bilinealidad. Un morfismo $u\colon X\to Y$ induce un homomorfismo $u^*\colon E^*(Y)\to E^*(X)$ de módulos, pues
+\[
+u^*(f\cdot a)=(\sh^{|a|}f\circ a)\circ u
+=f\cdot(a\circ u)=f\cdot u^*(a).
+\]
+En particular, si $X\simeq Y$ establemente, sus cohomologías son isomorfas como módulos de operaciones, no solo como grupos graduados.
+
+Para un primo $p$, se tiene
+\[
+(H\mathbb Z/p)^*(H\mathbb Z/p)=\mathcal A_p,
+\]
+el álgebra de Steenrod módulo $p$. Contiene a $\mathbb F_p$ en grado cero: a $c\in\mathbb F_p$ le corresponde el endomorfismo $c\,1_{H\mathbb Z/p}$, que actúa en cohomología ordinaria mediante multiplicación por $c$. Esta inclusión es inyectiva al evaluar en la clase unidad de $H^0(\mathbb S;\mathbb Z/p)$. La estructura del álgebra se describe por generadores y relaciones; las pizarras no desarrollan esa presentación.
+
+También podemos estudiar $E_*(E)$, que en ejemplos adecuados se interpreta como el objeto dual de operaciones y puede ser más fácil de calcular. Para un espectro $E$ arbitrario, las pizarras no especifican las hipótesis de estructura multiplicativa y dualidad necesarias para llamarlo una coálgebra dual de $E^*(E)$. Esta interpretación requiere, por tanto, hipótesis adicionales.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La categoría homotópica estable localizada}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equivalencias locales y estructura de modelos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P07--P08.
+\begin{defi}\label{defi:c21-equivalencia-local}
+Un morfismo de espectros $f\colon X\to Y$ es una \emph{equivalencia $E$-local}, o \emph{$E$-equivalencia}, si induce isomorfismos
+\[
+E_n(f)\colon E_n(X)\xrightarrow{\ \simeq\ }E_n(Y)
+\qquad\text{para todo }n\in\mathbb Z.
+\]
+\end{defi}
+
+Toda equivalencia estable es una $E$-equivalencia, porque el smash derivado y los grupos de homotopía estables son funtores sobre la categoría estable. La recíproca no vale para un $E$ arbitrario. La categoría homotópica estable $E$-local es la localización
+\[
+\Ho(\Sp_E^{\mathbb N})
+=\Sp^{\mathbb N}[\{\text{$E$-equivalencias}\}^{-1}].
+\]
+Sus morfismos son clases de zigzags que permiten invertir las $E$-equivalencias; escribiremos $[X,Y]_E$ para esos grupos de morfismos.
+
+\begin{teo}[Estructura de modelos localizada]\label{teo:c21-modelos-locales}
+Para cualquier espectro $E$, existe una estructura de modelos cofibrantemente generada $\Sp_E^{\mathbb N}$ cuyas equivalencias débiles son las $E$-equivalencias y cuyas cofibraciones son las de la estructura estable. Es una localización izquierda de Bousfield de la estructura de modelos estable de espectros secuenciales.
+\end{teo}
+
+El teorema se enuncia sin demostración en las pizarras. Como las cofibraciones son las mismas, las cofibraciones acíclicas de la nueva estructura son precisamente las cofibraciones que además son $E$-equivalencias. Las fibraciones quedan determinadas por la propiedad de levantamiento a la derecha frente a esas aplicaciones. La estructura localizada puede, por tanto, tener menos fibraciones que la estructura original.
+
+Si $E=\mathbb S$, entonces
+\[
+\mathbb S_n(X)=\pi_n(X\wedge^{\mathrm L}\mathbb S)\cong\pi_n(X).
+\]
+Una $\mathbb S$-equivalencia es, por tanto, exactamente una equivalencia estable, y
+\[
+\Ho(\Sp_{\mathbb S}^{\mathbb N})=\Ho(\Sp^{\mathbb N}).
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El espectro esfera racional}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P09.
+Para $n\ge1$, consideremos el espacio de Moore
+\[
+M(\mathbb Q,n)=\operatorname*{hocolim}
+\bigl(S^n\xrightarrow{\ 2\ }S^n\xrightarrow{\ 3\ }S^n
+\xrightarrow{\ 4\ }\cdots\bigr).
+\]
+Su homología reducida es $\mathbb Q$ en grado $n$ y cero en los demás grados: la homología conmuta con este telescopio y el sistema en grado $n$ es $\mathbb Z\xrightarrow{2}\mathbb Z\xrightarrow{3}\cdots$. Definimos la \emph{esfera racional}
+\[
+\mathbb S_{\mathbb Q}:=F_nM(\mathbb Q,n)
+=\sh^{-n}\Sigma^\infty M(\mathbb Q,n).
+\]
+El tipo estable no depende de $n$, pues la suspensión preserva el telescopio. Se obtiene
+\[
+\mathbb S_{\mathbb Q}\simeq
+\operatorname*{hocolim}\bigl(\mathbb S\xrightarrow{2}\mathbb S
+\xrightarrow{3}\mathbb S\xrightarrow{4}\cdots\bigr).
+\]
+Se tiene además la equivalencia $\mathbb S_{\mathbb Q}\simeq H\mathbb Q$, cuya demostración no aparece en las pizarras.
+
+El smash derivado preserva colímites homotópicos y la pequeñez de las esferas permite calcular los grupos de un telescopio estable por el colímite de sus grupos. Así,
+\[
+\begin{aligned}
+(\mathbb S_{\mathbb Q})_k(X)
+&=\pi_k(X\wedge^{\mathrm L}F_1M(\mathbb Q,1))\\
+&\cong\pi_k\Bigl(\operatorname*{hocolim}
+\bigl(X\wedge^{\mathrm L}\mathbb S\xrightarrow{1\wedge2}
+X\wedge^{\mathrm L}\mathbb S\xrightarrow{1\wedge3}\cdots\bigr)\Bigr)\\
+&\cong\varinjlim\bigl(\pi_k(X)\xrightarrow{2}\pi_k(X)
+\xrightarrow{3}\pi_k(X)\xrightarrow{4}\cdots\bigr)\\
+&\cong\pi_k(X)\otimes\mathbb Q.
+\end{aligned}
+\]
+En el último paso, si la primera etapa se numera con $j=1$, el elemento $a$ de la etapa $j$ se envía a $a/j!$. La relación de transición se respeta porque $(j+1)a/(j+1)!=a/j!$, y todo denominador divide algún factorial. Esto identifica el colímite con la racionalización del grupo, incluso cuando hay torsión.
+
+Por tanto,
+\[
+H_k(X;\mathbb Q)\cong\pi_k(X)\otimes\mathbb Q.
+\]
+Una $H\mathbb Q$-equivalencia se llama \emph{equivalencia racional}. La correspondiente categoría se denota también por
+\[
+\Ho(\Sp_{H\mathbb Q}^{\mathbb N})=\Ho(\Sp_{\mathbb Q}^{\mathbb N}).
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Localización en un primo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P10.
+Fijemos un primo $p$. Sea $q_1,q_2,\ldots$ la lista creciente de los enteros mayores que uno no divisibles por $p$. Repetimos la construcción anterior omitiendo los múltiplos de $p$:
+\[
+M(\mathbb Z_{(p)},n)=\operatorname*{hocolim}
+\bigl(S^n\xrightarrow{q_1}S^n\xrightarrow{q_2}S^n\longrightarrow\cdots\bigr),
+\qquad\mathbb S_{(p)}:=F_nM(\mathbb Z_{(p)},n).
+\]
+Cada entero primo con $p$ divide algún producto $q_1\cdots q_j$, y ninguna de esas transiciones invierte $p$. El mismo cálculo da
+\[
+(\mathbb S_{(p)})_k(X)
+=\pi_k(X\wedge^{\mathrm L}\mathbb S_{(p)})
+\cong\pi_k(X)\otimes\mathbb Z_{(p)}
+=\pi_k(X)_{(p)}.
+\]
+Una $\mathbb S_{(p)}$-equivalencia es una \emph{equivalencia $p$-local}, y escribimos
+\[
+\Ho(\Sp_{\mathbb S_{(p)}}^{\mathbb N})=\Ho(\Sp_{(p)}^{\mathbb N}).
+\]
+Esta construcción conserva la información en el primo $p$ y permite invertir los restantes primos en los grupos de homotopía estables.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Espectros locales y propiedad universal}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Los objetos locales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P11.
+\begin{defi}\label{defi:c21-espectro-local}
+Un espectro $Z$ es \emph{$E$-local} si, para toda $E$-equivalencia $f\colon X\to Y$, la precomposición induce un isomorfismo
+\[
+f^*\colon[Y,Z]_s\xrightarrow{\ \simeq\ }[X,Z]_s.
+\]
+\end{defi}
+
+Esta condición expresa existencia y unicidad de la factorización en la categoría homotópica estable. Se compara con la factorización que ya proporciona una equivalencia estable:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X\arrow[r,"{[u]_s}"]\arrow[d,"f"']&Z\\
+Y\arrow[ur,dashed,"{\exists!\,[v]_s}"']&
+\end{tikzcd}
+\qquad
+\begin{tikzcd}[column sep=large,row sep=large]
+X\arrow[r,"{[u]_s}"]\arrow[d,"\simeq"']&Z\\
+Y\arrow[ur,dashed,"{\exists!\,[v]_s}"']&
+\end{tikzcd}
+\]
+En el primer triángulo, $f$ es una $E$-equivalencia y $Z$ es local. En el segundo no hace falta la hipótesis de localidad de $Z$. La unicidad se refiere a la clase estable del morfismo, que puede representarse mediante un zigzag.
+
+\begin{lema}\label{lema:c21-equivalencia-entre-locales}
+Una $E$-equivalencia $f\colon W\to Z$ entre espectros $E$-locales es una equivalencia estable.
+\end{lema}
+\begin{proof}
+Por la localidad de $W$ y de $Z$, tenemos los isomorfismos
+\[
+[Z,W]_s\xrightarrow{\ f^*\ }[W,W]_s,
+\qquad[Z,Z]_s\xrightarrow{\ f^*\ }[W,Z]_s.
+\]
+Por sobreyectividad del primero, existe $[g]_s$ con $[gf]_s=[1_W]_s$. Entonces
+\[
+f^*([fg]_s)=[fgf]_s=[f]_s=f^*([1_Z]_s).
+\]
+La inyectividad del segundo implica $[fg]_s=[1_Z]_s$. Así, $[g]_s$ es la inversa de $[f]_s$ en la categoría estable, lo que prueba la afirmación.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Reemplazo fibrante y localización de un espectro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P12--P13.
+En la estructura de modelos $\Sp_E^{\mathbb N}$, los objetos fibrantes son exactamente los $\Omega$-espectros $E$-locales. Para comprobar que un objeto fibrante $Z$ es $E$-local, consideremos los levantamientos de su aplicación a $*$ en los cuadrados
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+A\arrow[r]\arrow[d,hook,"i"']&Z\arrow[d]\\
+B\arrow[r]\arrow[ur,dashed]&*.
+\end{tikzcd}
+\]
+Aquí $i$ es una cofibración y una $E$-equivalencia. En particular, hay levantamientos para las cofibraciones estables acíclicas, de modo que $Z$ es fibrante para la estructura estable y, por tanto, un $\Omega$-espectro.
+
+Para $i$ entre objetos cofibrantes, el levantamiento y su versión con homotopías muestran que
+\[
+[B,Z]_s\xrightarrow{\ \simeq\ }[A,Z]_s.
+\]
+El lema de Ken Brown, aplicado en sentido contravariante, extiende la afirmación desde las cofibraciones acíclicas a las $E$-equivalencias entre cofibrantes. Reemplazando los dominios por objetos cofibrantes, sin cambiar sus clases estables, se obtiene la condición para toda $E$-equivalencia. Así, $Z$ es $E$-local. La implicación recíproca solo se enuncia en las pizarras.
+
+El reemplazo fibrante en la estructura localizada se denota
+\[
+\eta_X\colon X\longrightarrow L_EX
+\]
+y recibe el nombre de \emph{$E$-localización de $X$}. El espectro $L_EX$ es un $\Omega$-espectro $E$-local y $\eta_X$ es una $E$-equivalencia. La definición de objeto local da su propiedad universal:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X\arrow[r,"u"]\arrow[dr,"\eta_X"']&Z\\
+&L_EX\arrow[u,dashed,"{\exists!\,[\bar u]_s}"']
+\end{tikzcd}
+\qquad
+\eta_X^*\colon[L_EX,Z]_s\xrightarrow{\ \simeq\ }[X,Z]_s
+\quad(Z\text{ local}).
+\]
+Para una $E$-equivalencia $f\colon X\to Y$, la factorización universal toma la forma
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X\arrow[r,"f"]\arrow[dr,"\eta_X"']&Y\arrow[d,dashed,"{\exists!\,[v]_s}"]\\
+&L_EX.
+\end{tikzcd}
+\]
+
+\begin{nota}
+En este último triángulo, la pizarra marca la flecha $X\to L_EX$ como equivalencia estable. En general solo es una $E$-equivalencia; será estable si $X$ ya es $E$-local, por el \myref{lema:c21-equivalencia-entre-locales}. La propiedad universal afirma unicidad en $\Ho(\Sp^{\mathbb N})$, no unicidad literal de una aplicación de espectros.
+\end{nota}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La localización como subcategoría completa}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P13--P15.
+Consideremos la subcategoría completa
+\[
+\left.\Ho(\Sp^{\mathbb N})\right|_{E\text{-locales}}.
+\]
+Sus objetos son los espectros $E$-locales y sus morfismos son los de la categoría estable original. Un zigzag que representa uno de estos morfismos puede pasar por espectros no locales:
+\[
+\begin{tikzcd}[column sep=large]
+A\arrow[r]&X_0&X_1\arrow[l,"\simeq"']\arrow[r]&\cdots\arrow[r]&B.
+\end{tikzcd}
+\]
+Los extremos $A,B$ son locales; no se exige esa condición a los $X_i$.
+
+La inclusión seguida del funtor de localización define $\varphi$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\left.\Ho(\Sp^{\mathbb N})\right|_{E\text{-locales}}
+\arrow[r,hook]\arrow[dr,"\varphi"']
+&\Ho(\Sp^{\mathbb N})\arrow[d,"q"]\\
+&\Ho(\Sp_E^{\mathbb N}).
+\end{tikzcd}
+\]
+En objetos, $\varphi$ conserva el espectro. En morfismos, permite interpretar el mismo zigzag estable como un zigzag que invierte $E$-equivalencias.
+
+La naturalidad del reemplazo fibrante proporciona, para cualquier $E$-equivalencia $f$, el cuadrado
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X\arrow[r,"f"]\arrow[d,"\eta_X"']
+&Y\arrow[d,"\eta_Y"]\\
+L_EX\arrow[r,"L_Ef"']&L_EY.
+\end{tikzcd}
+\]
+Tres de sus flechas son $E$-equivalencias y la cuarta también lo es por dos de tres. Como los objetos inferiores son locales, $L_Ef$ es una equivalencia estable. Por la propiedad universal de invertir morfismos, $L_E$ desciende al funtor que aparece en el diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\Sp^{\mathbb N}\arrow[r,"L_E"]\arrow[d,"q"']
+&\left.\Ho(\Sp^{\mathbb N})\right|_{E\text{-locales}}\\
+\Ho(\Sp_E^{\mathbb N})\arrow[ur,"L_E"']&
+\end{tikzcd}
+\]
+
+Si $X$ es $E$-local, la unidad $X\to L_EX$ es una $E$-equivalencia entre objetos locales y, por tanto, un isomorfismo estable. Por naturalidad, las unidades dan
+\[
+1_{\left.\Ho(\Sp^{\mathbb N})\right|_{E\text{-locales}}}
+\xRightarrow{\ \simeq\ }L_E\varphi.
+\]
+Para un espectro arbitrario $X$, la misma unidad es un isomorfismo en la categoría localizada. Obtenemos también
+\[
+1_{\Ho(\Sp_E^{\mathbb N})}\xRightarrow{\ \simeq\ }\varphi L_E.
+\]
+Los dos funtores son, pues, inversos salvo isomorfismo natural:
+\[
+\left.\Ho(\Sp^{\mathbb N})\right|_{E\text{-locales}}
+\simeq\Ho(\Sp_E^{\mathbb N}).
+\]
+Esto permite tratar la categoría localizada como una subcategoría completa de la categoría estable, entendiendo siempre la identificación salvo equivalencia. En particular, sus morfismos pueden calcularse como
+\[
+[X,Y]_E\cong[L_EX,L_EY]_s\cong[X,L_EY]_s.
+\]
+La segunda identificación es nuevamente la propiedad universal, aplicada al objeto local $L_EY$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El cuadrado aritmético y la perspectiva cromática}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P16--P17.
+Denotemos por $X_{\mathbb Q}=L_{H\mathbb Q}X$ la localización racional y por $X_{(p)}=L_{\mathbb S_{(p)}}X$ la localización en $p$. Si $\mathcal P$ es el conjunto de todos los primos, el cuadrado aritmético es
+\[
+\begin{tikzcd}[column sep=huge,row sep=large]
+X\arrow[r]\arrow[d]
+&\displaystyle\prod_{p\in\mathcal P}X_{(p)}\arrow[d]\\
+X_{\mathbb Q}\arrow[r]
+&\displaystyle\left(\prod_{p\in\mathcal P}X_{(p)}\right)_{\mathbb Q}
+\arrow[ul,phantom,"\ulcorner",very near start].
+\end{tikzcd}
+\]
+Es un pullback homotópico: recupera el espectro $X$ a partir de todas sus localizaciones en primos y de la compatibilidad racional indicada. La racionalización de la esquina inferior derecha se toma \emph{después} del producto; no se intercambia aquí con un producto infinito. Las pizarras enuncian esta propiedad, pero no contienen su demostración.
+
+La localización permite comparar los grupos estables $[X,Y]_s$ con los grupos localizados $[X,Y]_E$. Las sucesiones espectrales son una herramienta para estos cálculos; las pizarras no especifican ninguna construcción concreta. La categoría racional se conoce bien, mientras que la categoría $p$-local sigue siendo difícil de estudiar. Las localizaciones intermedias conducen al esquema
+\[
+\begin{tikzcd}[column sep=large]
+\Ho(\Sp_{\mathbb Q}^{\mathbb N})\arrow[r,dash]
+&\Ho(\Sp_{E(1)}^{\mathbb N})\arrow[r,dash]
+&\Ho(\Sp_{E(2)}^{\mathbb N})\arrow[r,dash]&\cdots
+\end{tikzcd}
+\]
+La \emph{homotopía cromática} estudia estas localizaciones intermedias. Las pizarras no definen los espectros $E(n)$ ni desarrollan sus propiedades; el diagrama indica la dirección de ese estudio.
