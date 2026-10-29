@@ -1,0 +1,647 @@
+% C22 -- 28 de octubre de 2026.
+% Fuentes: Estable1028.pdf; Screenshots C22/P01--P18;
+% Transcripciones/C22.txt, fusionada desde C22-1.txt y C22-2.txt.
+% El segundo original no contiene marcas de tiempo; empalme por contenido.
+% P06: la clase de una relación es cero en pi_0(E), no pi_0(E) entero.
+% P10: usar cilindros de los mapas de grado para los generadores acíclicos.
+% P16: incorporar la restricción a CW finitos hecha oralmente al final.
+
+En la clase 21 introdujimos la localización respecto de una teoría de homología. Ahora probaremos la unicidad de los espectros de Eilenberg--MacLane mediante adjunción de celdas y determinaremos la categoría homotópica estable racional. Aplicaremos la clasificación al espectro de $K$-teoría compleja y construiremos la racionalización mediante un telescopio.
+
+La adjunción de celdas se desarrolla en \cite[proposición~2.6.3.5 y observación~2.6.3.6]{malkiewich}, la unicidad se propone en su ejercicio~2.7.39 y la clasificación racional se demuestra en su ejemplo~3.3.2.10 y teorema~3.3.2.11. Para los objetos racionales y el telescopio, véanse su lema~3.3.1.5, ejemplo~5.7.0.3 y ejercicio~5.8.41; la compatibilidad con el smash se obtiene de su proposición~8.6.1.3 y se propone en sus ejercicios~8.7.16--17.
+
+Escribimos $[X,Y]_s=\hom_{\Ho(\Sp^{\mathbb N})}(X,Y)$ y $X_{\mathbb Q}=L_{H\mathbb Q}X$. Los coproductos y productos smash de espectros se entienden derivados. El reemplazo fibrante estable $R$ permite trabajar con $\Omega$-espectros cuando el modelo de localización se elige solo por su propiedad universal.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Unicidad de los espectros de Eilenberg--MacLane}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El problema de unicidad}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P01; primera parte, 00:00--03:31.
+Para un grupo abeliano $A$, el espectro $HA$ satisface
+\[
+\pi_k(HA)=[\sh^k\mathbb S,HA]_s
+\cong\widetilde H^{-k}(S^0;A)
+\cong
+\begin{cases}
+A,&k=0,\\
+0,&k\ne0.
+\end{cases}
+\]
+También podemos calcular estos grupos como $\pi_k(\mathbb S\wedge HA)=\widetilde H_k(S^0;A)$, utilizando que la esfera es la unidad del smash.
+
+\begin{prop}\label{prop:c22-unicidad-em}
+Sea $A$ un grupo abeliano y $E$ un espectro tal que $\pi_0(E)\cong A$ y $\pi_k(E)=0$ para $k\ne0$. Entonces $E$ y $HA$ son isomorfos en $\Ho(\Sp^{\mathbb N})$.
+\end{prop}
+
+Construiremos un CW espectro $X$ con esos grupos de homotopía y lo compararemos con cualquier $E$ que satisfaga las mismas condiciones. La demostración ocupa los siguientes apartados. Tener grupos isomorfos no basta por sí solo para aplicar el criterio de equivalencia estable: construiremos los morfismos que inducen esos isomorfismos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Generadores y relaciones mediante celdas estables}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P01--P02; 03:31--12:20.
+Fijemos una presentación de $A$ como grupo,
+\[
+A=\langle x_j\ (j\in J)\mid r_k\ (k\in K)\rangle.
+\]
+En particular, las relaciones incluyen las necesarias para que el cociente sea abeliano. Partimos de $X^{(0)}=\Sigma^\infty *$ y adjuntamos una $0$-celda estable por generador:
+\[
+X^{(1)}=X^{(0)}
+\cup_{\bigvee_{j\in J}F_0(S^{-1}_+)}
+\bigvee_{j\in J}F_0(D^0_+).
+\]
+Aquí $S^{-1}=\varnothing$, de modo que $S^{-1}_+=*$; no se trata de una esfera espectral en dimensión negativa. El mapa de adjunción es el único posible:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\displaystyle\bigvee_{j\in J}F_0(S^{-1}_+)\arrow[r]\arrow[d,"\simeq"']
+&X^{(0)}\\
+\displaystyle\bigvee_{j\in J}\Sigma^\infty *\arrow[ur]&
+\end{tikzcd}
+\]
+Por tanto, $X^{(1)}\cong\bigvee_J\mathbb S$. Sus primeros niveles son
+\[
+X^{(1)}=\left(\{x_0\}\sqcup\{x_j:j\in J\},\
+\bigvee_JS^1,\ \bigvee_JS^2,\ldots\right),
+\]
+donde $x_0$ es el punto base. La suspensión reducida lleva el punto base al punto base y convierte cada punto adicional en el círculo correspondiente.
+
+Cada palabra $r_k$ representa una clase de $\pi_1(X^{(1)}_1)\cong F[J]$. La suspensión abelianiza el grupo:
+\[
+\begin{tikzcd}[row sep=large,column sep=large]
+\pi_1(X^{(1)}_1)\cong F[J]\arrow[d,"\sigma"']\\
+\pi_2(X^{(1)}_2)\cong\mathbb Z[J]\arrow[d,"\sigma","\simeq"']\\
+\pi_3(X^{(1)}_3)\cong\mathbb Z[J].
+\end{tikzcd}
+\]
+Desde el nivel $2$, las suspensiones son isomorfismos en estos grados. Así, $r_k$ determina también un elemento de $\pi_0(X^{(1)})\cong\mathbb Z[J]$.
+
+Elijamos una aplicación punteada $r_k\colon S^1\to X^{(1)}_1$ que represente la palabra. Por adjunción, extendiéndola al punto base disjunto, obtenemos $r_k^\perp\colon F_1(S^1_+)\to X^{(1)}$. Adjuntamos una $1$-celda estable por relación:
+\[
+X^{(2)}=X^{(1)}
+\cup_{\bigvee_{k\in K}F_1(S^1_+)}
+\bigvee_{k\in K}F_1(D^2_+),
+\qquad
+\begin{tikzcd}[column sep=large,row sep=large]
+\displaystyle\bigvee_{k\in K}F_1(S^1_+)\arrow[r]&X^{(1)}\\
+F_1(S^1_+)\arrow[u,hook,"k"']\arrow[ur,"r_k^\perp"']&
+\end{tikzcd}
+\]
+En los niveles $1,2,\ldots$ esta construcción tiene la forma
+\[
+\begin{aligned}
+X^{(2)}_1&=\Bigl(\bigvee_JS^1\Bigr)\cup_{\bigvee_Kr_k}\Bigl(\coprod_KD^2\Bigr),\\
+X^{(2)}_2&=\Bigl(\bigvee_JS^2\Bigr)\cup_{\bigvee_K\Sigma r_k}\Bigl(\coprod_KD^3\Bigr),
+\end{aligned}
+\]
+y en los niveles siguientes se adjuntan las suspensiones de esas mismas celdas, con los discos parametrizadores de la clase 10. La notación de unión adjunta identifica los bordes con sus imágenes y conserva el punto base de la parte ya construida.
+
+En el nivel $1$ obtenemos la presentación elegida de $A$. En el nivel $2$, las aplicaciones suspendidas imponen sus relaciones abelianizadas sobre $\mathbb Z[J]$; como $A$ ya es abeliano, el cociente sigue siendo $A$. El primer grupo de homotopía de los niveles superiores se calcula del mismo modo:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\pi_1(X^{(2)}_1)\cong A\arrow[d,"\sigma","\simeq"']&\\
+\pi_2(X^{(2)}_2)\cong A\arrow[r,"\sigma","\simeq"']
+&\pi_3(X^{(2)}_3)\cong A\arrow[r,"\simeq"]&\cdots.
+\end{tikzcd}
+\]
+En consecuencia, $\pi_0(X^{(2)})\cong A$. Los grupos estables negativos son cero, pues solo hemos adjuntado celdas estables de dimensiones $0$ y $1$.
+
+Podríamos empezar con una presentación de $A$ como grupo abeliano. En ese caso, las relaciones se representarían desde $\pi_2(\bigvee_JS^2)$, y las $1$-celdas estables se adjuntarían mediante $F_2(D^3_+)$. El nivel $1$ no tendría aún grupo fundamental $A$, pero el grupo estable $\pi_0$ sería el mismo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Anulación de los grupos de homotopía superiores}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P03--P04; 12:20--18:35.
+Sea $0\ne\alpha\in\pi_1(X^{(2)})$. Por definición del colímite, podemos representarla mediante una clase $\beta\in\pi_{n+1}(X^{(2)}_n)$ y una aplicación punteada
+\[
+\gamma\colon S^{n+1}\longrightarrow X^{(2)}_n,
+\qquad[\gamma]=\beta.
+\]
+Adjuntamos una $2$-celda estable por el adjunto de $\gamma$:
+\[
+\widehat X^{(2)}=X^{(2)}
+\cup_{F_n(S^{n+1}_+)}F_n(D^{n+2}_+).
+\]
+El mapa de adjunción es
+\[
+\begin{tikzcd}[column sep=large]
+F_n(S^{n+1}_+)\arrow[r,"\gamma^\perp"]&X^{(2)}.
+\end{tikzcd}
+\]
+Los niveles anteriores a $n$ permanecen iguales. En el nivel $n$ se adjunta un disco de dimensión $n+2$, en el nivel $n+1$ uno de dimensión $n+3$, y así sucesivamente:
+\[
+\widehat X^{(2)}_n=X^{(2)}_n\cup_\gamma D^{n+2},
+\qquad
+\widehat X^{(2)}_{n+1}
+=X^{(2)}_{n+1}\cup_{\xi_n\Sigma\gamma}D^{n+3}.
+\]
+La extensión de $\gamma$ al disco anula $\beta$. La suspensión es compatible con las inclusiones:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\pi_{n+1}(X^{(2)}_n)\arrow[r]\arrow[d,"\sigma"']
+&\pi_{n+1}(\widehat X^{(2)}_n)\arrow[d,"\sigma"]\\
+\pi_{n+2}(X^{(2)}_{n+1})\arrow[r]
+&\pi_{n+2}(\widehat X^{(2)}_{n+1}).
+\end{tikzcd}
+\]
+Así, la imagen suspendida de $\beta$ también se anula y, al pasar al colímite, $\alpha$ va a cero en $\pi_1(\widehat X^{(2)})$.
+
+Hacemos esta construcción simultáneamente para todos los elementos de $\pi_1(X^{(2)})$ y llamamos $X^{(3)}$ al resultado. Adjuntar $2$-celdas estables no cambia $\pi_0$ y hace sobreyectiva la aplicación en $\pi_1$. Como hemos anulado todos los elementos del dominio, obtenemos
+\[
+\pi_0(X^{(2)})\xrightarrow{\ \simeq\ }\pi_0(X^{(3)}),
+\qquad\pi_1(X^{(3)})=0.
+\]
+Para justificar la afirmación sobre los grados, en un nivel suficientemente alto se adjuntan discos de dimensión $n+2$: la inclusión induce isomorfismos por debajo de $\pi_{n+1}$ y una sobreyección en $\pi_{n+1}$. El colímite conserva estas propiedades. El mismo argumento vale para una familia de celdas, pues las aplicaciones de esferas e intervalos de homotopías tienen imagen en subcomplejos finitos.
+
+Inductivamente, a $X^{(r+1)}$ le adjuntamos $(r+1)$-celdas estables que anulan todos los elementos de $\pi_r$, para $r\ge1$. Las inclusiones preservan los grupos de grados menores que $r$, y el nuevo grupo en grado $r$ es cero. El resultado es el CW espectro
+\[
+X=\varinjlim\nolimits_rX^{(r)}.
+\]
+La homotopía estable de este colímite es
+\[
+\pi_k(X)\cong
+\begin{cases}
+A,&k=0,\\
+0,&k\ne0.
+\end{cases}
+\]
+En efecto, para un grado fijo, el grupo ya no cambia una vez anulados los grupos hasta ese grado. La homotopía estable conmuta con esta unión celular: cada representante de una clase y cada homotopía que la anula factoriza por una etapa finita.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Comparación con un espectro de homotopía concentrada}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P05--P08; 18:35--31:36.
+Sea ahora $E$ como en la \myref{prop:c22-unicidad-em}. Como $E\to RE$ es una equivalencia estable, podemos suponer que $E$ es un $\Omega$-espectro. La identificación
+\[
+\pi_0(E)=[\mathbb S,E]_s=[\mathbb S,E]_h\cong A
+\]
+permite representar cada generador $x_j$ mediante un morfismo de espectros $f_j\colon\mathbb S\to E$. Reuniendo esos morfismos definimos
+\[
+g^{(1)}\colon X^{(1)}=\bigvee_J\mathbb S\longrightarrow E.
+\]
+En el nivel $0$, $x_0$ va al punto base y $x_j$ va a $(f_j)_0(-1)$, si tomamos $1$ como punto base de $S^0$. En el nivel $1$ y en los siguientes usamos las componentes de los mismos morfismos:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\displaystyle\bigvee_JS^1\arrow[r,"g^{(1)}_1"]&E_1\\
+S^1\arrow[u,hook,"j"']\arrow[ur,"(f_j)_1"']&
+\end{tikzcd}
+\]
+La compatibilidad de cada $f_j$ con los mapas estructurales asegura que $g^{(1)}$ es un morfismo de espectros. En $\pi_0$ induce el cociente de la presentación:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\pi_0(X^{(1)})\arrow[r,"g^{(1)}_*"]&\pi_0(E)\cong A\\
+\mathbb Z[J]\arrow[u,"\simeq"]\arrow[ur,"\text{cociente}"']&
+\end{tikzcd}
+\]
+
+Para extenderlo sobre las celdas de relaciones, consideremos
+\[
+S^1\xrightarrow{\ r_k\ }\bigvee_JS^1
+\xrightarrow{\ g^{(1)}_1\ }E_1.
+\]
+Su clase tiene imagen cero en $\pi_0(E)$, porque $r_k$ es una relación de $A$. Por tanto, después de suspender un número suficiente $n_k$ de veces, el compuesto con los mapas estructurales es nulhomótopo:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+S^{n_k+1}\arrow[r,"\Sigma^{n_k}(g^{(1)}_1r_k)"]
+\arrow[dr,"\simeq0"']
+&\Sigma^{n_k}E_1\arrow[d,"\xi^E_{1,n_k}"]\\
+&E_{n_k+1}.
+\end{tikzcd}
+\]
+Elijamos una extensión $H_k\colon D^{n_k+2}\to E_{n_k+1}$ y retrasemos la celda hasta ese nivel. Así obtenemos
+\[
+\overline X^{(2)}=X^{(1)}
+\cup_{\bigvee_{k\in K}F_{n_k+1}(S^{n_k+1}_+)}
+\bigvee_{k\in K}F_{n_k+1}(D^{n_k+2}_+).
+\]
+Los mapas de adjunción representan las suspensiones de $r_k$. El morfismo $g^{(2)}\colon\overline X^{(2)}\to E$ restringe a $g^{(1)}$ sobre $X^{(1)}$ y al adjunto $H_k^\perp$ sobre cada disco libre. Las restricciones a los bordes coinciden, por la elección de $H_k$, y la propiedad del pushout permite pegarlas.
+
+El retraso de celdas produce un subespectro cofinal $\overline X^{(2)}\subseteq X^{(2)}$, con los representantes suspendidos y discos parametrizadores de las clases 11 y 12. Se adjuntan las mismas celdas estables por las mismas clases, por lo que
+\[
+g^{(2)}_*\colon\pi_0(\overline X^{(2)})\xrightarrow{\ \simeq\ }\pi_0(E).
+\]
+
+\begin{nota}
+La pizarra escribe $\pi_0(E)=0$ al discutir una relación. Lo que es cero es la imagen de esa relación; el grupo completo es $A$. Además, tras suponer que $E$ es un $\Omega$-espectro, $\pi_1(E_1)\to\pi_0(E)$ es un isomorfismo y la relación ya es nulhomótopa en ese nivel. Se conserva el argumento de clase por suspensión y retraso de celdas, que también explica cómo proceder sin esa ventaja; aquí puede elegirse $n_k=0$.
+\end{nota}
+
+Para extender sobre una $2$-celda estable de $X$, primero suspendemos su aplicación de adjunción hasta que caiga en $\overline X^{(2)}$. La cofinalidad lo permite, pues el borde tiene imagen en un subcomplejo finito. Si el nuevo nivel es $m$, tenemos
+\[
+F_m(S^{m+1}_+)\longrightarrow\overline X^{(2)},
+\qquad
+S^{m+1}\longrightarrow\overline X^{(2)}_m
+\xrightarrow{\ g^{(2)}_m\ }E_m.
+\]
+La clase del último compuesto tiene imagen en $\pi_1(E)=0$:
+\[
+\pi_{m+1}(E_m)\longrightarrow\pi_1(E)=0.
+\]
+Después de suspender más, si es necesario, se extiende al disco y permite definir $g^{(3)}\colon\overline X^{(3)}\to E$. El subespectro $\overline X^{(3)}$ es cofinal en $X^{(3)}$, y $g^{(3)}$ induce isomorfismos en $\pi_0$ y $\pi_1$; en este último grado ambos grupos son cero.
+
+Repetimos con las celdas siguientes. Al extender sobre una $(r+1)$-celda, la obstrucción estable vive en $\pi_r(E)=0$, de modo que desaparece después de un retraso suficiente. Las extensiones coinciden con las ya elegidas y definen
+\[
+g\colon\overline X=\varinjlim\nolimits_r\overline X^{(r)}
+\longrightarrow E.
+\]
+El subespectro $\overline X$ es cofinal en $X$ y $g$ induce isomorfismos en todos los grupos de homotopía. Hemos construido el zigzag de equivalencias estables
+\[
+X\xleftarrow{\ \simeq\ }\overline X\xrightarrow[\simeq]{\ g\ }E.
+\]
+El mismo argumento se aplica a $HA$. Así, $E\cong X\cong HA$ en la categoría estable, lo que termina la demostración de la \myref{prop:c22-unicidad-em}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La esfera racional y los objetos racionales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Homotopía estable y homología racional}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P08; 32:00--34:42.
+El cálculo del telescopio de la esfera da
+\[
+\pi_k(\mathbb S_{\mathbb Q})\cong\pi_k(\mathbb S)\otimes\mathbb Q.
+\]
+Los grupos estables de las esferas son cero en grados negativos, $\mathbb Z$ en grado cero y finitos en grados positivos. Esta última afirmación es la consecuencia estable del teorema de finitud de Serre utilizada en clase; su demostración no forma parte de esta sesión. Al tensorizar con $\mathbb Q$, obtenemos
+\[
+\pi_k(\mathbb S_{\mathbb Q})\cong
+\begin{cases}
+\mathbb Q,&k=0,\\
+0,&k\ne0.
+\end{cases}
+\]
+La \myref{prop:c22-unicidad-em} demuestra ahora la equivalencia anunciada en la clase 21:
+\[
+\mathbb S_{\mathbb Q}\simeq H\mathbb Q.
+\]
+En particular, ambas teorías detectan las mismas equivalencias y tienen los mismos objetos locales. Sus funtores de localización se identifican salvo isomorfismo natural en la categoría estable:
+\[
+L_{\mathbb S_{\mathbb Q}}X\simeq L_{H\mathbb Q}X.
+\]
+Para todo espectro $X$, el cálculo anterior y el cambio de coeficientes proporcionan
+\[
+\pi_k(X)\otimes\mathbb Q
+\cong\pi_k(X\wedge\mathbb S_{\mathbb Q})
+\cong\pi_k(X\wedge H\mathbb Q)
+=H_k(X;\mathbb Q).
+\]
+Así, la homotopía estable racional y la homología racional coinciden.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Divisibilidad única y estructura vectorial}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P09--P10; 34:42--41:13.
+\begin{ejer}\label{ejer:c22-vectorial-racional}
+Sea $B$ un grupo abeliano. Son equivalentes: la aplicación $B\to B\otimes\mathbb Q$, $b\mapsto b\otimes1$, es un isomorfismo; multiplicar por cualquier entero no nulo es un automorfismo de $B$; y $B$ admite una estructura de espacio vectorial sobre $\mathbb Q$ que extiende su estructura de grupo abeliano. Esa estructura, cuando existe, es única.
+\end{ejer}
+\begin{sol}
+Si $B\to B\otimes\mathbb Q$ es un isomorfismo, transportamos a $B$ la estructura vectorial del tensor. En un espacio vectorial racional, multiplicar por un entero no nulo es invertible.
+
+Si cada $L_c\colon B\to B$, $b\mapsto cb$, es invertible para $c\ne0$, definimos la multiplicación por racionales:
+\[
+\frac ac\,b=L_c^{-1}(ab).
+\]
+Si $a/c=a'/c'$, las dos expresiones se hacen iguales al multiplicarlas por $cc'$, porque $ac'=a'c$. La inyectividad de $L_{cc'}$ prueba que son iguales antes de multiplicar. Esto demuestra que la operación está bien definida. Los axiomas de suma y producto de escalares se verifican del mismo modo, multiplicando por un denominador común y usando las leyes del grupo abeliano. La operación por enteros coincide con la original.
+
+La aplicación bilineal $B\times\mathbb Q\to B$, $(b,q)\mapsto qb$, induce
+\[
+B\otimes\mathbb Q\longrightarrow B,
+\qquad b\otimes\frac ac\longmapsto L_c^{-1}(ab).
+\]
+Es inversa de $b\mapsto b\otimes1$. En cualquier estructura vectorial compatible, $(a/c)b$ debe ser el único elemento cuya multiplicación por $c$ sea $ab$, por lo que la estructura es única. Este es el ejercicio algebraico señalado en clase.
+\end{sol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Caracterización de los espectros racionales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P09--P11; 35:52--48:17.
+\begin{lema}\label{lema:c22-local-racional}
+Un espectro $Z$ es $H\mathbb Q$-local si y solo si la aplicación natural
+\[
+\pi_*(Z)\longrightarrow\pi_*(Z)\otimes\mathbb Q
+\]
+es un isomorfismo. Equivalentemente, cada $\pi_k(Z)$ es un espacio vectorial racional con su estructura aditiva original.
+\end{lema}
+\begin{proof}
+Supongamos que $Z$ es local. Para $n\ne0$, el mapa $n\colon\sh^k\mathbb S\to\sh^k\mathbb S$ es una equivalencia racional. En efecto, el cálculo por niveles da el diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+H_m(\sh^k\mathbb S;\mathbb Q)\arrow[r,"n_*"]\arrow[d,"\simeq"']
+&H_m(\sh^k\mathbb S;\mathbb Q)\arrow[d,"\simeq"]\\
+\displaystyle\varinjlim_\ell\widetilde H_{m+\ell}(S^{k+\ell};\mathbb Q)
+\arrow[r,"\varinjlim n_*"']
+&\displaystyle\varinjlim_\ell\widetilde H_{m+\ell}(S^{k+\ell};\mathbb Q).
+\end{tikzcd}
+\]
+Se toman niveles suficientemente altos para que las dimensiones de las esferas sean no negativas. En grado $m=k$ aparece el automorfismo $n\colon\mathbb Q\to\mathbb Q$; en los otros grados, el isomorfismo $0\to0$.
+
+Por la localidad de $Z$, la precomposición induce un isomorfismo
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+{[\sh^k\mathbb S,Z]_s}\arrow[r,"n^*","\simeq"']\arrow[d,"\simeq"']
+&{[\sh^k\mathbb S,Z]_s}\arrow[d,"\simeq"]\\
+\pi_k(Z)\arrow[r,"n^*"']&\pi_k(Z).
+\end{tikzcd}
+\]
+El mapa de grado $n$ representa $n\cdot1$ en el grupo de endomorfismos de la esfera desplazada. La bilinealidad de la composición, probada en el \myref{teo:c17-categoria-aditiva}, implica
+\[
+n^*(f)=f\circ(n\cdot1)=n(f\circ1)=nf.
+\]
+Por tanto, $\pi_k(Z)$ es únicamente divisible, y el \myref{ejer:c22-vectorial-racional} proporciona la estructura vectorial y el isomorfismo requeridos.
+
+Para la otra dirección usamos la descripción de los generadores de la estructura racional indicada en clase. A las cofibraciones estables acíclicas generadoras $J$ se añaden los cilindros de los mapas de grado no nulo
+\[
+F_iS^d\xrightarrow{\ n\ }F_iS^d.
+\]
+La construcción de esa estructura de modelos no se demostró en la sesión. La condición de levantamiento de un $\Omega$-espectro frente a los nuevos generadores equivale a que estos mapas de grado induzcan equivalencias en sus espacios de aplicaciones; esta es la forma precisa de la comprobación usada a continuación.
+
+Reemplacemos $Z$ por $RZ$, sin alterar sus grupos estables ni su eventual localidad. Los mapas adjuntos del $\Omega$-espectro identifican, para $d\ge1$ y $r\ge0$,
+\[
+\pi_r\Map_*(S^d,(RZ)_i)
+\cong\pi_{r+d}((RZ)_i)
+\cong\pi_{r+d-i}(Z).
+\]
+Para $r=0$ se entiende el grupo de componentes. Podemos elegir $d$ suficientemente grande, y los enteros $d-i$ recorren todos los grados estables. La precomposición con el grado $n$ multiplica por $n$ en estos grupos; lo mismo vale en las demás componentes, identificadas por las traslaciones del espacio de lazos. Por hipótesis, todos esos mapas son isomorfismos. Así, la precomposición es una equivalencia débil de espacios de aplicaciones.
+
+Tras sustituir el mapa de grado por su inclusión en el cilindro, el mapa inducido de espacios de aplicaciones es además una fibración, pues el dominio es cofibrante y $RZ$ es fibrante estable. Es, por tanto, una fibración acíclica. Esto proporciona los levantamientos frente a los nuevos generadores, incluidos los de sus parámetros de homotopía; los generadores de $J$ ya tienen levantamientos por la fibrancia estable de $RZ$. Así, $RZ$ es fibrante racional y local.
+
+Podemos expresar el último paso también como en la clase: el funtor $[-,Z]_s$ envía las cofibraciones racionales acíclicas entre objetos cofibrantes a isomorfismos. El lema de Ken Brown da entonces la misma propiedad para las equivalencias racionales entre cofibrantes. Para una equivalencia racional arbitraria $f\colon Y\to W$, tomamos reemplazos cofibrantes en la estructura \emph{estable}:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+QY\arrow[r,"Qf"]\arrow[d,"q_Y","\simeq"']
+&QW\arrow[d,"q_W","\simeq"']\\
+Y\arrow[r,"f"']&W.
+\end{tikzcd}
+\]
+Las flechas verticales son equivalencias estables y también racionales; por dos de tres, $Qf$ es racional. Obtenemos el cuadrado
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+{[W,Z]_s}\arrow[r,"f^*"]\arrow[d,"q_W^*","\simeq"']
+&{[Y,Z]_s}\arrow[d,"q_Y^*","\simeq"']\\
+{[QW,Z]_s}\arrow[r,"(Qf)^*","\simeq"']&{[QY,Z]_s}.
+\end{tikzcd}
+\]
+Las otras tres flechas son isomorfismos y, en consecuencia, también lo es $f^*$. Esto es precisamente la localidad de $Z$.
+\end{proof}
+
+\begin{nota}
+La pizarra presenta los propios mapas de grado como cofibraciones acíclicas generadoras. Para obtener cofibraciones hay que usar sus cilindros, con los parámetros de homotopía necesarios; no basta comprobar la biyección de clases para un conjunto de mapas y declararla automáticamente para todas sus composiciones celulares. El argumento de espacios de aplicaciones anterior desarrolla ese paso de la explicación. También se conserva la corrección oral previa al descanso: para el cuadrado con $QY$ y $QW$ se elige el reemplazo cofibrante estable, cuyas aplicaciones a $Y$ y $W$ son equivalencias estables.
+\end{nota}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Clasificación de la categoría homotópica estable racional}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Descomposición como coproducto de esferas racionales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P11--P13; 48:17--55:05 y comienzo de la segunda parte.
+La equivalencia con la subcategoría completa de espectros locales de la clase 21 da, para cualquier teoría $E$,
+\[
+L_E\colon\Ho(\Sp_E^{\mathbb N})
+\xrightarrow{\ \simeq\ }
+\left.\Ho(\Sp^{\mathbb N})\right|_{E\text{-locales}}.
+\]
+En particular,
+\[
+[X,Y]_E\cong[L_EX,L_EY]_s
+\xrightarrow[\simeq]{\ \eta_X^*\ }[X,L_EY]_s.
+\]
+La última biyección solo requiere localizar el codominio, porque $L_EY$ es local.
+
+Sea $X$ un espectro. La aplicación $X\to X_{\mathbb Q}$ es una equivalencia racional y $X_{\mathbb Q}$ es local. Por el \myref{lema:c22-local-racional}, esto identifica naturalmente
+\[
+\pi_n(X_{\mathbb Q})\cong\pi_n(X)\otimes\mathbb Q.
+\]
+Elijamos una base $J_n$ de este espacio vectorial y escribamos
+\[
+\pi_n(X_{\mathbb Q})\cong\mathbb Q[J_n],
+\qquad J=\coprod_{n\in\mathbb Z}J_n,
+\qquad |x|=n\quad(x\in J_n).
+\]
+Aquí $\mathbb Q[J_n]$ denota el espacio vectorial libre, es decir, una suma directa de copias de $\mathbb Q$. Como $RX_{\mathbb Q}$ es un $\Omega$-espectro, cada elemento $x$ de la base tiene un representante mediante un morfismo desde $\sh^{|x|}\mathbb S$; si hace falta, se usa su cola celular cofinal. Reunidos, estos representantes dan
+\[
+a\colon\bigvee_{x\in J}\sh^{|x|}\mathbb S
+\longrightarrow RX_{\mathbb Q}.
+\]
+El codominio es local, de modo que $a$ factoriza de manera única en la categoría estable por la racionalización del dominio. Además,
+\[
+\Bigl(\bigvee_{x\in J}\sh^{|x|}\mathbb S\Bigr)_{\mathbb Q}
+\simeq\bigvee_{x\in J}\sh^{|x|}\mathbb S_{\mathbb Q}.
+\]
+Para comprobarlo sin anticipar la descripción por smash, el mapa desde el wedge original al wedge racional es una equivalencia racional, por aditividad de la homotopía. El destino tiene grupos de homotopía racionales y es local por el lema anterior, de modo que cumple la propiedad de la racionalización. El argumento incluye la conmutación con los desplazamientos.
+
+Obtenemos así un morfismo en la categoría homotópica estable
+\[
+\varphi\colon\bigvee_{x\in J}\sh^{|x|}\mathbb S_{\mathbb Q}
+\longrightarrow RX_{\mathbb Q}.
+\]
+No se afirma que esta factorización sea una aplicación estricta para los modelos elegidos: puede representarse por un zigzag.
+
+Veamos que $\varphi$ es una equivalencia estable. Para abreviar el diagrama, escribamos
+\[
+T=\bigvee_{x\in J}\sh^{|x|}\mathbb S,
+\qquad U=\bigvee_{x\in J}\sh^{|x|}\mathbb S_{\mathbb Q}.
+\]
+Por la \myref{prop:c19-esfera-pequena}, los grupos de homotopía de los wedges son las sumas de los grupos de los sumandos. Tras racionalizar, cada esfera desplazada solo contribuye en su propio grado. El mapa de $\pi_n(T)\otimes\mathbb Q$ a $\pi_n(RX_{\mathbb Q})\otimes\mathbb Q$ lleva el generador de cada sumando $x\in J_n$ al mismo elemento $x$, y es la identidad bajo las identificaciones con $\mathbb Q[J_n]$. El diagrama completo es
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\mathbb Q[J_n]\arrow[r,"1"]\arrow[d,"\simeq"']
+&\mathbb Q[J_n]\arrow[d,"\simeq"]\\
+\pi_n(T)\otimes\mathbb Q\arrow[r,"a_*\otimes1","\simeq"']
+\arrow[d,"\eta_*\otimes1","\simeq"']
+&\pi_n(RX_{\mathbb Q})\otimes\mathbb Q\\
+\pi_n(U)\otimes\mathbb Q\arrow[ur,"\varphi_*\otimes1","\simeq"']&\\
+\pi_n(U)\arrow[u,"\simeq"]\arrow[r,"\varphi_*"']
+&\pi_n(RX_{\mathbb Q})\arrow[uu,"\simeq"'].
+\end{tikzcd}
+\]
+Las aplicaciones naturales de los dos grupos inferiores a sus racionalizaciones son isomorfismos, porque ambos espectros son locales. Por conmutatividad, $\varphi_*$ es un isomorfismo. Concluimos que
+\[
+X_{\mathbb Q}\simeq RX_{\mathbb Q}
+\simeq\bigvee_{x\in J}\sh^{|x|}\mathbb S_{\mathbb Q}.
+\]
+La descomposición depende de la elección de bases; su existencia vale para todo espectro, sin hipótesis de finitud ni de acotación de sus grupos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cálculo de todos los morfismos racionales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P14; segunda parte.
+Para dos espectros $X,Y$, usemos la descomposición anterior del dominio. La propiedad universal del coproducto y la localidad de $Y_{\mathbb Q}$ dan
+\[
+\begin{aligned}
+[X,Y]_{\mathbb Q}
+&\cong[X_{\mathbb Q},Y_{\mathbb Q}]_s\\
+&\cong\left[\bigvee_{x\in J}\sh^{|x|}\mathbb S_{\mathbb Q},Y_{\mathbb Q}\right]_s\\
+&\cong\prod_{x\in J}[\sh^{|x|}\mathbb S_{\mathbb Q},Y_{\mathbb Q}]_s\\
+&\cong\prod_{x\in J}\pi_{|x|}(Y_{\mathbb Q})\\
+&\cong\prod_{n\in\mathbb Z}\operatorname{Fun}(J_n,\pi_n(Y_{\mathbb Q}))\\
+&\cong\prod_{n\in\mathbb Z}\Hom_{\mathbb Q}
+\bigl(\mathbb Q[J_n],\pi_n(Y_{\mathbb Q})\bigr)\\
+&\cong\prod_{n\in\mathbb Z}\Hom_{\mathbb Q}
+\bigl(\pi_n(X_{\mathbb Q}),\pi_n(Y_{\mathbb Q})\bigr).
+\end{aligned}
+\]
+En el cuarto paso se usa
+\[
+[\sh^n\mathbb S_{\mathbb Q},Y_{\mathbb Q}]_s
+\cong[\sh^n\mathbb S,Y_{\mathbb Q}]_s=\pi_n(Y_{\mathbb Q}).
+\]
+El penúltimo paso es la propiedad universal del espacio vectorial libre: una función sobre la base se extiende de manera única a una aplicación lineal. Por eso aparece un producto de grupos de morfismos, aunque cada espacio libre se defina mediante una suma directa.
+
+El isomorfismo compuesto envía un morfismo a sus aplicaciones inducidas en homotopía. Para comprobarlo, basta restringirlo al sumando correspondiente a cada elemento de la base: la imagen es precisamente el valor del morfismo inducido sobre ese elemento. Así, aunque elegimos bases para demostrar la biyección, la biyección final es canónica y natural.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equivalencia con los espacios vectoriales graduados}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P15; segunda parte.
+Denotemos por $\Vect_{\mathbb Q}^{\mathbb Z}$ la categoría de espacios vectoriales racionales graduados por $\mathbb Z$, con aplicaciones lineales de grado cero.
+
+\begin{teo}\label{teo:c22-clasificacion-racional}
+El funtor
+\[
+\pi_*\colon\Ho(\Sp_{\mathbb Q}^{\mathbb N})
+\longrightarrow\Vect_{\mathbb Q}^{\mathbb Z},
+\qquad X\longmapsto\pi_*(X_{\mathbb Q}),
+\]
+que en morfismos toma las aplicaciones inducidas, es una equivalencia de categorías.
+\end{teo}
+\begin{proof}
+El cálculo anterior demuestra que es completamente fiel. En efecto, identifica cada grupo de morfismos con el grupo de aplicaciones lineales de grado cero entre las imágenes. La acción del funtor tiene la forma
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+E\arrow[d,"f"']\arrow[r,mapsto]&\pi_*(E_{\mathbb Q})\arrow[d,"f_*"]\\
+F\arrow[r,mapsto]&\pi_*(F_{\mathbb Q}).
+\end{tikzcd}
+\]
+Es también esencialmente sobreyectivo. Si $V_*$ es un espacio vectorial graduado, elijamos bases $J_n$ con $V_n\cong\mathbb Q[J_n]$, pongamos $J=\coprod_nJ_n$ y consideremos
+\[
+\bigvee_{x\in J}\sh^{|x|}\mathbb S_{\mathbb Q}.
+\]
+Su grupo de homotopía en grado $n$ es $\mathbb Q[J_n]\cong V_n$. Por tanto, $V_*$ es isomorfo a la imagen de este espectro. Las dos propiedades probadas caracterizan las equivalencias de categorías.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Aplicaciones y construcción de la racionalización}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La racionalización de la \texorpdfstring{$K$}{K}-teoría y el carácter de Chern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P16 y corrección oral al final de C22-2.
+Los grupos de homotopía de la $K$-teoría compleja periódica son
+\[
+\pi_m(KU)\cong
+\begin{cases}
+\mathbb Z,&m\text{ par},\\
+0,&m\text{ impar}.
+\end{cases}
+\]
+La clasificación racional y la equivalencia $\mathbb S_{\mathbb Q}\simeq H\mathbb Q$ implican
+\[
+KU_{\mathbb Q}\simeq\bigvee_{n\in\mathbb Z}\sh^{2n}\mathbb S_{\mathbb Q}
+\simeq\bigvee_{n\in\mathbb Z}\sh^{2n}H\mathbb Q.
+\]
+Para un espectro finito $X$, la compacidad del dominio permite sacar el coproducto del conjunto de morfismos. La misma compacidad, aplicada al telescopio de racionalización que construiremos a continuación, permite racionalizar los coeficientes de la cohomología:
+\[
+\begin{aligned}
+KU^0(X)\otimes\mathbb Q
+&\cong KU_{\mathbb Q}^{\,0}(X)\\
+&\cong\left[X,\bigvee_{n\in\mathbb Z}\sh^{2n}H\mathbb Q\right]_s\\
+&\cong\bigoplus_{n\in\mathbb Z}H^{2n}(X;\mathbb Q).
+\end{aligned}
+\]
+La compacidad de un espectro finito se obtiene de la pequeñez de las esferas por inducción sobre sus celdas y las sucesiones exactas de cofibra, o mediante su imagen en $\SW$, como en las clases 18 y 19. Sus aplicaciones y homotopías se representan en una etapa finita del telescopio.
+
+Si $X$ es un CW complejo punteado finito, aplicamos lo anterior a $\Sigma^\infty X$:
+\[
+\widetilde K^0(X)\otimes\mathbb Q
+\cong\bigoplus_{n\in\mathbb Z}\widetilde H^{2n}(X;\mathbb Q).
+\]
+Esta es la forma del isomorfismo del carácter de Chern considerada en clase. Para identificar la equivalencia de espectros elegida con el carácter de Chern usual hay que comprobar la normalización de sus componentes; esa comprobación se mencionó, pero no se desarrolló en la sesión.
+
+\begin{nota}
+El cálculo se escribió primero en clase sin una hipótesis de finitud sobre $X$. Al final se corrigió oralmente: para pasar de los morfismos hacia un coproducto a la suma directa se usa que $X$ sea compacto, en particular un CW complejo finito en la aplicación a espacios. Tampoco puede intercambiarse sin hipótesis la racionalización del espectro representante con la tensorización de sus grupos de cohomología sobre un dominio arbitrario. Por eso los dos isomorfismos anteriores se afirman con dominio finito.
+\end{nota}
+
+Para un espacio no compacto siguen existiendo las componentes del carácter hacia los grupos de cohomología, y se puede formar un mapa al producto de esos grupos. Eso no prueba que $\widetilde K^0(X)\otimes\mathbb Q$ sea isomorfo al producto. Al pasar por la filtración por esqueletos aparece, además del límite inverso, el término $\varprojlim^1$ de la sucesión de Milnor. La observación final de la clase señala precisamente esta obstrucción; no se establece un isomorfismo general para espacios infinitos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El telescopio de los múltiplos de la identidad}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P17; segunda parte.
+En la categoría estable, la aditividad permite considerar $m\cdot1_X$ para cada entero $m$. Elijamos representantes compatibles con un modelo del telescopio y formemos
+\[
+T_X=\operatorname*{hocolim}\bigl(X\xrightarrow{\ 2\ }X
+\xrightarrow{\ 3\ }X\xrightarrow{\ 4\ }\cdots\bigr).
+\]
+Se pueden escoger aplicaciones estrictas tras reemplazos adecuados; la fórmula designa el telescopio homotópico de esos representantes. Los grupos de homotopía estables conmutan con los telescopios y la bilinealidad identifica los mapas inducidos con la multiplicación por los enteros correspondientes. Así obtenemos el diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\pi_k(X)\arrow[r]\arrow[ddr,bend right=30,"b\mapsto b\otimes1"']
+&\pi_k(T_X)\arrow[d,"\simeq"]\\
+&\displaystyle\varinjlim\bigl(\pi_k(X)\xrightarrow{2}\pi_k(X)
+\xrightarrow{3}\cdots\bigr)\arrow[d,"\simeq"]\\
+&\pi_k(X)\otimes\mathbb Q.
+\end{tikzcd}
+\]
+El último isomorfismo se calcula como en la clase 21: si numeramos las etapas desde $j=1$, un elemento $b$ de la etapa $j$ representa $b\otimes1/j!$. La compatibilidad resulta de
+\[
+(j+1)b\otimes\frac1{(j+1)!}=b\otimes\frac1{j!}.
+\]
+Todo denominador divide algún factorial, lo que da la sobreyectividad. Si $b\otimes1/j!$ es cero, algún entero no nulo anula $b$, y un producto de enteros de etapas posteriores contiene ese factor; por tanto, la clase de $b$ ya es cero en el colímite. Esto prueba la inyectividad.
+
+La aplicación natural $X\to T_X$ es una equivalencia racional, y $T_X$ es local por el \myref{lema:c22-local-racional}. La unicidad de la racionalización da
+\[
+X_{\mathbb Q}\simeq T_X.
+\]
+Si exigimos que el modelo sea fibrante en la estructura racional, tomamos $RT_X$. El reemplazo no altera su clase estable ni su propiedad universal.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Racionalización y localización en un primo mediante smash}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P18; segunda parte.
+Usaremos la compatibilidad
+\[
+E\wedge\operatorname*{hocolim}_{i\in I}X(i)
+\simeq\operatorname*{hocolim}_{i\in I}\bigl(E\wedge X(i)\bigr).
+\]
+En un modelo monoidal adecuado de espectros, después de los reemplazos cofibrantes, el smash con $E$ es un funtor de Quillen izquierdo; su derivado preserva los colímites homotópicos. En clase se anunció esta compatibilidad y se advirtió que su justificación mediante categorías de modelos requiere un producto smash mejor comportado que el producto secuencial de Adams usado hasta ahora. Su demostración con un modelo monoidal adecuado queda pendiente en el curso.
+
+Aplicándolo al telescopio de la esfera, tenemos
+\[
+\begin{aligned}
+X\wedge\mathbb S_{\mathbb Q}
+&\simeq X\wedge\operatorname*{hocolim}
+\bigl(\mathbb S\xrightarrow{2}\mathbb S\xrightarrow{3}\cdots\bigr)\\
+&\simeq\operatorname*{hocolim}
+\bigl(X\wedge\mathbb S\xrightarrow{1\wedge2}X\wedge\mathbb S
+\xrightarrow{1\wedge3}\cdots\bigr).
+\end{aligned}
+\]
+La unidad derecha y la bilinealidad del smash dan el diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X\wedge\mathbb S\arrow[r,"1\wedge2"]\arrow[d,"\rho_X","\simeq"']
+&X\wedge\mathbb S\arrow[r,"1\wedge3"]\arrow[d,"\rho_X","\simeq"']
+&X\wedge\mathbb S\arrow[r]\arrow[d,"\rho_X","\simeq"']&\cdots\\
+X\arrow[r,"2"']&X\arrow[r,"3"']&X\arrow[r]&\cdots.
+\end{tikzcd}
+\]
+En efecto, $1_X\wedge(n\cdot1_{\mathbb S})=n(1_X\wedge1_{\mathbb S})$, y las unidades identifican esta aplicación con $n\cdot1_X$. El colímite homotópico de la fila inferior es el telescopio anterior. Concluimos
+\[
+X\wedge\mathbb S_{\mathbb Q}\simeq X_{\mathbb Q}.
+\]
+El mismo razonamiento se aplica a la localización en un primo. Si enumeramos los enteros positivos mayores que $1$ y coprimos con $p$ como $a_1,a_2,\ldots$, entonces
+\[
+\begin{aligned}
+X_{(p)}
+&\simeq\operatorname*{hocolim}
+\bigl(X\xrightarrow{a_1}X\xrightarrow{a_2}X\longrightarrow\cdots\bigr)\\
+&\simeq X\wedge\mathbb S_{(p)},
+\qquad\pi_k(X_{(p)})\cong\pi_k(X)\otimes\mathbb Z_{(p)}.
+\end{aligned}
+\]
+Se invierten los enteros coprimos con $p$; esta construcción es la localización $p$-local de la clase 21.
+
+La adjunción de celdas que anula grupos de homotopía también permitirá construir cubiertas conexas y las torres de Postnikov y Whitehead. Estas construcciones se anunciaron para la clase siguiente; aquí solo hemos usado la anulación sucesiva necesaria para la unicidad de los espectros de Eilenberg--MacLane.
