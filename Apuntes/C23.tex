@@ -1,0 +1,572 @@
+% C23 -- 29 de octubre de 2026.
+% Fuentes: Estable1029.pdf; Screenshots C23/P01--P21;
+% Transcripciones/C23 (Whisper).txt, sin alterar sus tiempos.
+% La cola repetitiva desde 01:15:01 no aporta contenido matemático.
+% P05--P07: distinguir S_(p) de la esfera completada.
+% P11: índices de las primeras celdas corregidos oralmente.
+% P13--P14: la prueba de Whitehead quedó pendiente en clase.
+% P19--P20: C es la COFIBRA, concentrada en grado n+2.
+
+En la clase 22 construimos la racionalización y clasificamos los espectros racionales. Ahora estudiaremos la homotopía módulo un primo y la completación, construiremos el homomorfismo de Hurewicz estable y compararemos equivalencias mediante homología ordinaria. Finalmente, la adjunción de celdas permitirá construir las truncaciones de Postnikov y describir sus etapas mediante espectros de Eilenberg--MacLane.
+
+La homotopía módulo $p$ y las localizaciones se estudian en \cite[ejemplos~2.5.3.3 y 3.3.3.2--3]{malkiewich}; la propiedad universal de la completación se demuestra en su lema~A.2.2.5. Para el argumento celular y Hurewicz, véanse su proposición~2.6.3.9, teorema~2.6.5.7 y corolario~2.6.5.8; la torre de Postnikov y sus invariantes se desarrollan en sus definiciones~2.6.4.1 y 2.6.4.5, lema~2.6.4.4 y observación~2.6.4.6.
+
+Fijamos un primo $p$. Todos los productos smash y las fibras y cofibras de espectros se entienden derivados. Conservamos la notación $[X,Y]_s=\hom_{\Ho(\Sp^{\mathbb N})}(X,Y)$ y $H_j(X;A)=\pi_j(X\wedge HA)$; omitimos $A$ cuando es $\mathbb Z$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Homotopía módulo un primo y completación}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La esfera módulo \texorpdfstring{$p$}{p}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P01; 00:00--03:27.
+El espacio de Moore $M(\mathbb Z/p,n)$ es la cofibra homotópica de una aplicación de grado $p$ de $S^n$ en sí misma. Para $n\geq1$, definimos
+\[
+\mathbb S/p=F_nM(\mathbb Z/p,n).
+\]
+La elección de $n$ no modifica su tipo de homotopía estable. La suspensión del mapa de grado $p$ de $S^1$ determina el morfismo eventual representado por
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+*\arrow[r]\arrow[d]&S^1\arrow[r]\arrow[d,"p"]&S^2\arrow[r]\arrow[d,"p"]&\cdots\\
+S^0\arrow[r]&S^1\arrow[r]&S^2\arrow[r]&\cdots.
+\end{tikzcd}
+\]
+Las flechas horizontales representan las aplicaciones estructurales, con sus suspensiones. El dominio es $F_1S^1$, y el mapa canónico $u\colon F_1S^1\to\mathbb S$ es una equivalencia estable.
+
+\begin{ejer}\label{ejer:c23-grado-p}
+Comprobar que el morfismo eventual anterior representa $p$ veces la identidad de $\mathbb S$.
+\end{ejer}
+\begin{sol}
+La identificación $[\mathbb S,\mathbb S]_s=\pi_0(\mathbb S)\cong\mathbb Z$ asigna a un representante $S^m\to S^m$ su grado. La aplicación $u$ tiene grado $1$ en todos los niveles positivos, mientras que el morfismo considerado tiene grado $p$. Sus clases corresponden, respectivamente, a $1$ y $p$ en $\mathbb Z$. Por tanto, tras identificar $F_1S^1$ con $\mathbb S$, la segunda clase es $p\,\id_{\mathbb S}$. Esta es la misma suma de morfismos utilizada en la clase 22; la bilinealidad del smash da también $\id_E\wedge(p\,\id_{\mathbb S})=p\,\id_{E\wedge\mathbb S}$.
+\end{sol}
+
+En la categoría homotópica estable obtenemos el diagrama de sucesiones cofibradas
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\mathbb S\arrow[r,"p"]&\mathbb S\arrow[r]&\mathbb S/p\\
+F_1S^1\arrow[u,"u","\simeq"']\arrow[r,"p"]&\mathbb S\arrow[u,equal]\arrow[r]&\mathbb S/p\arrow[u,equal].
+\end{tikzcd}
+\]
+En la fila inferior, $p$ denota el representante eventual descrito arriba; su cofibra puede modelarse por $F_1M(\mathbb Z/p,1)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La sucesión de coeficientes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P02--P03; 03:27--11:46.
+\begin{defi}
+Los grupos de homotopía de $E$ con coeficientes en $\mathbb Z/p$ son
+\[
+\pi_k(E;\mathbb Z/p):=\pi_k(E\wedge\mathbb S/p).
+\]
+\end{defi}
+La exactitud del smash, probada en la \myref{prop:c18-smash-exacto}, proporciona
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+E\wedge\mathbb S\arrow[r,"1\wedge p"]\arrow[d,"\rho_E","\simeq"']
+&E\wedge\mathbb S\arrow[r]\arrow[d,"\rho_E","\simeq"']&E\wedge\mathbb S/p\arrow[d,equal]\\
+E\arrow[r,"p"]&E\arrow[r]&E\wedge\mathbb S/p.
+\end{tikzcd}
+\]
+Aplicando grupos de homotopía resulta la sucesión exacta
+\[
+\cdots\longrightarrow\pi_k(E)\xrightarrow{p}\pi_k(E)
+\longrightarrow\pi_k(E;\mathbb Z/p)
+\longrightarrow\pi_{k-1}(E)\xrightarrow{p}\pi_{k-1}(E)\longrightarrow\cdots.
+\]
+Si ${}_pA=\{a\in A:pa=0\}$, podemos escribir su tramo central como
+\[
+0\longrightarrow\pi_k(E)/p\pi_k(E)
+\longrightarrow\pi_k(E;\mathbb Z/p)
+\longrightarrow{}_p\pi_{k-1}(E)\longrightarrow0.
+\]
+La resolución libre
+\[
+0\longrightarrow\mathbb Z\xrightarrow{p}\mathbb Z\longrightarrow\mathbb Z/p\longrightarrow0
+\]
+identifica el extremo izquierdo con $\pi_k(E)\otimes\mathbb Z/p$ y el derecho con el correspondiente grupo de torsión. Obtenemos la sucesión de coeficientes
+\[
+0\longrightarrow\pi_k(E)\otimes\mathbb Z/p
+\longrightarrow\pi_k(E;\mathbb Z/p)
+\longrightarrow\operatorname{Tor}^{\mathbb Z}_1(\pi_{k-1}(E),\mathbb Z/p)
+\longrightarrow0.
+\]
+En general, la homotopía módulo $p$ no se obtiene solo tensorizando los grupos integrales.
+
+Para precisar dónde se utiliza la estabilidad, representamos el cálculo por niveles con la notación
+\[
+A_{a,b}=\pi_{k+a+b}(E_a\wedge S^b).
+\]
+El sistema que calcula $\pi_k(E\wedge\mathbb S)$ tiene la forma
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\vdots&\vdots&\\
+A_{0,1}\arrow[u]\arrow[r]&A_{1,1}\arrow[u]\arrow[r]&\cdots\\
+A_{0,0}\arrow[u]\arrow[r]&A_{1,0}\arrow[u]\arrow[r]&\cdots,
+\end{tikzcd}
+\qquad
+\begin{tikzcd}[column sep=large,row sep=large]
+\vdots&\vdots&\\
+A_{0,1}\arrow[u]\arrow[r]&A_{1,1}\arrow[u]\arrow[r]&\cdots\\
+0\arrow[u]\arrow[r]&0\arrow[u]\arrow[r]&\cdots.
+\end{tikzcd}
+\]
+El segundo sistema calcula $\pi_k(E\wedge F_1S^1)$: solo se ha sustituido la fila inferior por ceros. Las filas con $b\geq1$ son cofinales, por lo que la comparación induce
+\[
+\begin{tikzcd}[column sep=huge,row sep=large]
+\pi_k(E\wedge F_1S^1)\arrow[r,"1\wedge u","\simeq"']\arrow[d,"(1\wedge p)_*"']
+&\pi_k(E\wedge\mathbb S)\arrow[d,"p"]\\
+\pi_k(E\wedge\mathbb S)\arrow[r,equal]&\pi_k(E\wedge\mathbb S).
+\end{tikzcd}
+\]
+En cambio, antes de pasar al colímite, la poscomposición por $1\wedge p$ sobre
+\[
+\pi_{k+1}(E_0\wedge S^1)=[S^{k+1},E_0\wedge S^1]_*
+\]
+no tiene por qué ser multiplicación por $p$. El ejemplo mencionado en clase es la aplicación de grado $p$ de $S^2$ en sí misma actuando sobre $\pi_3(S^2)$. La igualdad con $p$ en los grupos estables procede de la aditividad del smash y del cálculo del ejercicio anterior, no de una afirmación general sobre grupos de homotopía inestables.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La torre de potencias de \texorpdfstring{$p$}{p}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P04--P05; 11:46--17:31.
+Las aplicaciones de grado determinan mapas entre espacios de Moore mediante
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+S^1\arrow[r,"p^{r+1}"]\arrow[d,"p"']&S^1\arrow[r]\arrow[d,equal]
+&M(\mathbb Z/p^{r+1},1)\arrow[d,dashed]\\
+S^1\arrow[r,"p^r"]&S^1\arrow[r]&M(\mathbb Z/p^r,1).
+\end{tikzcd}
+\]
+El cuadrado izquierdo conmuta porque $p^rp=p^{r+1}$. Aplicando $F_1$ obtenemos la torre
+\[
+\cdots\longrightarrow\mathbb S/p^{r+1}\longrightarrow\mathbb S/p^r
+\longrightarrow\cdots\longrightarrow\mathbb S/p.
+\]
+Su límite homotópico define la esfera completada en $p$:
+\[
+\mathbb S_p^{\wedge}:=\operatorname*{holim}_r\mathbb S/p^r.
+\]
+
+\begin{defi}
+Un espectro es \emph{$p$-completo} si es $\mathbb S/p$-local.
+
+Su \emph{completación $p$-ádica} es la localización
+\[
+X_p^{\wedge}:=L_{\mathbb S/p}X.
+\]
+Una $\mathbb S/p$-equivalencia se llama también \emph{equivalencia $p$-ádica}.
+\end{defi}
+
+La esfera $\mathbb S_p^{\wedge}$ es $p$-completa y el mapa canónico $\mathbb S\to\mathbb S_p^{\wedge}$ es una equivalencia $p$-ádica. Por la propiedad universal de la localización,
+\[
+L_{\mathbb S/p}\mathbb S\simeq\mathbb S_p^{\wedge}.
+\]
+Esta identificación se enunció sin prueba en clase. En \cite[lema~A.2.2.5]{malkiewich} se demuestra su propiedad universal con un modelo equivalente de espectro de aplicaciones.
+
+No se puede trasladar sin más la fórmula de la racionalización a la completación: para un espectro arbitrario no se tiene en general
+\[
+X_p^{\wedge}\simeq X\wedge\mathbb S_p^{\wedge}.
+\]
+La fórmula sí vale cuando $X$ es un espectro finito, es decir, un objeto de la categoría de Spanier--Whitehead. La finitud permite que el smash con $X$ conmute con el límite homotópico: su dualidad hace que ese funtor sea también un adjunto derecho. Con el modelo $X_p^{\wedge}\simeq\operatorname*{holim}_r(X\wedge\mathbb S/p^r)$ se obtiene la identificación. Este modelo general y su propiedad de localización se utilizaron sin desarrollarlos en clase; la comparación de modelos se propone en \cite[ejercicio~4.4.30]{malkiewich}.
+
+La analogía algebraica es la completación de un grupo abeliano mediante los cocientes por $p^r$. Para grupos finitamente generados, la completación ordinaria coincide con la tensorización por los enteros $p$-ádicos $\mathbb Z_p^{\wedge}$; no se afirmó esa fórmula para grupos arbitrarios ni un cálculo general de los grupos de homotopía de $X_p^{\wedge}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Localización en un primo y homología ordinaria}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P05--P07; 20:20--25:39.
+La situación racional es especial. Aunque $\mathbb S_{\mathbb Q}\simeq H\mathbb Q$, no podemos identificar la esfera $p$-local con $H\mathbb Z_{(p)}$, ni la esfera módulo $p$ con $H(\mathbb Z/p)$. Lo que sí tenemos es
+\[
+\mathbb S_{(p)}\wedge H\mathbb Z\simeq H\mathbb Z_{(p)}.
+\]
+Para comprobarlo, construimos $\mathbb S_{(p)}$ mediante el telescopio de aplicaciones de grados $q_1,q_2,\ldots$, ninguno divisible por $p$, en el que todo primo distinto de $p$ aparece como factor infinitas veces. La compatibilidad del smash con este telescopio da
+\begin{align*}
+\pi_j(\mathbb S_{(p)}\wedge H\mathbb Z)
+&\cong\varinjlim\nolimits_r\pi_j(H\mathbb Z)
+&&\text{con transiciones de grados }q_r\\
+&\cong
+\begin{cases}
+\mathbb Z_{(p)},&j=0,\\
+0,&j\ne0.
+\end{cases}
+\end{align*}
+La \myref{prop:c22-unicidad-em} identifica el espectro resultante por la unicidad de Eilenberg--MacLane.
+
+Escribamos $L_{(p)}X=X\wedge\mathbb S_{(p)}$. Si $f\colon X\to Y$ es una $\mathbb S_{(p)}$-equivalencia, $L_{(p)}f$ es una equivalencia estable y, por tanto, induce isomorfismos en homología. Las identificaciones naturales se organizan en el diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=normal]
+L_{(p)}X\arrow[r,"L_{(p)}f","\simeq"']&L_{(p)}Y\\
+H_j(L_{(p)}X)\arrow[r,"\simeq"]\arrow[d,equal]&H_j(L_{(p)}Y)\arrow[d,equal]\\
+\pi_j(L_{(p)}X\wedge H\mathbb Z)\arrow[r,"\simeq"]\arrow[d,equal]
+&\pi_j(L_{(p)}Y\wedge H\mathbb Z)\arrow[d,equal]\\
+\pi_j(X\wedge\mathbb S_{(p)}\wedge H\mathbb Z)\arrow[r,"\simeq"]\arrow[d,"\simeq"']
+&\pi_j(Y\wedge\mathbb S_{(p)}\wedge H\mathbb Z)\arrow[d,"\simeq"]\\
+\pi_j(X\wedge H\mathbb Z_{(p)})\arrow[r,"\simeq"]\arrow[d,equal]
+&\pi_j(Y\wedge H\mathbb Z_{(p)})\arrow[d,equal]\\
+H_j(X;\mathbb Z_{(p)})\arrow[r,"\simeq"]&H_j(Y;\mathbb Z_{(p)}).
+\end{tikzcd}
+\]
+La primera fila indica el morfismo al que se aplica homología; las restantes forman el diagrama de grupos. Concluimos que toda $\mathbb S_{(p)}$-equivalencia es una $H\mathbb Z_{(p)}$-equivalencia. La recíproca requiere una hipótesis adicional, que estudiaremos después de Hurewicz.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{El homomorfismo y el teorema de Hurewicz estable}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Compatibilidad de Hurewicz con la suspensión}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P08--P10; 25:47--33:38.
+Para cada $j\in\mathbb Z$, las descripciones por niveles son
+\[
+\pi_j(X)=\varinjlim\nolimits_n\pi_{j+n}(X_n),
+\qquad
+H_j(X)=\varinjlim\nolimits_n\widetilde H_{j+n}(X_n).
+\]
+Tomamos $n$ suficientemente grande para que $j+n>0$. El homomorfismo de Hurewicz de espacios envía la clase de $f\colon S^{j+n}\to X_n$ a $f_*[S^{j+n}]$. Elegimos las clases fundamentales de las esferas coherentemente, de modo que el isomorfismo de suspensión lleve $[S^m]$ a $[S^{m+1}]$.
+
+La naturalidad de la suspensión en homología da el cuadrado
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde H_{j+n}(S^{j+n})\arrow[r,"\sigma","\simeq"']\arrow[d,"f_*"']
+&\widetilde H_{j+n+1}(S^{j+n+1})\arrow[d,"(\Sigma f)_*"]\\
+\widetilde H_{j+n}(X_n)\arrow[r,"\sigma","\simeq"']
+&\widetilde H_{j+n+1}(\Sigma X_n).
+\end{tikzcd}
+\]
+Por tanto, $h([\Sigma f])=\sigma h([f])$. Si $\xi_n\colon\Sigma X_n\to X_{n+1}$ es la aplicación estructural, la naturalidad de Hurewicz proporciona el segundo cuadrado del diagrama
+\[
+\begin{tikzcd}[column sep=huge,row sep=large]
+\pi_{j+n}(X_n)\arrow[r,"h"]\arrow[d,"\Sigma"']
+&\widetilde H_{j+n}(X_n)\arrow[d,"\sigma"]\\
+\pi_{j+n+1}(\Sigma X_n)\arrow[r,"h"]\arrow[d,"(\xi_n)_*"']
+&\widetilde H_{j+n+1}(\Sigma X_n)\arrow[d,"(\xi_n)_*"]\\
+\pi_{j+n+1}(X_{n+1})\arrow[r,"h"]&\widetilde H_{j+n+1}(X_{n+1}).
+\end{tikzcd}
+\]
+En efecto, $h([\xi_n\circ\Sigma f])=(\xi_n)_*(\Sigma f)_*[S^{j+n+1}]$. Así, los homomorfismos de Hurewicz de los niveles son compatibles con las transiciones y definen un homomorfismo natural
+\[
+h\colon\pi_j(X)\longrightarrow H_j(X),
+\]
+llamado \emph{homomorfismo de Hurewicz estable}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Un modelo celular a partir del primer grupo de homotopía}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P10--P12; 33:48--45:49.
+\begin{teo}[Hurewicz estable]\label{teo:c23-hurewicz}
+Sea $k\in\mathbb Z$ y sea $X$ un espectro $k$-conexo, esto es, $\pi_i(X)=0$ para $i\leq k$. Se tiene
+\[
+H_j(X)=0\quad(j\leq k),
+\qquad
+h\colon\pi_{k+1}(X)\xrightarrow{\cong}H_{k+1}(X).
+\]
+\end{teo}
+
+Construiremos primero una equivalencia estable $Y\to X$ con $Y$ un CW espectro sin celdas estables en dimensiones menores que $k+1$. Podemos reemplazar $X$ por un CW espectro y partir del espectro cero. Elegimos generadores $g_\alpha$ de $\pi_{k+1}(X)$ y representantes
+\[
+g_\alpha\colon S^{n_\alpha+k+1}\longrightarrow X_{n_\alpha},
+\]
+con $n_\alpha$ suficientemente grande. Adjuntando al punto base las celdas estables de dimensión $k+1$ correspondientes, obtenemos
+\[
+\widehat Y^{(k+1)}
+=0\cup_{\bigvee_\alpha F_{n_\alpha}(S^{n_\alpha+k}_+)}
+\bigvee_\alpha F_{n_\alpha}(D^{n_\alpha+k+1}_+)
+\simeq\bigvee_\alpha\sh^{k+1}\mathbb S.
+\]
+Los mapas $g_\alpha$ definen $\widehat Y^{(k+1)}\to X$, que en el primer grupo potencialmente no nulo induce
+\[
+\mathbb Z[\{g_\alpha\}]\longrightarrow\pi_{k+1}(X),
+\qquad [g_\alpha]\longmapsto g_\alpha.
+\]
+Este homomorfismo es sobreyectivo. Adjuntamos celdas estables de dimensión $k+2$ para anular su núcleo. Cada relación tiene imagen cero en $\pi_{k+1}(X)$; por ello, después de pasar a un nivel suficientemente alto, su representante compuesto con el mapa a $X$ es nulhomotópico. La nulhomotopía extiende el mapa sobre el disco de la celda, como en la demostración de la \myref{prop:c22-unicidad-em}. Se obtiene un mapa $Y^{(k+1)}\to X$ que induce isomorfismos en grados $j\leq k+1$.
+
+Repetimos el procedimiento en los grados sucesivos: incorporamos los generadores que falten en la imagen y adjuntamos celdas una dimensión más arriba para anular el núcleo. Las celdas nuevas no cambian los grupos ya ajustados. Los representantes y las nulhomotopías pueden retrasarse a subespectros cofinales, tal como se hizo en la clase 22. El resultado es un mapa $Y\to X$ que induce isomorfismos en todos los grupos de homotopía y solo utiliza celdas estables de dimensión al menos $k+1$.
+
+\begin{nota}
+En la construcción presentada en clase se corrigieron oralmente los índices de las primeras celdas: una celda estable de dimensión $k+1$ representada en el nivel $n$ utiliza un disco $D^{n+k+1}$; las relaciones se anulan con celdas estables de dimensión $k+2$. Además, en grados superiores hay que incorporar generadores de $\pi_j(X)$ y anular el núcleo del mapa a ese grupo, en vez de anular todo $\pi_j(Y)$: el objetivo es aproximar $X$, cuyos grupos superiores pueden ser no nulos. Para $k$ negativo, la construcción comienza igualmente en la dimensión estable $k+1$; no se interpreta como una lista de niveles negativos del espectro secuencial.
+\end{nota}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Paso del teorema inestable al estable}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Como $Y$ no tiene celdas estables en grados $j\leq k$, su complejo celular tiene grupos cero en esos grados. Así, $H_j(Y)=0$ para $j\leq k$. La equivalencia estable $Y\to X$ induce isomorfismos en homología, de modo que también $H_j(X)=0$ en ese rango.
+
+Por otra parte, cada $Y_n$ tiene, además del punto base, celdas ordinarias solo en dimensiones al menos $n+k+1$. Para $n$ grande, la aproximación celular implica que $Y_n$ es $(n+k)$-conexo. El teorema de Hurewicz inestable da entonces
+\[
+h\colon\pi_{n+k+1}(Y_n)\xrightarrow{\cong}\widetilde H_{n+k+1}(Y_n).
+\]
+Al tomar colímites obtenemos $h\colon\pi_{k+1}(Y)\xrightarrow{\cong}H_{k+1}(Y)$. La naturalidad produce el cuadrado
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\pi_{k+1}(Y)\arrow[r,"h","\simeq"']\arrow[d,"\simeq"']&H_{k+1}(Y)\arrow[d,"\simeq"]\\
+\pi_{k+1}(X)\arrow[r,"h"]&H_{k+1}(X).
+\end{tikzcd}
+\]
+Las otras tres flechas son isomorfismos; por tanto, también lo es la inferior. Esto termina la demostración del \myref{teo:c23-hurewicz}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Equivalencias y espectros acotados inferiormente}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conectividad y el criterio homológico de Whitehead}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P13--P14; 46:38--51:08.
+\begin{defi}
+Un espectro $X$ es \emph{$n$-conectivo} si $\pi_i(X)=0$ para todo $i<n$. Es \emph{conectivo} si es $0$-conectivo y \emph{acotado por abajo} si es $n$-conectivo para algún entero $n$.
+\end{defi}
+Así, $n$-conectivo significa $(n-1)$-conexo. En particular, un espectro conectivo no tiene grupos de homotopía en grados negativos; la condición de estar acotado por abajo permite que la primera dimensión no nula sea negativa.
+
+\begin{coro}[Whitehead homológico]\label{coro:c23-whitehead}
+Si $X$ e $Y$ son espectros acotados por abajo, un morfismo $f\colon X\to Y$ es una equivalencia estable si y solo si es una $H\mathbb Z$-equivalencia.
+\end{coro}
+
+La implicación directa vale para todos los espectros. Para la recíproca, el argumento iniciado en clase toma $X$ $k$-conectivo e $Y$ $\ell$-conectivo, y pone $m=\min\{k,\ell\}$. En grados $i<m$ ambos grupos de homotopía son cero; en grado $m$ tenemos
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+H_m(X)\arrow[r,"H_m(f)","\simeq"']&H_m(Y)\\
+\pi_m(X)\arrow[u,"h","\simeq"']\arrow[r,"\pi_m(f)"']
+&\pi_m(Y)\arrow[u,"h","\simeq"'].
+\end{tikzcd}
+\]
+Hurewicz demuestra que $\pi_m(f)$ es un isomorfismo, pero no permite repetir directamente el mismo paso en todos los grados superiores.
+
+\begin{nota}
+La demostración de la recíproca quedó pendiente en clase: se anunció que se retomaría con las torres. El siguiente argumento por la cofibra se añade en los apuntes para completar el resultado, sin atribuirlo a la demostración oral.
+\end{nota}
+
+\begin{proof}[Demostración añadida de la recíproca]
+Sea $C$ la cofibra homotópica de $f$. La sucesión exacta de homotopía muestra que $C$ también está acotado por abajo. Como $f$ induce isomorfismos en homología, la sucesión exacta de homología da $H_j(C)=0$ para todo $j$.
+
+Si algún grupo $\pi_j(C)$ fuera no nulo, existiría un menor entero $r$ con $\pi_r(C)\ne0$, por la cota inferior. El espectro $C$ sería $(r-1)$-conexo, y Hurewicz daría $\pi_r(C)\cong H_r(C)=0$, una contradicción. Todos los grupos de homotopía de $C$ son, pues, cero. La sucesión exacta de homotopía implica que $f$ es una equivalencia estable.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Coeficientes locales y módulo \texorpdfstring{$p$}{p}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P15; 51:10--54:35.
+\begin{prop}\label{prop:c23-comparacion-equivalencias}
+Toda $\mathbb S_{(p)}$-equivalencia es una $H\mathbb Z_{(p)}$-equivalencia, y toda $\mathbb S/p$-equivalencia es una $H(\mathbb Z/p)$-equivalencia. Para morfismos entre espectros acotados por abajo, ambas implicaciones son equivalencias.
+\end{prop}
+
+\begin{proof}
+Ya demostramos la primera implicación. Si $f\colon X\to Y$ es una $H\mathbb Z_{(p)}$-equivalencia entre espectros acotados por abajo, las identificaciones naturales anteriores dan
+\[
+\begin{tikzcd}[column sep=large,row sep=small]
+H_j(X;\mathbb Z_{(p)})\arrow[r,"\simeq"]\arrow[d,equal]&H_j(Y;\mathbb Z_{(p)})\arrow[d,equal]\\
+\pi_j(X\wedge H\mathbb Z_{(p)})\arrow[r,"\simeq"]\arrow[d,"\simeq"']
+&\pi_j(Y\wedge H\mathbb Z_{(p)})\arrow[d,"\simeq"]\\
+\pi_j(X\wedge\mathbb S_{(p)}\wedge H\mathbb Z)\arrow[r,"\simeq"]\arrow[d,equal]
+&\pi_j(Y\wedge\mathbb S_{(p)}\wedge H\mathbb Z)\arrow[d,equal]\\
+H_j(X\wedge\mathbb S_{(p)})\arrow[r,"\simeq"]&H_j(Y\wedge\mathbb S_{(p)}).
+\end{tikzcd}
+\]
+Los espectros $X\wedge\mathbb S_{(p)}$ e $Y\wedge\mathbb S_{(p)}$ siguen acotados por abajo, pues
+\[
+\pi_j(X\wedge\mathbb S_{(p)})\cong\pi_j(X)\otimes\mathbb Z_{(p)},
+\]
+y análogamente para $Y$. El \myref{coro:c23-whitehead} implica que $L_{(p)}f$ es una equivalencia estable. Esto significa precisamente que $f$ es una $\mathbb S_{(p)}$-equivalencia.
+
+Para los coeficientes módulo $p$, aplicamos $H\mathbb Z\wedge(-)$ a la sucesión que define $\mathbb S/p$. La cofibra de $p\colon H\mathbb Z\to H\mathbb Z$ tiene $\mathbb Z/p$ en grado cero y cero en los demás grados. La unicidad estable de los espectros de Eilenberg--MacLane proporciona
+\[
+H\mathbb Z\wedge\mathbb S/p\simeq H(\mathbb Z/p).
+\]
+Por tanto, si $f\wedge\mathbb S/p$ es una equivalencia estable, también lo es $f\wedge H(\mathbb Z/p)$.
+
+Recíprocamente, una $H(\mathbb Z/p)$-equivalencia $f$ induce isomorfismos en la homología integral de $X\wedge\mathbb S/p\to Y\wedge\mathbb S/p$. Si $X$ e $Y$ están acotados por abajo, sus productos con $\mathbb S/p$ también lo están, por la sucesión de coeficientes. El \myref{coro:c23-whitehead} demuestra que $f\wedge\mathbb S/p$ es una equivalencia estable.
+\end{proof}
+
+El caso módulo $p$ se anunció en clase como análogo del caso $p$-local; aquí se han escrito sus detalles. Las hipótesis de cota inferior se emplean en las recíprocas, mediante el criterio homológico, y no se eliminan de los enunciados.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Truncaciones y torre de Postnikov}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Anular la homotopía por encima de una dimensión}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P15--P16; 54:40--58:42.
+Sea $X$ un CW espectro y $n\in\mathbb Z$. Podemos adjuntar celdas estables de dimensión $n+2$ para anular $\pi_{n+1}(X)$ sin modificar los grupos en grados $j\leq n$. Adjuntamos después celdas estables de dimensión $n+3$ para anular el siguiente grupo, y continuamos. La construcción celular y el paso al colímite producen un morfismo
+\[
+\begin{gathered}
+f_n\colon X\longrightarrow\tau_{\leq n}X,\\[4pt]
+(f_n)_*\colon\pi_j(X)\xrightarrow{\cong}\pi_j(\tau_{\leq n}X)
+\quad(j\leq n),
+\qquad
+\pi_j(\tau_{\leq n}X)=0\quad(j>n).
+\end{gathered}
+\]
+
+\begin{defi}
+El espectro $\tau_{\leq n}X$ es la \emph{$n$-truncación} de $X$, o su \emph{$n$-ésima etapa de Postnikov}. También se denota por $P_nX$.
+\end{defi}
+La construcción se aplica a cualquier espectro después de elegir un reemplazo CW. Las dimensiones anteriores son dimensiones estables y pueden ser negativas.
+
+Por ejemplo, $\tau_{\leq0}\mathbb S$ tiene $\pi_0\cong\mathbb Z$ y todos los demás grupos cero: los negativos ya eran cero para la esfera y los positivos se han anulado. La \myref{prop:c22-unicidad-em} da
+\[
+\tau_{\leq0}\mathbb S\simeq H\mathbb Z
+\quad\text{en }\Ho(\Sp^{\mathbb N}).
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Mapas entre truncaciones consecutivas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P16--P18; 58:42--01:04:45.
+Construimos $\tau_{\leq n+1}X$ adjuntando a $X$ celdas estables de dimensiones al menos $n+3$. Buscamos completar el triángulo
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+&\tau_{\leq n+1}X\arrow[d,dashed]\\
+X\arrow[ur,"f_{n+1}"]\arrow[r,"f_n"']&\tau_{\leq n}X.
+\end{tikzcd}
+\]
+Consideremos primero una celda estable de dimensión $n+3$, representada en el nivel $a$ por $F_a(D^{n+3+a}_+)$. Su mapa de adjunción y el representante adjunto son
+\[
+F_a(S^{n+2+a}_+)\longrightarrow X,
+\qquad
+S^{n+2+a}\longrightarrow X_a.
+\]
+La clase correspondiente pertenece a $\pi_{n+2}(X)$ y su imagen en $\pi_{n+2}(\tau_{\leq n}X)$ es cero. Por la definición de colímite, después de suspender $r$ veces el compuesto se vuelve nulhomotópico. Por tanto, existe la extensión del diagrama
+\[
+\begin{tikzcd}[column sep=huge,row sep=large]
+S^{n+2+a+r}\arrow[r]\arrow[d,hook]& (\tau_{\leq n}X)_{a+r}\\
+D^{n+3+a+r}\arrow[ur,dashed]&
+\end{tikzcd}
+\]
+Esto extiende el mapa sobre la celda retrasada, es decir, sobre la adjunción de $F_{a+r}(D^{n+3+a+r}_+)$. El mismo argumento funciona para todas las celdas nuevas: sus mapas de adjunción representan clases de grados al menos $n+2$, donde la homotopía del destino es cero.
+
+Al proceder celda a celda y elegir los retrasos necesarios, obtenemos un subespectro cofinal $Y\subseteq\tau_{\leq n+1}X$ y una extensión hacia $\tau_{\leq n}X$. Como en la clase 22, pasar a un subespectro cofinal permite representar las extensiones eventuales sin exigir que todas las nulhomotopías existan en sus niveles originales. El diagrama resultante es
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+&Y\arrow[r,"\simeq"]\arrow[d]&\tau_{\leq n+1}X\arrow[dl,dashed]\\
+X\arrow[ur]\arrow[r,"f_n"']&\tau_{\leq n}X.&
+\end{tikzcd}
+\]
+La flecha punteada denota el morfismo obtenido al invertir $Y\to\tau_{\leq n+1}X$ en la categoría homotópica estable. Así, en esa categoría tenemos
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+&\tau_{\leq n+1}X\arrow[d,"q_n"]\\
+X\arrow[ur,"f_{n+1}"]\arrow[r,"f_n"']&\tau_{\leq n}X.
+\end{tikzcd}
+\]
+Para $j\leq n$, las dos flechas que salen de $\pi_j(X)$ son isomorfismos:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+&\pi_j(\tau_{\leq n+1}X)\arrow[d,"(q_n)_*","\simeq"']\\
+\pi_j(X)\arrow[ur,"\simeq"]\arrow[r,"\simeq"']&\pi_j(\tau_{\leq n}X).
+\end{tikzcd}
+\]
+Se sigue que $q_n$ induce isomorfismos en todos esos grados.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Las cofibras de la torre}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P19--P20; 01:04:45--01:09:51.
+Los mapas anteriores forman la \emph{torre de Postnikov}:
+\[
+\begin{tikzcd}[column sep=large,row sep=normal]
+&\vdots\arrow[d]\\
+&\tau_{\leq2}X\arrow[d]\\
+&\tau_{\leq1}X\arrow[d]\\
+X\arrow[uur]\arrow[ur]\arrow[r]\arrow[dr]\arrow[ddr]&\tau_{\leq0}X\arrow[d]\\
+&\tau_{\leq-1}X\arrow[d]\\
+&\tau_{\leq-2}X\arrow[d]\\
+&\vdots
+\end{tikzcd}
+\]
+La torre se extiende en ambas direcciones, pues se permiten enteros negativos.
+
+Para la cofibra homotópica $C$ de $q_n$, las sucesiones cofibrada y de homotopía son
+\[
+\tau_{\leq n+1}X\xrightarrow{q_n}\tau_{\leq n}X\longrightarrow C,
+\]
+\[
+\begin{tikzcd}[column sep=small,row sep=normal]
+\pi_j(\tau_{\leq n+1}X)\arrow[r]&\pi_j(\tau_{\leq n}X)\arrow[r]&\pi_j(C)\arrow[d]\\
+&&\pi_{j-1}(\tau_{\leq n+1}X)\arrow[d]\\
+&&\pi_{j-1}(\tau_{\leq n}X).
+\end{tikzcd}
+\]
+Si $j\geq n+3$, los grupos a ambos lados de $\pi_j(C)$ son cero. Si $j\leq n$, los mapas de las truncaciones son isomorfismos tanto en grado $j$ como en grado $j-1$, por lo que la exactitud también fuerza $\pi_j(C)=0$.
+
+Solo quedan los grados $n+1$ y $n+2$. El tramo relevante es
+\[
+\begin{tikzcd}[column sep=small,row sep=normal]
+0\arrow[r]&\pi_{n+2}(C)\arrow[r,"\simeq"]&\pi_{n+1}(\tau_{\leq n+1}X)\arrow[d]\\
+&&0\arrow[d]\\
+&&\pi_{n+1}(C)\arrow[d]\\
+\pi_n(\tau_{\leq n}X).&\pi_n(\tau_{\leq n+1}X)\arrow[l,"\simeq"']&{}
+\arrow[l]
+\end{tikzcd}
+\]
+Aquí el primer cero es $\pi_{n+2}(\tau_{\leq n}X)$ y el segundo es $\pi_{n+1}(\tau_{\leq n}X)$. La exactitud da $\pi_{n+1}(C)=0$ y
+\[
+\pi_{n+2}(C)\cong\pi_{n+1}(\tau_{\leq n+1}X)\cong\pi_{n+1}(X).
+\]
+En resumen,
+\[
+\pi_j(C)\cong
+\begin{cases}
+\pi_{n+1}(X),&j=n+2,\\
+0,&j\ne n+2.
+\end{cases}
+\]
+Por tanto, $\sh^{-n-2}C$ tiene homotopía concentrada en grado cero. Aplicando de nuevo la \myref{prop:c22-unicidad-em}, obtenemos
+\[
+\sh^{-n-2}C\simeq H\pi_{n+1}(X),
+\qquad
+C\simeq\sh^{n+2}H\pi_{n+1}(X).
+\]
+La cofibra está concentrada en grado $n+2$; la fibra de $q_n$, que es su desuspensión, está concentrada en grado $n+1$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Los invariantes de Postnikov}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P21; 01:09:53--01:13:25.
+En la categoría homotópica estable, una sucesión cofibrada es también una sucesión fibrada. La identificación anterior proporciona
+\[
+\tau_{\leq n+1}X\xrightarrow{q_n}\tau_{\leq n}X
+\xrightarrow{\kappa_n}\sh^{n+2}H\pi_{n+1}(X).
+\]
+En consecuencia, $\tau_{\leq n+1}X$ se recupera como la fibra homotópica de $\kappa_n$. Por ejemplo, las etapas centrales se organizan así:
+\[
+\begin{tikzcd}[column sep=large,row sep=large,
+execute at end picture={
+\draw[rojoDiagramaCIMAT,rounded corners=5pt]
+([xshift=-8pt,yshift=8pt]T1.north west)--
+([xshift=8pt,yshift=8pt]T1.north east)--
+([xshift=8pt,yshift=8pt]T1.north east |- K0.north west)--
+([xshift=8pt,yshift=8pt]K0.north east)--
+([xshift=8pt,yshift=-8pt]K0.south east)--
+([xshift=-8pt,yshift=-8pt]T0.south west)--cycle;
+}]
+&\tau_{\leq2}X\arrow[d]&\\
+&|[alias=T1]|\tau_{\leq1}X\arrow[d]&\\
+X\arrow[uur]\arrow[ur]\arrow[r]\arrow[dr]\arrow[ddr]
+&|[alias=T0]|\tau_{\leq0}X\arrow[d]\arrow[r,"\kappa_0" {description},rojoDiagramaCIMAT]
+&|[alias=K0]|\sh^2H\pi_1(X)\\
+&\tau_{\leq-1}X\arrow[d]\arrow[r,"\kappa_{-1}" {description},rojoDiagramaCIMAT]
+&\sh H\pi_0(X)\\
+&\tau_{\leq-2}X.&
+\end{tikzcd}
+\]
+En particular, la sucesión formada por $\tau_{\leq1}X$, $\tau_{\leq0}X$ y $\sh^2H\pi_1(X)$ es a la vez cofibrada y fibrada. Esto explica cómo avanzar de una etapa a la siguiente conociendo el mapa correspondiente.
+
+\begin{defi}
+Los morfismos
+\[
+\kappa_n\colon\tau_{\leq n}X\longrightarrow\sh^{n+2}H\pi_{n+1}(X)
+\]
+son los \emph{invariantes de Postnikov}, o \emph{$k$-invariantes}, de $X$. Por la representabilidad de la cohomología, sus clases pertenecen a
+\[
+[\tau_{\leq n}X,\sh^{n+2}H\pi_{n+1}(X)]_s
+=H^{n+2}(\tau_{\leq n}X;\pi_{n+1}(X)).
+\]
+\end{defi}
+
+Si $X$ está acotado por abajo, existe $m$ tal que $\tau_{\leq m-1}X\simeq0$. Desde esa etapa se pueden construir las siguientes tomando sucesivamente las fibras de los invariantes. Esto describe las truncaciones; no se ha demostrado aquí una afirmación adicional de convergencia de la torre hacia $X$.
+
+\begin{nota}
+Para espacios, expresar cada etapa como la fibra homotópica de un mapa a un espacio de Eilenberg--MacLane requiere una torre de fibraciones principales. En clase se señaló la condición de que el espacio sea abeliano, es decir, que la acción del grupo fundamental en los grupos de homotopía sea trivial, incluida la acción por conjugación sobre sí mismo. Esta comparación se mencionó sin demostración. En espectros, la estabilidad permite siempre la descripción mediante los morfismos $\kappa_n$.
+\end{nota}
+
+La construcción de la torre de Whitehead quedó para la clase siguiente, junto con la discusión de otros espectros y el paso a categorías con un producto smash mejor comportado. Aquí termina la construcción de la torre de Postnikov y el cálculo de sus cofibras.
