@@ -55,8 +55,6 @@
     \node at (2.4,1.6) {$(RB)_j$};
   \end{scope}
   % Cilindro exterior: sus generatrices rojas conectan las dos etapas.
-  \draw[rojoDiagramaCIMAT,->] (.05,1.7)--(.65,-1.7);
-  \draw[rojoDiagramaCIMAT,->] (5.1,1.7)--(5.7,-1.7);
   \begin{scope}[shift={(0,1.7)}]
     \fill[yellow!20] (0,-.32)--(1.5,-.32)--(1.5,-.60)
       --(3.3,-.60)--(3.3,-.90)--(5.1,-.90)--(5.1,.90)
@@ -72,6 +70,10 @@
   \node[right] at (6,1.7) {$(RC)_j$};
   \node[right] at (6.6,-1.7) {$\Omega(RC)_{j+1}$};
   \node at (3.2,-3.15) {$\vdots$};
+  \draw[white,line width=2pt] (.05,1.7)--(.65,-1.7);
+  \draw[white,line width=2pt] (5.1,1.7)--(5.7,-1.7);
+  \draw[rojoDiagramaCIMAT] (.05,1.7)--(.65,-1.7);
+  \draw[rojoDiagramaCIMAT] (5.1,1.7)--(5.7,-1.7);
 \end{tikzpicture}}
 
 \newcommand{\cXVIIIconos}{%
