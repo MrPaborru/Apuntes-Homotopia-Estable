@@ -1,0 +1,650 @@
+% C24 -- 4 de noviembre de 2026.
+% Fuentes: Estable1104.pdf; Screenshots C24/P01--P19;
+% Transcripciones/C24.txt, fusión documentada de C24-1, C24-2 y C24-3.
+% La pausa de diez minutos y los relojes locales se explican en la fusión.
+% P09: independencia de la CLASE DE BOUSFIELD del telescopio.
+% P11: X smash HZ_(p)=0, no X=0. P12: distinguir coeficientes Z_(2) y F_2.
+% P18: lambda apunta hacia E en la convención del proyecto; usar su inversa.
+
+Completaremos el criterio homológico de Whitehead y construiremos las cubiertas conexas de un espectro. Después presentaremos algunas teorías de cohomología y su organización cromática, que proporciona un contraejemplo al criterio sin la hipótesis de acotación inferior. Finalmente, estudiaremos cómo un producto en cohomología induce una multiplicación entre espectros y qué impiden concluir los morfismos superfantasmas.
+
+Las cubiertas conexas y el panorama de espectros se describen en \cite[definición~2.6.4.8, ejemplos~2.5.3.9--13 y 3.3.3.6]{malkiewich}; para periodicidad y convergencia cromática, véanse \cite[lección~27, teorema~4; lecciones~32--33, teorema~1 y su demostración]{lurie2010chromatic}, y para el fallo de la conjetura del telescopio, \cite[teorema~A y \S6.4]{bhls2023}. La distinción entre representar un producto y obtener un objeto anillo se explica en \cite[teorema~5.2 y \S6]{baker2002}; el criterio con $\varprojlim^{1}$ enunciado al final de la clase no se demuestra en estas referencias.
+
+Trabajamos en $\Ho(\Sp^{\mathbb N})$, con smash, fibras y cofibras derivados. Conservamos las notaciones
+\[
+[X,Y]_s=\hom_{\Ho(\Sp^{\mathbb N})}(X,Y),
+\qquad H_j(X;A)=\pi_j(X\wedge HA).
+\]
+Las equivalencias y descomposiciones del panorama cromático se utilizaron en clase sin demostración; los cálculos de coeficientes que siguen describen esos espectros, pero no constituyen por sí solos sus construcciones.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cubiertas conexas y torre de Whitehead}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El criterio homológico y la torre de Postnikov}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P01--P02.
+La clase comienza completando la demostración del \myref{coro:c23-whitehead}, que había quedado pendiente en la clase 23. El argumento ya se incorporó allí como complemento: si $f\colon X\to Y$ es una equivalencia en homología integral entre espectros acotados por abajo, su cofibra $C$ también está acotada por abajo y tiene homología nula. Si $C$ tuviera algún grupo de homotopía no nulo, habría un primer grado $k$ con $\pi_k(C)\ne0$. Hurewicz daría
+\[
+0\ne\pi_k(C)\cong H_k(C)=0,
+\]
+una contradicción. Por tanto, $C\simeq0$ y $f$ es una equivalencia estable. Más adelante construiremos un ejemplo que muestra por qué se necesita la acotación inferior.
+
+Recordemos que $X\to\tau_{\leq n}X$ conserva la homotopía en grados menores o iguales que $n$ y anula los restantes. Las etapas y los invariantes de Postnikov de la clase anterior se organizan así:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+&\vdots\arrow[d]&\\
+&\tau_{\leq1}X\arrow[d]\arrow[r]&\sh^3H\pi_2(X)\\
+X\arrow[r]&\tau_{\leq0}X\arrow[d]\arrow[r]&\sh^2H\pi_1(X)\\
+&\tau_{\leq-1}X\arrow[d]\arrow[r]&\sh^1H\pi_0(X)\\
+&\vdots&
+\end{tikzcd}
+\]
+En particular, la fibra de $\tau_{\leq n}X\to\tau_{\leq n-1}X$ es $\sh^nH\pi_n(X)$; su cofibra es $\sh^{n+1}H\pi_n(X)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cubiertas y capas de la torre de Whitehead}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P03--P04.
+\begin{defi}
+La cubierta $n$-conexa de $X$ es
+\[
+\tau_{\geq n}X:=\operatorname{hofib}\bigl(X\longrightarrow\tau_{\leq n-1}X\bigr).
+\]
+También se denota por $X\langle n\rangle$. Aquí la expresión significa que los grupos en grados estrictamente menores que $n$ son cero.
+\end{defi}
+La sucesión exacta de la fibra proporciona
+\[
+\pi_j(\tau_{\geq n}X)=
+\begin{cases}
+0,&j<n,\\
+\pi_j(X),&j\geq n,
+\end{cases}
+\]
+con el isomorfismo inducido por el mapa a $X$. La comparación de truncaciones induce un morfismo entre sucesiones fibradas:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\tau_{\geq n+1}X\arrow[r]\arrow[d]&X\arrow[r]\arrow[d,equal]&\tau_{\leq n}X\arrow[d]\\
+\tau_{\geq n}X\arrow[r]&X\arrow[r]&\tau_{\leq n-1}X.
+\end{tikzcd}
+\]
+La primera flecha vertical induce isomorfismos en $\pi_j$ para $j\geq n+1$. Obtenemos la torre de Whitehead, junto con sus mapas compatibles a $X$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\vdots\arrow[d]&\\
+\tau_{\geq1}X\arrow[d]\arrow[dr]&\\
+\tau_{\geq0}X\arrow[d]\arrow[r]&X\\
+\tau_{\geq-1}X\arrow[d]\arrow[ur]&\\
+\vdots&
+\end{tikzcd}
+\]
+
+\begin{ejer}\label{ejer:c24-capa-whitehead}
+Identificar la cofibra de $\tau_{\geq n+1}X\to\tau_{\geq n}X$.
+\end{ejer}
+\begin{sol}
+Sea $C$ esa cofibra. En grados mayores que $n+1$, los mapas entre los grupos de las dos cubiertas son isomorfismos, de modo que la sucesión exacta da $\pi_j(C)=0$. En el grado $n+1$, usamos además $\pi_n(\tau_{\geq n+1}X)=0$, y obtenemos también $\pi_{n+1}(C)=0$. En grado $n$ queda
+\[
+0\longrightarrow\pi_n(X)\longrightarrow\pi_n(C)\longrightarrow0.
+\]
+En grados menores que $n$, ambas cubiertas tienen homotopía nula y la sucesión exacta vuelve a dar cero. Así, $\sh^{-n}C$ tiene únicamente $\pi_0\cong\pi_n(X)$. La \myref{prop:c22-unicidad-em} implica
+\[
+C\simeq\sh^nH\pi_n(X).
+\]
+\end{sol}
+
+Por ejemplo, la teoría K compleja conectiva se define mediante
+\[
+ku:=\tau_{\geq0}KU,
+\qquad
+\pi_j(ku)=
+\begin{cases}
+\mathbb Z,&j\geq0\text{ y }j\text{ par},\\
+0,&\text{en otro caso}.
+\end{cases}
+\]
+El mapa $ku\to KU$ conserva todos los grupos de homotopía no negativos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Un panorama cromático y el alcance de Whitehead}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Teoría K, cobordismo y el espectro de Brown--Peterson}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P04--P06.
+Para un primo impar $p$, la localización de la teoría K se descompone mediante el sumando de Adams $E(1)$:
+\[
+KU_{(p)}\simeq\bigvee_{i=0}^{p-2}\sh^{2i}E(1),
+\qquad
+KO_{(p)}\simeq\bigvee_{i=0}^{(p-3)/2}\sh^{4i}E(1).
+\]
+En particular,
+\[
+KU_{(p)}\simeq KO_{(p)}\vee\sh^2KO_{(p)},
+\qquad
+\pi_*E(1)\cong\mathbb Z_{(p)}[v_1,v_1^{-1}],
+\quad |v_1|=2(p-1).
+\]
+Estas equivalencias se enunciaron en clase; los anillos de coeficientes no bastan para demostrar las descomposiciones.
+
+El espectro de cobordismo complejo $MU$ tiene anillo de coeficientes
+\[
+\pi_*MU\cong\mathbb Z[x_1,x_2,\ldots],
+\qquad |x_i|=2i.
+\]
+Los generadores son clases de cobordismo de variedades establemente complejas. En clase se asociaron $x_1,x_2,\ldots$ con $\mathbb{CP}^2,\mathbb{CP}^4,\ldots$; esos índices no concuerdan con los grados escritos: $\mathbb{CP}^i$ tiene dimensión real $2i$. Además, no se pueden elegir todas las clases $[\mathbb{CP}^i]$ como generadores polinómicos integrales. Conservamos la descripción del anillo sin esa identificación de los generadores.
+
+Tras localizar en $p$, aparece el espectro de Brown--Peterson $BP$:
+\[
+\pi_*BP\cong\mathbb Z_{(p)}[v_1,v_2,\ldots],
+\qquad |v_j|=2(p^j-1).
+\]
+La descomposición correspondiente es
+\[
+MU_{(p)}\simeq\bigvee_{r\geq0}\ \bigvee_{a_r}\sh^{2r}BP.
+\]
+Aquí $a_r$ es el número de monomios de grado $2r$ en los $x_i$ cuyos índices no son de la forma $p^j-1$, con $j\geq1$. Esta descripción incluye el monomio unidad en grado cero.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Espectros de Johnson--Wilson y teorías K de Morava}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P06.
+La notación $BP\langle n\rangle$ designa espectros con coeficientes
+\[
+\pi_*BP\langle n\rangle\cong\mathbb Z_{(p)}[v_1,\ldots,v_n].
+\]
+Como se aclaró oralmente en clase, los corchetes no indican aquí la cubierta $n$-conexa de $BP$: esta es otra construcción. Invirtiendo $v_n$ se obtienen los espectros de Johnson--Wilson
+\[
+E(n)=BP\langle n\rangle[v_n^{-1}],
+\qquad
+\pi_*E(n)\cong\mathbb Z_{(p)}[v_1,\ldots,v_{n-1},v_n^{\pm1}].
+\]
+Para $n\geq1$, la teoría K de Morava de altura $n$ tiene coeficientes
+\[
+\pi_*K(n)\cong\mathbb F_p[v_n^{\pm1}],
+\qquad |v_n|=2(p^n-1).
+\]
+Usaremos también las convenciones $E(0)=K(0)=H\mathbb Q$ y $K(\infty)=H\mathbb F_p$; la última es una notación, no la afirmación de que se haya construido un límite de los $K(n)$.
+
+La pizarra reúne los nombres Johnson--Wilson, Morava y Lubin--Tate al presentar $E(n)$. Los coeficientes anteriores corresponden a Johnson--Wilson. Los espectros de Morava E o de Lubin--Tate requieren datos y coeficientes completos distintos; no identificamos esas teorías. Como referencia de periodicidad, $\pi_*KU=\mathbb Z[\beta^{\pm1}]$, con $|\beta|=2$.
+
+En las preguntas finales se recalcó otra distinción: un isomorfismo abstracto entre grupos o anillos de homotopía no produce una equivalencia de espectros. Para aplicar Whitehead estable se necesita un morfismo que induzca esos isomorfismos, o una cadena de equivalencias.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cuadrados de fractura y convergencia cromática}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P07.
+La reconstrucción a partir de localizaciones se expresa mediante cuadrados homotópicamente cartesianos. El cuadrado aritmético anunciado en la clase 21 es
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X\arrow[r]\arrow[d]&\displaystyle\prod_pX_{(p)}\arrow[d]\\
+X_{\mathbb Q}\arrow[r]&\displaystyle\left(\prod_pX_{(p)}\right)_{\mathbb Q}.
+\end{tikzcd}
+\]
+En la esquina inferior derecha se racionaliza el producto completo. No se ha intercambiado la racionalización con un producto infinito.
+
+Fijado $p$, las localizaciones cromáticas se relacionan por
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+L_{E(n)}X\arrow[r]\arrow[d]&L_{K(n)}X\arrow[d]\\
+L_{E(n-1)}X\arrow[r]&L_{E(n-1)}L_{K(n)}X.
+\end{tikzcd}
+\]
+Este cuadrado permite pasar de la información de altura $n-1$ a la de altura $n$ utilizando la localización en $K(n)$. Se enunció sin demostración.
+
+\begin{teo}[Convergencia cromática]\label{teo:c24-convergencia}
+Si $X$ es un espectro CW finito, el mapa natural induce una equivalencia
+\[
+X_{(p)}\simeq\operatorname*{holim}_{n}L_{E(n)}X.
+\]
+\end{teo}
+El resultado se utilizó sin prueba en clase. Su conclusión es la localización en $p$, y la hipótesis de finitud forma parte del enunciado. No afirma que cualquier espectro sea el límite de su torre cromática ni identifica este límite con la completación en $p$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Periodicidad y telescopios}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P08--P09.
+Un espectro finito $p$-local es un retracto de un espectro obtenido a partir de un número finito de esferas desplazadas $\sh^a\mathbb S_{(p)}$ mediante cofibras. Por ejemplo, dos pasos de una construcción celular pueden representarse por
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\sh^{-a}\mathbb S_{(p)}\arrow[r]&X\arrow[r]&Y\\
+\sh^{-b}\mathbb S_{(p)}\arrow[r]&Y\arrow[r]&Z.
+\end{tikzcd}
+\]
+La repetición de $Y$ indica que la segunda sucesión continúa la construcción de la primera.
+
+\begin{defi}
+Un espectro finito $p$-local $V$ tiene tipo cromático $n$ si
+\[
+K(m)_*(V)=0\quad(0\leq m<n),
+\qquad K(n)_*(V)\ne0.
+\]
+\end{defi}
+
+\begin{teo}[Periodicidad de Hopkins--Smith]\label{teo:c24-periodicidad}
+Si $V$ es finito $p$-local de tipo $n\geq1$, existe un morfismo
+\[
+v\colon\sh^dV\longrightarrow V,\qquad d>0,
+\]
+que induce un isomorfismo en $K(n)_*$ y actúa nilpotentemente en $K(m)_*$ para $m\ne n$. Se denomina una autoaplicación $v_n$-periódica.
+\end{teo}
+Es otro resultado utilizado sin demostración. Sustituyendo $v$ por una potencia adecuada, puede hacerse cero su acción en las otras teorías K. Para construir el telescopio desplazamos el mapa:
+\[
+w=\sh^{-d}v\colon V\longrightarrow\sh^{-d}V,
+\]
+y definimos
+\[
+T(V,v):=\operatorname*{hocolim}\left(
+V\xrightarrow{w}\sh^{-d}V
+\xrightarrow{\sh^{-d}w}\sh^{-2d}V\longrightarrow\cdots\right).
+\]
+Los desplazamientos negativos proceden de desuspender la autoaplicación.
+
+La clase de Bousfield de este telescopio depende solo de la altura $n$ y del primo; un representante se denota por $T(n)$. Esto significa que los espectros $T(V,v)$ obtenidos así tienen los mismos espectros acíclicos para el smash. La pizarra afirma independencia hasta equivalencia estable, que es más fuerte y no se sigue del resultado: reemplazar $V$ por $V\vee V$ reemplaza el telescopio por dos copias. Su homología K de Morava tiene el doble de rango y no da, en general, el mismo espectro. La independencia que permite escribir $L_{T(n)}$ es la de la clase de Bousfield.
+
+La conjetura del telescopio afirmaba que, para todo espectro $X$,
+\[
+L_{T(n)}X\simeq L_{K(n)}X.
+\]
+Es cierta en altura $1$, pero falla en todas las alturas $n\geq2$ y en todos los primos, por el resultado de Burklund--Hahn--Levy--Schlank de 2023. Esta afirmación se enunció en clase sin prueba. Compara localizaciones, no afirma una equivalencia de los espectros $T(n)$ y $K(n)$; tampoco debe confundirse con el \myref{teo:c24-convergencia}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Un espectro no nulo con homología ordinaria nula}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P10--P12.
+Tomemos un espectro finito $p$-local $V$ de tipo $n\geq1$ y una autoaplicación como en el \myref{teo:c24-periodicidad}. Sea $X=T(V,v)$. La homología conmuta con este telescopio, de modo que
+\[
+H_j(X;\mathbb Z_{(p)})
+\cong\varinjlim\nolimits_r H_{j+rd}(V;\mathbb Z_{(p)})=0.
+\]
+En efecto, la homología ordinaria de $V$ está concentrada en un intervalo finito de grados y $d>0$. Cada grupo del sistema acaba siendo cero. Por tanto,
+\[
+X\wedge H\mathbb Z_{(p)}\simeq0.
+\]
+En cambio, en homología K de Morava los mapas de transición son isomorfismos y
+\[
+K(n)_*(X)
+\cong\varinjlim\nolimits_r K(n)_*(\sh^{-rd}V)
+\cong K(n)_*(V)\ne0.
+\]
+Así, $X\not\simeq0$. Como $X$ es $p$-local, $X\to0$ es una $H\mathbb Z_{(p)}$-equivalencia y no es una $\mathbb S_{(p)}$-equivalencia. La hipótesis de acotación inferior de Whitehead no puede omitirse. En una línea de la pizarra se escribió $X\simeq0$ durante el cálculo de homología; la conclusión correcta en ese punto es $X\wedge H\mathbb Z_{(p)}\simeq0$, como confirma el cálculo no nulo con $K(n)$ que sigue.
+
+Para $p=2$ puede concretarse la construcción con el espectro de Moore
+\[
+M_2:=\operatorname{hocofib}\bigl(2\colon\mathbb S_{(2)}\to\mathbb S_{(2)}\bigr).
+\]
+Existe una autoaplicación de Adams
+\[
+\alpha\colon\sh^8M_2\longrightarrow M_2
+\]
+que induce un isomorfismo en teoría K compleja. Su existencia se utilizó sin demostración en clase. La sucesión de coeficientes da
+\[
+KU_*(M_2)\cong(\mathbb Z/2)[\beta^{\pm1}],
+\]
+y, con las identificaciones de periodicidad, $\alpha_*$ es multiplicación por una unidad por $\beta^4$. Por ello el telescopio
+\[
+X=\operatorname*{hocolim}\left(
+M_2\longrightarrow\sh^{-8}M_2\longrightarrow\sh^{-16}M_2\longrightarrow\cdots\right)
+\]
+tiene $KU_*(X)\ne0$ y homología ordinaria nula.
+
+Conviene precisar los coeficientes del cálculo escrito en clase:
+\[
+H_j(M_2;\mathbb Z_{(2)})=
+\begin{cases}\mathbb Z/2,&j=0,\\0,&j\ne0,\end{cases}
+\qquad
+H_j(M_2;\mathbb F_2)=
+\begin{cases}\mathbb F_2,&j=0,1,\\0,&\text{en otro caso}.\end{cases}
+\]
+La primera fórmula sigue de que $2\colon\mathbb Z_{(2)}\to\mathbb Z_{(2)}$ es inyectiva; para la segunda, multiplicar por $2$ en $\mathbb F_2$ es cero. La pizarra coloca dos grupos no nulos con coeficientes $\mathbb Z_{(2)}$, mezclando ambos cálculos. En cualquiera de los dos casos hay un intervalo finito de grados, que es lo necesario para anular la homología del telescopio.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Productos en una teoría de cohomología}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Producto externo y homomorfismos de conexión}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P13--P14. La pausa anterior explica el salto de diez minutos en la fusión.
+Una estructura multiplicativa en una teoría reducida $\widetilde h^{\,*}$ comienza con aplicaciones bilineales naturales
+\[
+\mu_{X,Y}^{n,m}\colon
+\widetilde h^{\,n}(X)\otimes\widetilde h^{\,m}(Y)
+\longrightarrow\widetilde h^{\,n+m}(X\wedge Y).
+\]
+Escribiremos $a\times b=\mu(a\otimes b)$. La naturalidad se entiende en ambos espacios. La compatibilidad con la estructura cohomológica incluye los homomorfismos de conexión.
+
+Si $A\hookrightarrow X$ es una cofibración, los cuadrados requeridos son
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde h^{\,n}(A)\otimes\widetilde h^{\,m}(Y)
+ \arrow[r,"\delta\otimes1"]\arrow[d,"\mu"']&
+\widetilde h^{\,n+1}(X/A)\otimes\widetilde h^{\,m}(Y)\arrow[d,"\mu"]\\
+\widetilde h^{\,n+m}(A\wedge Y)\arrow[r,"\delta"]&
+\widetilde h^{\,n+m+1}((X/A)\wedge Y),
+\end{tikzcd}
+\]
+y, para la conexión en el segundo factor,
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde h^{\,n}(Y)\otimes\widetilde h^{\,m}(A)
+ \arrow[r,"(-1)^n(1\otimes\delta)"]\arrow[d,"\mu"']&
+\widetilde h^{\,n}(Y)\otimes\widetilde h^{\,m+1}(X/A)\arrow[d,"\mu"]\\
+\widetilde h^{\,n+m}(Y\wedge A)\arrow[r,"\delta"]&
+\widetilde h^{\,n+m+1}(Y\wedge(X/A)).
+\end{tikzcd}
+\]
+En términos de elementos, estas condiciones dicen
+\[
+\delta(a\times b)=\delta a\times b,
+\qquad
+\delta(b\times a)=(-1)^{|b|}b\times\delta a,
+\]
+con la conexión y la cofibración correspondientes en cada fórmula.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Asociatividad, unidad y conmutatividad graduada}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+La asociatividad compara los dos productos triples mediante el asociador del smash.
+
+\begin{ejer}\label{ejer:c24-asociatividad}
+Escribir el diagrama que expresa la asociatividad del producto externo.
+\end{ejer}
+\begin{sol}
+Abreviemos $A=\widetilde h^{\,n}(X)$, $B=\widetilde h^{\,m}(Y)$ y $C=\widetilde h^{\,k}(Z)$. Tras la identificación canónica de los dos productos tensoriales triples, el diagrama es
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+A\otimes B\otimes C\arrow[r,"\mu\otimes1"]\arrow[d,"1\otimes\mu"']&
+\widetilde h^{\,n+m}(X\wedge Y)\otimes C\arrow[d,"\mu"]\\
+A\otimes\widetilde h^{\,m+k}(Y\wedge Z)\arrow[d,"\mu"']&
+\widetilde h^{\,n+m+k}((X\wedge Y)\wedge Z)\\
+\widetilde h^{\,n+m+k}(X\wedge(Y\wedge Z))\arrow[ur,"\alpha_{X,Y,Z}^{*}"']&
+\end{tikzcd}
+\]
+Así, $\mu(\mu(a,b),c)=\alpha_{X,Y,Z}^{*}\mu(a,\mu(b,c))$. La flecha inducida por $\alpha$ apunta en ese sentido porque la cohomología es contravariante. Esta igualdad es precisamente el axioma de asociatividad, escrito con todos sus dominios.
+\end{sol}
+
+Una unidad es una clase $1\in\widetilde h^{\,0}(S^0)$ tal que los siguientes triángulos conmutan, para todo $a\in\widetilde h^{\,n}(X)$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde h^{\,n}(X)\arrow[r,"1\otimes(-)"]\arrow[dr,equal]&
+\widetilde h^{\,0}(S^0)\otimes\widetilde h^{\,n}(X)\arrow[d,"\lambda_X^{*\,-1}\mu"]\\
+&\widetilde h^{\,n}(X),
+\end{tikzcd}
+\]
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde h^{\,n}(X)\arrow[r,"(-)\otimes1"]\arrow[dr,equal]&
+\widetilde h^{\,n}(X)\otimes\widetilde h^{\,0}(S^0)\arrow[d,"\rho_X^{*\,-1}\mu"]\\
+&\widetilde h^{\,n}(X).
+\end{tikzcd}
+\]
+Aquí las flechas verticales incluyen el producto hacia $S^0\wedge X$ o $X\wedge S^0$ y después el isomorfismo inducido por el inverso de la unidad del smash. En particular, sus valores son $1\times a=a$ y $a\times1=a$ bajo esas identificaciones.
+
+La conmutatividad graduada se expresa mediante
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde h^{\,n}(X)\otimes\widetilde h^{\,m}(Y)
+ \arrow[r,"\mu"]\arrow[d,"(-1)^{nm}\,\mathrm{intercambio}"']&
+\widetilde h^{\,n+m}(X\wedge Y)\arrow[d,"B_{Y,X}^{*}"]\\
+\widetilde h^{\,m}(Y)\otimes\widetilde h^{\,n}(X)\arrow[r,"\mu"]&
+\widetilde h^{\,n+m}(Y\wedge X).
+\end{tikzcd}
+\]
+El signo procede del intercambio de los grados; $B$ denota la simetría del smash.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El producto cup}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ejer}\label{ejer:c24-cup}
+Para un espacio no punteado $X$, definir un producto en $h^*(X)=\widetilde h^{\,*}(X_+)$ y comprobar que es natural, asociativo, unitario y graduadamente conmutativo. Relacionar el producto interno con el externo.
+\end{ejer}
+\begin{sol}
+La diagonal punteada $\Delta_X\colon X_+\to X_+\wedge X_+$ define
+\[
+a\smile b:=\Delta_X^*(a\times b).
+\]
+La naturalidad y la bilinealidad se heredan del producto externo y de la diagonal. La igualdad de los dos mapas diagonales triples y la asociatividad de $\mu$ dan
+\[
+(a\smile b)\smile c=a\smile(b\smile c).
+\]
+Sea $\epsilon_X\colon X_+\to S^0$ el mapa que envía $X$ al punto no base. La clase $1_X=\epsilon_X^*(1)$ es unidad: componer $\Delta_X$ con $\epsilon_X\wedge\id$ o con $\id\wedge\epsilon_X$ da, tras las identificaciones de unidad, la identidad de $X_+$. Finalmente, $B\Delta_X=\Delta_X$ y la conmutatividad graduada externa implican
+\[
+a\smile b=(-1)^{nm}b\smile a,
+\qquad a\in h^n(X),\quad b\in h^m(X).
+\]
+Así, $h^*(X)$ es un anillo graduado con unidad. La misma afirmación de unidad no se extiende sin más a la teoría reducida de un espacio punteado arbitrario.
+
+Usando $(X\times Y)_+\cong X_+\wedge Y_+$, se recupera el producto externo mediante
+\[
+a\times b=\operatorname{pr}_1^*a\smile\operatorname{pr}_2^*b.
+\]
+Para comprobarlo, la naturalidad de $\mu$ identifica el lado derecho con el pullback de $a\times b$ por
+\[
+(X\times Y)_+\xrightarrow{\Delta}(X\times Y)_+\wedge(X\times Y)_+
+\xrightarrow{\operatorname{pr}_1\wedge\operatorname{pr}_2}X_+\wedge Y_+.
+\]
+Este compuesto es la identificación canónica anterior. A la inversa, el pullback del producto externo por $\Delta_X$ es, por definición, el producto cup. Estas dos operaciones se recuperan mutuamente.
+\end{sol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La multiplicación en el espectro representante}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Las dos aplicaciones de representabilidad}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P15--P17.
+Sea $E$ un $\Omega$-espectro representante de $\widetilde h^{\,*}$. En los diagramas de esta sección abreviamos $A_X=\Sigma^\infty X$. Queremos representar el producto mediante un morfismo $m\colon E\wedge E\to E$ de modo que conmute
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde h^{\,n}(X)\otimes\widetilde h^{\,k}(Y)\arrow[r,"\mu"]\arrow[d,"\cong"']&
+\widetilde h^{\,n+k}(X\wedge Y)\arrow[d,"\cong"]\\
+{[A_X,\sh^nE]_s}\otimes{[A_Y,\sh^kE]_s}\arrow[r]&{[A_{X\wedge Y},\sh^{n+k}E]_s}.
+\end{tikzcd}
+\]
+Fijemos primero $g\in[A_Y,\sh^kE]_s$. La naturalidad del producto da una transformación en $X$:
+\[
+T_g\colon[A_X,\sh^nE]_s\longrightarrow[A_{X\wedge Y},\sh^{n+k}E]_s.
+\]
+El smash de espectros de suspensión y la adjunción con el espectro función $F$ proporcionan el diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+{[A_X,\sh^nE]_s}\arrow[r,"T_g"]\arrow[dr]&
+{[A_{X\wedge Y},\sh^{n+k}E]_s}\arrow[d,"\cong"]\\
+&{[A_X\wedge A_Y,\sh^{n+k}E]_s}\arrow[d,"\cong"]\\
+&{[A_X,F(A_Y,\sh^{n+k}E)]_s}.
+\end{tikzcd}
+\]
+Por la plenitud de la representabilidad discutida en la clase 20, esta transformación se levanta a un morfismo
+\[
+m_g\colon \sh^nE\longrightarrow F(A_Y,\sh^{n+k}E).
+\]
+Dos representantes de la misma transformación pueden diferir por un superfantasma.
+
+El segundo paso del argumento de clase vuelve a considerar $g$ como variable y utiliza
+\[
+\begin{aligned}
+[\sh^nE,F(A_Y,\sh^{n+k}E)]_s
+&\cong[\sh^nE\wedge A_Y,\sh^{n+k}E]_s\\
+&\cong[A_Y,F(\sh^nE,\sh^{n+k}E)]_s.
+\end{aligned}
+\]
+La representabilidad en esta segunda variable conduce a un morfismo $\sh^kE\to F(\sh^nE,\sh^{n+k}E)$. Su adjunto determina una clase en
+\[
+\begin{aligned}
+[\sh^kE,F(\sh^nE,\sh^{n+k}E)]_s
+&\cong[\sh^kE\wedge \sh^nE,\sh^{n+k}E]_s\\
+&\cong[\sh^{n+k}(E\wedge E),\sh^{n+k}E]_s\\
+&\cong[E\wedge E,E]_s.
+\end{aligned}
+\]
+En el cambio de orden de los factores se usa la simetría correspondiente. Denotamos por $m$ una multiplicación que representa el producto original.
+
+Hay una precisión en este paso de la exposición: elegir por separado un representante $m_g$ para cada $g$ no garantiza una elección natural en $Y$, necesaria para aplicar Brown por segunda vez. Se necesitan representantes compatibles con las transformaciones y con la suspensión; la plenitud de la clase 20, tomada aisladamente, no demuestra esa compatibilidad. La existencia de un representante del producto se utiliza aquí como el resultado de representabilidad para emparejamientos, recogido en \cite[\S6]{baker2002}; la clase no desarrolló la rectificación completa de esas elecciones. El esquema anterior conserva las dos adjunciones y las dos variables del argumento, sin atribuir a una elección arbitraria una naturalidad que no se ha probado.
+
+\begin{ejer}\label{ejer:c24-producto-representado}
+Escribir y comprobar la fórmula del producto en términos de $m$ y de representantes $f\colon A_X\to \sh^nE$, $g\colon A_Y\to \sh^kE$.
+\end{ejer}
+\begin{sol}
+El producto está representado por el recorrido superior y derecho del diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+A_X\wedge A_Y\arrow[r,"f\wedge g"]\arrow[drr,"f\times g",description]&
+\sh^nE\wedge \sh^kE\arrow[r,"\cong"]&\sh^{n+k}(E\wedge E)\arrow[d,"\sh^{n+k}m"]\\
+A_{X\wedge Y}\arrow[u,"\simeq"]\arrow[rr,"f\times g"']&&\sh^{n+k}E.
+\end{tikzcd}
+\]
+La fórmula completa del recorrido es
+\[
+A_{X\wedge Y}\cong A_X\wedge A_Y
+\xrightarrow{f\wedge g}\sh^nE\wedge \sh^kE
+\cong\sh^{n+k}(E\wedge E)
+\xrightarrow{\sh^{n+k}m}\sh^{n+k}E.
+\]
+En efecto, al fijar $g$, la adjunta de este compuesto es la transformación $T_g$ usada para definir $m_g$. La segunda adjunción recupera precisamente la dependencia respecto de $g$. Deshacer ambas adjunciones da $\mu([f]\otimes[g])$; la compatibilidad con la suspensión asegura la misma fórmula en todos los grados. Esto comprueba que el morfismo representa el producto dado.
+\end{sol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La unidad y el defecto superfantasmal}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P17--P19.
+La unidad determina una clase
+\[
+1\in\widetilde h^{\,0}(S^0)=[\mathbb S,E]_s,
+\]
+es decir, un morfismo $u\colon\mathbb S\to E$. El triángulo de la unidad se traduce, para todo $a\colon A_X\to \sh^kE$, en
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+{[A_X,\sh^kE]_s}\arrow[r,"{[u]\otimes(-)}"]\arrow[dr,equal]&
+{[\mathbb S,E]_s}\otimes{[A_X,\sh^kE]_s}\arrow[d,"\text{producto y unidad del smash}"]\\
+&{[A_X,\sh^kE]_s}.
+\end{tikzcd}
+\]
+En representantes, el recorrido que induce la flecha vertical es
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\mathbb S\wedge A_X\arrow[r,"u\wedge a"]&E\wedge \sh^kE
+ \arrow[r,"\cong"]&\sh^k(E\wedge E)\arrow[d,"\sh^km"]\\
+A_X\arrow[u,"\lambda_{A_X}^{-1}"]\arrow[rr,"a"']&&\sh^kE.
+\end{tikzcd}
+\]
+El contorno conmuta porque expresa $1\times[a]=[a]$. La pizarra llama $\lambda$ al mapa que sale hacia el smash con la esfera. En la convención de estos apuntes, $\lambda_Z\colon\mathbb S\wedge Z\to Z$ apunta en el sentido opuesto, por lo que usamos $\lambda_Z^{-1}$ en esas flechas.
+
+En grado cero, la naturalidad de la unidad permite separar el recorrido anterior:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\mathbb S\wedge A_X\arrow[r,"1\wedge a"]\arrow[rr,bend left=25,"u\wedge a"]&
+\mathbb S\wedge E\arrow[r,"u\wedge1"]&E\wedge E\arrow[r,"m"]&E\\
+A_X\arrow[u,"\lambda_{A_X}^{-1}"]\arrow[r,"a"']&
+E\arrow[u,"\lambda_E^{-1}"]\arrow[urr,equal]&&
+\end{tikzcd}
+\]
+Definamos
+\[
+\theta:=m\circ(u\wedge1)\circ\lambda_E^{-1}\colon E\longrightarrow E.
+\]
+
+\begin{ejer}\label{ejer:c24-unidad-fantasma}
+Comprobar que la condición de unidad implica que $\theta$ induce la identidad en la teoría representada, y precisar qué puede concluirse sobre $\theta-\id_E$.
+\end{ejer}
+\begin{sol}
+Por naturalidad, $(1\wedge a)\lambda_{A_X}^{-1}=\lambda_E^{-1}a$. Sustituyendo en el contorno anterior obtenemos $\theta a=a$. El mismo argumento en grado $k$ da $(\sh^k\theta)a=a$ para todo $a\colon A_X\to\sh^kE$. Por tanto, las dos flechas
+\[
+\begin{tikzcd}[column sep=huge]
+{[A_X,\sh^kE]_s}\arrow[r,shift left=1.2ex,"(\sh^k\theta)_*"]
+\arrow[r,shift right=1.2ex,"1_*"']&{[A_X,\sh^kE]_s}
+\end{tikzcd}
+\]
+coinciden. Desplazando el dominio, la composición de $\theta-\id_E$ con cualquier $\sh^{-k}A_X\to E$ es cero. Por la \myref{defi:c20-superfantasma}, $\theta-\id_E$ es superfantasmal y, en particular, fantasmal. Si solo se probara la igualdad con espacios finitos, se obtendría únicamente la conclusión fantasmal. Ninguna de estas condiciones implica, en general, que el morfismo sea cero.
+\end{sol}
+
+Así, el triángulo que querríamos conmutativo
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+E\arrow[r,"(u\wedge1)\lambda_E^{-1}"]\arrow[dr,equal]&E\wedge E\arrow[d,"m"]\\
+&E
+\end{tikzcd}
+\]
+solo ha sido demostrado conmutativo después de pasar al cociente por los superfantasmas. No se ha demostrado su conmutatividad en $\Ho(\Sp^{\mathbb N})$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Objetos anillo y el alcance del criterio final}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Un \emph{$H$-anillo conmutativo} consta de un espectro $E$ y de morfismos
+\[
+u\colon\mathbb S\longrightarrow E,
+\qquad m\colon E\wedge E\longrightarrow E,
+\]
+que satisfacen asociatividad, las dos condiciones de unidad y conmutatividad. Sus diagramas son
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+(E\wedge E)\wedge E\arrow[rr,"m\wedge1"]\arrow[d,"\alpha"']&&E\wedge E\arrow[d,"m"]\\
+E\wedge(E\wedge E)\arrow[r,"1\wedge m"]&E\wedge E\arrow[r,"m"]&E,
+\end{tikzcd}
+\]
+es decir,
+\[
+m(m\wedge1)=m(1\wedge m)\alpha.
+\]
+Las unidades y la simetría se expresan por
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\mathbb S\wedge E\arrow[r,"u\wedge1"]\arrow[dr,"\lambda_E"']&E\wedge E\arrow[d,"m"]&
+E\wedge\mathbb S\arrow[l,"1\wedge u"']\arrow[dl,"\rho_E"]\\
+&E&
+\end{tikzcd}
+\qquad
+\begin{tikzcd}[column sep=large,row sep=large]
+E\wedge E\arrow[r,"B"]\arrow[dr,"m"']&E\wedge E\arrow[d,"m"]\\
+&E.
+\end{tikzcd}
+\]
+Aquí las igualdades se exigen en la categoría homotópica. No se está exigiendo una multiplicación estrictamente conmutativa en una categoría de modelos ni una estructura $E_\infty$.
+
+La condición de unidad en cohomología no ha producido todavía la igualdad $\theta=\id_E$. El mismo problema aparece al comparar los dos productos triples y los productos intercambiados: los axiomas sobre clases detectadas por espacios no eliminan automáticamente los defectos fantasmales de los mapas de espectros. Por ello, la construcción anterior no demuestra que el representante elegido sea un objeto anillo conmutativo. En clase no se construyó un ejemplo que excluyera toda posible elección de multiplicación o de representante; no deducimos esa afirmación de la ambigüedad de las elecciones.
+
+Al final se enunció un criterio de eliminación de obstrucciones: partir de productos de niveles y unidades
+\[
+E_n\wedge E_k\longrightarrow E_{n+k},
+\qquad S^n\longrightarrow E_n,
+\]
+con las compatibilidades homotópicas correspondientes, y una condición escrita como
+\[
+\varprojlim\nolimits_n^{1}\,\widetilde E^{\,n-1}(E_n)=0.
+\]
+Se afirmó que, bajo las hipótesis del criterio, es posible ajustar los representantes para obtener la estructura de anillo en homotopía. La clase no desarrolló la demostración ni precisó todas las compatibilidades del sistema; conservamos el criterio como enunciado, sin utilizar la igualdad aislada como condición suficiente para todos los axiomas multiplicativos.
+
+Para explicar la aparición de ese grupo, añadimos la siguiente precisión. La sucesión de Milnor para un telescopio $Z\simeq\operatorname*{hocolim}_n Z_n$ tiene la forma
+\[
+0\longrightarrow\varprojlim\nolimits_n^{1}E^{q-1}(Z_n)
+\longrightarrow E^q(Z)
+\longrightarrow\varprojlim\nolimits_n E^q(Z_n)
+\longrightarrow0.
+\]
+Tomando la presentación $E\simeq\operatorname*{hocolim}_nF_nE_n$, tenemos
+\[
+E^q(F_nE_n)\cong\widetilde E^{\,q+n}(E_n),
+\]
+y en grado $q=0$ aparece precisamente el $\varprojlim^{1}$ escrito en clase. Las transiciones están inducidas por la estructura del espectro y los isomorfismos de suspensión. Ese grupo mide el núcleo de la restricción de mapas $E\to E$ a las etapas de esta presentación. Su anulación elimina esa ambigüedad para tales mapas; las comparaciones con dominio $E\wedge E$ o $E\wedge E\wedge E$ requieren las compatibilidades y condiciones de obstrucción correspondientes. Esta distinción explica por qué no damos una demostración de todos los axiomas a partir únicamente de la fórmula final.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Preguntas finales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+En las preguntas se volvió a distinguir la completación de un espectro de la completación de sus grupos por separado. Se mencionó, sin demostración, el ejemplo del grupo de Prüfer:
+\[
+\bigl(H(\mathbb Z/p^\infty)\bigr)_p^\wedge
+\simeq\sh^1H(\mathbb Z_p^\wedge),
+\qquad \mathbb Z_p^\wedge=\varprojlim\nolimits_r\mathbb Z/p^r.
+\]
+Como comprobación añadida, sea $A=\mathbb Z/p^\infty$. La multiplicación por $p^r$ en $A$ es sobreyectiva, con núcleo $A[p^r]\cong\mathbb Z/p^r$. Por la sucesión exacta de la cofibra, $HA\wedge\mathbb S/p^r$ tiene un único grupo no nulo, en grado $1$, igual a ese núcleo. Las transiciones de la torre inducen $p\colon A[p^{r+1}]\to A[p^r]$, que se identifican con las reducciones habituales. Son sobreyectivas; su límite es $\mathbb Z_p^\wedge$ y su $\varprojlim^1$ es cero. La sucesión de Milnor y el modelo de completación de la clase 23 dan la equivalencia escrita. En cambio, $\varprojlim_r A/p^rA=0$: completar únicamente $\pi_0(HA)$ perdería el grupo que aparece desplazado.
+
+También se discutió la orientación compleja. Para precisar la terminología de esa respuesta, una orientación compleja de una teoría multiplicativa $E$ es una clase
+\[
+x\in\widetilde E^{\,2}(\mathbb{CP}^{\infty}),
+\qquad
+x|_{\mathbb{CP}^1}=1\in\widetilde E^{\,2}(S^2)\cong\pi_0(E).
+\]
+Esta condición tiene sentido también para teorías $p$-locales; no está restringida a coeficientes integrales. La referencia oral a $BP$ concierne a la elección $p$-típica de leyes de grupo formal, no a una restricción que impida hablar de orientación compleja para una teoría $p$-local. La relación con las leyes de grupo formal solo se mencionó en clase, sin desarrollar su construcción; para la definición anterior véase \cite[lección~4, p.~1]{lurie2010chromatic}. Quedó sin respuesta en clase la pregunta por un análogo real de esta noción, sin formularse un criterio preciso.

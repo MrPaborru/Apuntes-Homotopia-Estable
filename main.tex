@@ -94,7 +94,7 @@
 \newcommand{\Alumno}{Pablo Jair Aranda Pérez}
     \newcommand{\abvAlumno}{Pablo J. Aranda P.}
 \newcommand{\Correo}{pablo\_p1@live.com}
-\newcommand{\NumClases}{23}
+\newcommand{\NumClases}{24}
 
 
 
@@ -132,10 +132,9 @@
 
 
 \begin{document}
-% Se usa \input en lugar de \include: \include genera un .aux propio por archivo
-% en una subcarpeta relativa a la raíz (p. ej. Portada/Portada.aux), lo que choca
-% con $out_dir = 'build' y ensucia la raíz. Con \input todos los auxiliares caen
-% en build/ y la raíz queda limpia.
+% La portada y el cuerpo se cargan con \input. Cuerpo.tex conserva un \include
+% por clase; sus auxiliares se generan en build/Apuntes/ con la configuración
+% actual de latexmkrc. No cambiar esta estructura por indicaciones antiguas.
 \input{Portada/Portada}
 \pagestyle{plain}
 \hypertarget{toc}{}
