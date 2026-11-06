@@ -1,0 +1,542 @@
+% C25 -- 5 de noviembre de 2026.
+% Fuentes: Estable1105.pdf; Screenshots C25/P01--P16; Transcripciones/C25.txt.
+% Una sola transcripción, conservada íntegra con sus tiempos de grabación.
+% Descanso recortado en 00:43:10; las referencias temporales usan el original.
+% P06--P07: diagramas anchos transpuestos; las evaluaciones se escriben aparte.
+% P09--P10: distinguir lambda y lambda^-1, y kappa y kappa^-1.
+% Lewis figura en el anuncio de P01, pero su teorema se pospone al cierre.
+
+En la clase 24 construimos un morfismo que representa el producto de una teoría de cohomología y vimos que sus axiomas podían dejar defectos superfantasmales. Ahora construiremos la multiplicación de $HR$ mediante los espacios de Eilenberg--MacLane y comprobaremos sus compatibilidades por naturalidad. Después identificaremos el anillo graduado de homotopía de un espectro $H$-anillo con los coeficientes de su teoría de cohomología y calcularemos el producto en $\pi_*(KU)$.
+
+El criterio de anulación de fantasmas se demuestra en \cite[lección~17, definición~8 y proposición~10]{lurie2010chromatic}; las comparaciones de homología que utilizaremos se apoyan en \cite[teoremas~1.3.1.11, 1.3.3.7 y 2.6.5.7]{malkiewich}, cuyo ejemplo~4.1.3.11 describe las estructuras multiplicativas resultantes. Para el cálculo con la clase de Bott, véanse \cite[teorema~2.2, corolario~2.3, teorema~2.11 y corolario~2.12]{hatcher2017vbkt}, con las demostraciones del producto y de su versión reducida.
+
+Todos los productos smash de espectros se entienden derivados y trabajamos en $\Ho(\Sp^{\mathbb N})$. Usamos $[X,Y]_s$ para los morfismos estables y $[X,Y]_* $ para las clases de aplicaciones punteadas entre espacios. Los productos tensoriales de grupos abelianos son sobre $\mathbb Z$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Espectros anillo en homotopía y mapas fantasmas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Los axiomas en la categoría homotópica}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P01; 00:00--01:22 y 03:11--05:20.
+Recordemos que un espectro $H$-anillo conmutativo es un objeto monoide conmutativo en la categoría homotópica estable. Consta de un espectro $E$ y de morfismos
+\[
+m\colon E\wedge E\longrightarrow E,
+\qquad u\colon\mathbb S\longrightarrow E,
+\]
+que satisfacen asociatividad, unidad por ambos lados y conmutatividad. Son los diagramas descritos al final de la clase 24, con igualdades en $\Ho(\Sp^{\mathbb N})$.
+
+Esta estructura conserva las clases de los mapas, pero no registra las homotopías ni las compatibilidades entre ellas. Al trabajar con espectros anillo antes de pasar a la categoría homotópica, se busca una categoría de espectros con un smash simétrico monoidal adecuado. Las estructuras $A_\infty$ y $E_\infty$ también registran coherencias adicionales; su construcción no se desarrolla aquí.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Finitud par y generación par}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P02; 01:22--02:51.
+\begin{defi}
+Un espectro finito $X$ es \emph{par} si $H_*(X;\mathbb Z)$ es libre como grupo abeliano y está concentrado en grados pares. Un espectro $Y$ está \emph{generado parejamente} si todo morfismo $f\colon Z\to Y$ con $Z$ finito admite una factorización
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+Z\arrow[rr,"f"]\arrow[dr]&&Y\\
+&X\arrow[ur]&
+\end{tikzcd}
+\]
+con $X$ finito par. Esta es la condición denominada \emph{evenly generated}.
+\end{defi}
+
+\begin{teo}\label{teo:c25-anulacion-fantasmas}
+Si $E$ está generado parejamente y $\pi_j(F)=0$ para todo $j$ impar, todo morfismo fantasmal $E\to F$ es cero.
+\end{teo}
+\begin{nota}
+Este criterio se enunció sin demostración en clase y no se utilizó para construir la multiplicación que sigue. Una demostración se encuentra en \cite[lección~17, proposición~10]{lurie2010chromatic}. La generación par es una propiedad de factorización desde espectros finitos; no se define simplemente por la paridad de $\pi_*(E)$. Para eliminar los defectos de los axiomas multiplicativos se necesitan los grupos de mapas correspondientes a sus dominios, incluidos los productos smash del representante, como se precisó en la clase 24.
+\end{nota}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La multiplicación de Eilenberg--MacLane por niveles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La multiplicación del anillo determina los productos de espacios}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P02--P04; 05:20--12:12.
+Sea $R$ un anillo conmutativo con unidad y escribamos $K_n=K(R,n)$. El producto externo de la cohomología ordinaria se representa mediante el diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde H^n(X;R)\otimes\widetilde H^k(Y;R)\arrow[r,"\times"]\arrow[d,"\cong"']&
+\widetilde H^{n+k}(X\wedge Y;R)\arrow[d,"\cong"]\\
+{[X,K_n]_*}\otimes{[Y,K_k]_*}\arrow[r]&{[X\wedge Y,K_{n+k}]_*}.
+\end{tikzcd}
+\]
+Construiremos aplicaciones $\mu_{n,k}\colon K_n\wedge K_k\to K_{n+k}$ que dan la flecha inferior por composición con el smash de representantes.
+
+Tomamos $n,k\geq1$. Cada $K_n$ es $(n-1)$-conexo y Hurewicz identifica su primer grupo de homología con $\pi_n(K_n)\cong R$. Künneth proporciona
+\[
+\widetilde H_i(K_n\wedge K_k)=0\quad(i<n+k),
+\qquad
+\widetilde H_{n+k}(K_n\wedge K_k)
+\cong\widetilde H_n(K_n)\otimes\widetilde H_k(K_k).
+\]
+En ese primer grado, los demás sumandos tensoriales y todos los términos $\operatorname{Tor}$ son cero por conectividad. No se necesita que $R$ sea libre como grupo abeliano.
+
+El término $\operatorname{Ext}$ de coeficientes universales también es cero, pues involucra $\widetilde H_{n+k-1}$. Obtenemos la cadena de isomorfismos
+\[
+\begin{aligned}
+[K_n\wedge K_k,K_{n+k}]_*
+&\cong\widetilde H^{n+k}(K_n\wedge K_k;R)\\
+&\cong\Hom_{\mathbb Z}(\widetilde H_{n+k}(K_n\wedge K_k),R)\\
+&\cong\Hom_{\mathbb Z}(\widetilde H_n(K_n)\otimes\widetilde H_k(K_k),R)\\
+&\cong\Hom_{\mathbb Z}(\pi_n(K_n)\otimes\pi_k(K_k),R)\\
+&\cong\Hom_{\mathbb Z}(R\otimes R,R).
+\end{aligned}
+\]
+La multiplicación $m_R\colon R\otimes R\to R$ determina una única clase $[\mu_{n,k}]$ mediante estas identificaciones.
+
+\begin{nota}
+La conmutatividad de $R$ es necesaria para concluir que $HR$ es un $H$-anillo conmutativo. Si $R$ solo es asociativo y unitario, la misma construcción da esos dos axiomas. Además, los cálculos de conectividad anteriores se hacen en grados positivos: no se aplica Hurewicz a $K(R,0)$ como si su homología reducida de grado cero fuera $R$. Los niveles positivos bastan para los argumentos estables, pasando a un subsistema cofinal.
+\end{nota}
+
+La identificación de estas aplicaciones con el producto cruzado usual se utilizó sin demostración en clase. Con ella, si $a$ y $b$ están representados por $f\colon X\to K_n$ y $g\colon Y\to K_k$, respectivamente, su producto está representado por
+\[
+X\wedge Y\xrightarrow{f\wedge g}K_n\wedge K_k
+\xrightarrow{\mu_{n,k}}K_{n+k}.
+\]
+Los representantes $\mu_{n,k}$ solo están determinados hasta homotopía. Por eso comprobaremos compatibilidades hasta homotopía con las funciones estructurales, suficientes para obtener un morfismo débil.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Isomorfismos compatibles y funciones estructurales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P04--P05; 12:13--17:56.
+Fijamos isomorfismos $\alpha_n\colon\pi_n(K_n)\to R$. La función estructural derecha
+\[
+\xi_n\colon K_n\wedge S^1\longrightarrow K_{n+1}
+\]
+se elige para que su clase corresponda a la identidad de $R$ en
+\[
+\begin{aligned}
+\widetilde H^{n+1}(K_n\wedge S^1;R)
+&\cong\widetilde H^n(K_n;R)\\
+&\cong\Hom_{\mathbb Z}(\widetilde H_n(K_n),R)\\
+&\cong\Hom_{\mathbb Z}(\pi_n(K_n),R)
+\cong\Hom_{\mathbb Z}(R,R).
+\end{aligned}
+\]
+La primera identificación es la suspensión; las restantes son naturales. Escogemos los generadores de la cohomología de las esferas compatibles con la conexión de suspensión. Así, el diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde H^n(S^n;R)\arrow[r,"\delta","\simeq"']\arrow[d,"\cong"']&
+\widetilde H^{n+1}(S^{n+1};R)\arrow[d,"\cong"]\\
+\pi_n(K_n)\arrow[r,"\cong"]&\pi_{n+1}(K_{n+1})\\
+&R\arrow[ul,"\alpha_n^{-1}"]\arrow[u,"\alpha_{n+1}^{-1}"']
+\end{tikzcd}
+\]
+conmuta. La flecha de la segunda fila es la suspensión seguida de $(\xi_n)_*$. Una elección inicial determina las siguientes por este diagrama.
+
+En la pizarra se usan también los inversos de los $\alpha_n$; las etiquetas de las flechas que salen de $R$ se escriben aquí explícitamente como $\alpha_n^{-1}$, de acuerdo con el dominio fijado para $\alpha_n$.
+
+Para $q=m+n$, queremos comprobar el cuadrado
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+(K_m\wedge K_n)\wedge S^1\arrow[r,"\mu_{m,n}\wedge1"]\arrow[d,"1\wedge\xi_n"']&
+K_q\wedge S^1\arrow[d,"\xi_q"]\\
+K_m\wedge K_{n+1}\arrow[r,"\mu_{m,n+1}"']&K_{q+1}.
+\end{tikzcd}
+\]
+En la flecha izquierda se incluye el asociador que permite aplicar $\xi_n$. Ambos recorridos terminan en $K_{q+1}$ y, por tanto, pueden compararse como clases de cohomología.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La primera composición y la naturalidad de los isomorfismos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P06; 18:02--24:33.
+Para conservar todas las comparaciones de los diagramas anchos, disponemos sus cadenas verticalmente. Escribimos
+\[
+Z=K_m\wedge K_n,
+\qquad D(A)=\Hom_{\mathbb Z}(A,R),
+\qquad q=m+n.
+\]
+En este diagrama, $H_i$ significa homología reducida de espacios. La naturalidad de coeficientes universales, suspensión y Hurewicz da
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde H^{q+1}(K_q\wedge S^1;R)
+ \arrow[r,"(\mu_{m,n}\wedge1)^*"]\arrow[d,"\cong"']&
+\widetilde H^{q+1}(Z\wedge S^1;R)\arrow[d,"\cong"]\\
+D(H_{q+1}(K_q\wedge S^1))
+ \arrow[r,"D((\mu_{m,n}\wedge1)_*)"]\arrow[d,"\cong"']&
+D(H_{q+1}(Z\wedge S^1))\arrow[d,"\cong"]\\
+D(H_q(K_q))\arrow[r,"D((\mu_{m,n})_*)"]\arrow[d,"\cong"']&
+D(H_q(Z))\arrow[d,"\cong"]\\
+D(\pi_q(K_q))\arrow[r,"D((\mu_{m,n})_*)"]\arrow[d,"\cong"']&
+D(\pi_q(Z))\arrow[d,"\cong"]\\
+D(R)\arrow[r,"m_R^*"']&D(R\otimes R).
+\end{tikzcd}
+\]
+Los términos $\operatorname{Ext}$ son cero porque $K_q\wedge S^1$ y $Z\wedge S^1$ son $q$-conexos. En la esquina inferior derecha, la identificación con $D(R\otimes R)$ usa también Künneth para el primer grupo de homología de $Z$.
+
+El recorrido izquierdo envía $[\xi_q]$ a $\id_R$, por su elección. La última flecha horizontal envía $\id_R$ a $m_R$. En consecuencia,
+\[
+[\xi_q\circ(\mu_{m,n}\wedge1)]
+\quad\text{corresponde a}\quad m_R\in D(R\otimes R).
+\]
+Las flechas que en la pizarra siguen a estas clases hasta su valor se expresan mediante esta igualdad, fuera del diagrama de grupos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La segunda composición y el paso a un morfismo estable}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P07--P08; 24:33--33:20.
+Ahora partimos de $[\mu_{m,n+1}]$ y precomponemos con $1\wedge\xi_n$. Abreviemos
+\[
+P=K_m\wedge K_{n+1},\qquad
+Q=K_m\wedge(K_n\wedge S^1).
+\]
+De nuevo todas las homologías del diagrama son reducidas. Insertamos una identidad en la columna izquierda para alinear el paso adicional de suspensión de la derecha:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde H^{q+1}(P;R)\arrow[r,"(1\wedge\xi_n)^*"]\arrow[d,"\cong"']&
+\widetilde H^{q+1}(Q;R)\arrow[d,"\cong"]\\
+D(H_{q+1}(P))\arrow[r,"D((1\wedge\xi_n)_*)"]\arrow[d,"\cong"']&
+D(H_{q+1}(Q))\arrow[d,"\cong"]\\
+D(H_m(K_m)\otimes H_{n+1}(K_{n+1}))
+ \arrow[r,"D(1\otimes(\xi_n)_*)"]\arrow[d,equal]&
+D(H_m(K_m)\otimes H_{n+1}(K_n\wedge S^1))\arrow[d,"\cong"]\\
+D(H_m(K_m)\otimes H_{n+1}(K_{n+1}))
+ \arrow[r]\arrow[d,"\cong"']&
+D(H_m(K_m)\otimes H_n(K_n))\arrow[d,"\cong"]\\
+D(R\otimes R)\arrow[r,equal]&D(R\otimes R).
+\end{tikzcd}
+\]
+La flecha horizontal sin etiqueta es la anterior seguida del isomorfismo de suspensión de la derecha. Se convierte en la identidad bajo los $\alpha_j$, precisamente por su elección compatible. La clase $[\mu_{m,n+1}]$ corresponde a $m_R$ por definición; el recorrido inferior muestra que
+\[
+[\mu_{m,n+1}\circ(1\wedge\xi_n)]
+\quad\text{corresponde también a}\quad m_R.
+\]
+Los dos recorridos del cuadrado anterior definen, por tanto, la misma clase:
+\[
+\mu_{m,n+1}\circ(1\wedge\xi_n)
+\simeq\xi_{m+n}\circ(\mu_{m,n}\wedge1).
+\]
+
+Para incrementar el primer índice, usamos el intercambio con signo de la \myref{defi:c10-smash-artesanal}:
+\[
+\tau_n\colon K_n\wedge S^1\longrightarrow S^1\wedge K_n,
+\qquad [y,z]\longmapsto[z^{(-1)^n},y].
+\]
+La transición del smash es entonces
+\[
+a_{m,n}=(\xi_m\wedge1)\circ(1\wedge\tau_n)
+\colon(K_m\wedge K_n)\wedge S^1\longrightarrow K_{m+1}\wedge K_n.
+\]
+En el primer grupo de homología, intercambiar las dimensiones $n$ y $1$ aporta $(-1)^n$; la conjugación de la coordenada de $S^1$ aporta otro $(-1)^n$. Se cancelan, y las identificaciones $\alpha_j$ vuelven a convertir la transición en la identidad del factor correspondiente. La misma comparación por naturalidad demuestra
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+(K_m\wedge K_n)\wedge S^1\arrow[r,"\mu_{m,n}\wedge1"]\arrow[d,"a_{m,n}"']&
+K_{m+n}\wedge S^1\arrow[d,"\xi_{m+n}"]\\
+K_{m+1}\wedge K_n\arrow[r,"\mu_{m+1,n}"']&K_{m+n+1}
+\end{tikzcd}
+\]
+hasta homotopía. En clase se desarrolló el segundo factor y se indicó completar el primero. Este cálculo explicita los signos del modelo ya fijado en la clase 10; usar solo la permutación ordinaria dejaría un signo sin compensar.
+
+En el modelo de Adams del smash, los pasos de una partición incrementan alternativamente uno de los dos índices. Las aplicaciones $\mu_{m,n}$ definen así un morfismo débil del modelo de $HR\wedge HR$ hacia $HR$. El \myref{teo:zigzag-morfismo-debil} lo convierte, mediante su zigzag de equivalencias, en un morfismo
+\[
+m\colon HR\wedge HR\longrightarrow HR
+\]
+de la categoría homotópica estable. Este es el candidato a multiplicación. La construcción utiliza los niveles y sus funciones estructurales, en lugar de una elección arbitraria de levantamientos de transformaciones.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La unidad y los axiomas multiplicativos de \texorpdfstring{$HR$}{HR}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La unidad y la detección de mapas en grado cero}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P08 y P11; 33:28--37:24 y 48:48--50:59.
+Los isomorfismos compatibles $\alpha_n$ inducen $\alpha\colon\pi_0(HR)\to R$. Definimos $u\colon\mathbb S\to HR$ mediante
+\[
+R\xrightarrow{\alpha^{-1}}\pi_0(HR)=[\mathbb S,HR]_s,
+\qquad 1_R\longmapsto[u].
+\]
+Esta es la clase $1\in\widetilde H^0(S^0;R)$. Para comprobar la unidad izquierda debemos demostrar el contorno
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+HR\arrow[r,"\lambda_{HR}^{-1}"]\arrow[dr,equal]&
+\mathbb S\wedge HR\arrow[r,"u\wedge1"]&HR\wedge HR\arrow[dl,"m"]\\
+&HR&
+\end{tikzcd}
+\]
+conmutativo en la categoría homotópica. Como en la clase 24, nuestra convención es $\lambda_Z\colon\mathbb S\wedge Z\to Z$; las flechas que salen de $Z$ hacia el smash llevan $\lambda_Z^{-1}$.
+
+\begin{ejer}\label{ejer:c25-deteccion-pi0}
+Comprobar que la identificación siguiente envía la clase de un mapa $f$ al homomorfismo que induce en $\pi_0$, usando $\alpha\colon\pi_0(HR)\cong R$:
+\[
+[HR,HR]_s\cong\Hom_{\mathbb Z}(R,R).
+\]
+\end{ejer}
+\begin{sol}
+Demostramos la identificación más general $[Z,HR]_s\cong\Hom_{\mathbb Z}(\pi_0(Z),R)$ para $Z$ conectivo, que usaremos también para los axiomas restantes. La representabilidad identifica $[Z,HR]_s$ con $H^0(Z;R)$. La construcción celular de la clase 23 permite tomar un modelo de $Z$ sin celdas negativas. En su complejo celular, $C_{-1}=0$, y el grado cero del complejo de cocadenas da
+\[
+H^0(Z;R)
+\cong\ker\bigl(\Hom(C_0,R)\to\Hom(C_1,R)\bigr)
+\cong\Hom(H_0(Z),R).
+\]
+Es el caso de coeficientes universales de la clase 21 en el que el término $\operatorname{Ext}(H_{-1}(Z),R)$ es cero. Hurewicz estable identifica naturalmente $\pi_0(Z)$ con $H_0(Z)$, y la clase de un mapa a $HR$ se envía a su homomorfismo en ese grupo. Así se obtiene el isomorfismo propuesto. En particular, para $Z=HR$, la identidad corresponde a $\id_R$ y la aplicación es inyectiva.
+\end{sol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La comparación natural que demuestra la unidad}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P09--P11; 37:24--42:38 y 43:22--50:59.
+Escribamos, solo para este diagrama,
+\[
+A=HR\wedge HR,\qquad B=\mathbb S\wedge HR,\qquad C=HR,
+\qquad D(G)=\Hom_{\mathbb Z}(G,R).
+\]
+Estos espectros son conectivos. Las comparaciones de la clase se organizan en
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+H^0(A;R)\arrow[r,"(u\wedge1)^*"]\arrow[d,"\cong"']&
+H^0(B;R)\arrow[r,"(\lambda_C^{-1})^*",rojoCIMAT]\arrow[d,"\cong"]&H^0(C;R)\arrow[d,"\cong"]\\
+D(H_0(A))\arrow[r]\arrow[d,"\cong"']&D(H_0(B))\arrow[r]\arrow[d,"\cong"]&D(H_0(C))\arrow[d,"\cong"]\\
+D(\pi_0(A))\arrow[r]\arrow[d,"\cong"']&D(\pi_0(B))\arrow[r]\arrow[d,"\cong"]&D(\pi_0(C))\arrow[d,"\cong"]\\
+D(R\otimes R)\arrow[r,"(j\otimes1)^*"']&D(\mathbb Z\otimes R)\arrow[r,"\kappa^*"']&D(R).
+\end{tikzcd}
+\]
+Las flechas intermedias son los homomorfismos de homología y homotopía inducidos por los mapas de la primera fila, seguidos de $D$. Las identificaciones inferiores son
+\[
+j\colon\mathbb Z\longrightarrow R,\quad a\longmapsto a1_R,
+\qquad
+\kappa\colon R\longrightarrow\mathbb Z\otimes R,\quad r\longmapsto1\otimes r.
+\]
+La clase $[m]$ corresponde a $m_R$ por la construcción por niveles. En el extremo inferior derecho, su imagen es
+\[
+\kappa^*(j\otimes1)^*(m_R)
+=m_R\circ(j\otimes1)\circ\kappa=\id_R,
+\]
+pues $m_R((j\otimes1)(1\otimes r))=m_R(1_R\otimes r)=r$. Por la inyectividad del ejercicio anterior,
+\[
+m\circ(u\wedge1)\circ\lambda_{HR}^{-1}=\id_{HR}.
+\]
+Queda por justificar con precisión que las dos últimas flechas son las escritas: esa fue la segunda parte de la comprobación en clase.
+
+La unidad del smash está inducida por funciones estructurales. Para los niveles aparece el triángulo
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\pi_i(K_n)\arrow[r,"\Sigma"]\arrow[dr]&
+\pi_{i+1}(K_n\wedge S^1)\arrow[d,"(\xi_n)_*",rojoCIMAT]\\
+&\pi_{i+1}(K_{n+1}).
+\end{tikzcd}
+\]
+La diagonal es la transición del sistema que calcula la homotopía estable. Para $\pi_0$, Hurewicz y Künneth permiten seguir la identificación completa:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\pi_0(\mathbb S\wedge HR)\arrow[r,"(\lambda_{HR})_*"]\arrow[d,"\cong"']&
+\pi_0(HR)\arrow[d,"\cong"]\\
+H_0(\mathbb S\wedge HR)\arrow[r]\arrow[d,"\cong"']&H_0(HR)\arrow[d,"\cong"]\\
+\varinjlim\nolimits_n\widetilde H_n(S^0\wedge K_n)\arrow[r]\arrow[d,"\cong"']&
+\varinjlim\nolimits_n\widetilde H_n(K_n)\arrow[d,"\cong"]\\
+\varinjlim\nolimits_n\bigl(\widetilde H_0(S^0)\otimes\widetilde H_n(K_n)\bigr)
+ \arrow[r]\arrow[d,"\cong"']&R\arrow[d,equal]\\
+\mathbb Z\otimes R\arrow[r,"\kappa^{-1}"']&R.
+\end{tikzcd}
+\]
+La flecha inferior envía $a\otimes r$ a $ar$. Su inversa envía $r$ a $1\otimes r$ y es el mapa que se usa al precomponer con $\lambda_{HR}^{-1}$.
+
+\begin{nota}
+En clase se corrigió oralmente la dirección de este cálculo: el mapa inducido por $\mathbb S\wedge HR\to HR$ es $\kappa^{-1}$, mientras que el contorno de la unidad usa $\kappa$. En el esquema de niveles se escribió $K(\mathbb Z,n)$; para el argumento de $HR$ se utiliza $K(R,n)$. El factor $\mathbb Z$ de la última fila procede de $\widetilde H_0(S^0)$.
+\end{nota}
+
+Por último, $u$ se eligió para representar $1_R$. La identificación $\Hom(\mathbb Z,R)\cong R$ evalúa en $1$, de modo que $u_*$ corresponde a $j$. El cuadrado relevante es
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\pi_0(\mathbb S)\arrow[r,"u_*"]\arrow[d,"\cong"']&\pi_0(HR)\arrow[d,"\alpha","\simeq"']\\
+\mathbb Z\arrow[r,"j"']&R.
+\end{tikzcd}
+\]
+Al tensorizar con el segundo factor y aplicar la naturalidad de Künneth, obtenemos $j\otimes1$. Esto completa las justificaciones del diagrama de la unidad.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Los demás axiomas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P11; 51:02--51:20. Desarrollo de los argumentos indicados allí.
+\begin{prop}\label{prop:c25-hr-anillo}
+La multiplicación $m$ y la unidad $u$ hacen de $HR$ un espectro $H$-anillo conmutativo.
+\end{prop}
+\begin{proof}
+Ya se comprobó la unidad izquierda. Los argumentos para la unidad derecha, asociatividad y conmutatividad se indicaron en clase como análogos; desarrollamos la comparación que los completa.
+
+Para espectros conectivos, el primer grado de Künneth, calculado por niveles, da
+\[
+\pi_0(X\wedge Y)\cong\pi_0(X)\otimes\pi_0(Y).
+\]
+En el caso presente son los mismos cálculos con $K_m\wedge K_n$ y su límite cofinal. Iterándolos se identifica $\pi_0(HR^{\wedge3})$ con $R\otimes R\otimes R$. Como estos productos smash son conectivos, el \myref{ejer:c25-deteccion-pi0} permite comparar sus mapas a $HR$ mediante el homomorfismo inducido en grado cero.
+
+Los dos mapas del axioma de unidad derecha inducen $r\mapsto r1_R=r$. Los dos mapas de asociatividad inducen, sobre $R\otimes R\otimes R$, las funciones
+\[
+r\otimes s\otimes t\longmapsto(rs)t,
+\qquad r\otimes s\otimes t\longmapsto r(st).
+\]
+Coinciden por asociatividad de $R$. Finalmente, $m$ y $mB$ inducen $r\otimes s\mapsto rs$ y $r\otimes s\mapsto sr$; coinciden porque $R$ es conmutativo. La detección en grado cero convierte todas estas igualdades en igualdades de morfismos estables, y demuestra los axiomas completos.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Anillos de coeficientes y clase de Bott}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El producto en los grupos de homotopía}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P11--P12; 51:52--54:29.
+Sea ahora $\mathcal R$ un espectro $H$-anillo conmutativo, con multiplicación $m$. Definimos
+\[
+\pi_*(\mathcal R)=\bigoplus_{n\in\mathbb Z}\pi_n(\mathcal R).
+\]
+La multiplicación de grados $j$ y $n-j$ se obtiene mediante
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+&\pi_n(\mathcal R\wedge\mathcal R)\arrow[dr,"m_*"]&\\
+\pi_j(\mathcal R)\otimes\pi_{n-j}(\mathcal R)\arrow[ur]\arrow[rr]&&\pi_n(\mathcal R).
+\end{tikzcd}
+\]
+Para representantes $f\colon\sh^j\mathbb S\to\mathcal R$ y $g\colon\sh^{n-j}\mathbb S\to\mathcal R$, la primera flecha se describe por
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\sh^j\mathbb S\wedge\sh^{n-j}\mathbb S\arrow[rr,"f\wedge g"]&&\mathcal R\wedge\mathcal R\\
+&\sh^n(\mathbb S\wedge\mathbb S)\arrow[ul,"\cong"']&\\
+&\sh^n\mathbb S\arrow[u,"\cong"]\arrow[uur]&
+\end{tikzcd}
+\]
+La flecha oblicua final es el representante del producto antes de aplicar $m$. La bilinealidad del smash permite pasar de representantes a un homomorfismo definido en el producto tensorial de grupos.
+
+\begin{ejer}\label{ejer:c25-anillo-graduado}
+Comprobar que este producto hace de $\pi_*(\mathcal R)$ un anillo graduado conmutativo con unidad.
+\end{ejer}
+\begin{sol}
+La bilinealidad da la distributividad y el grado del producto es la suma de los grados. Para tres representantes, los dos productos iterados difieren únicamente por los asociadores de los smash de sus dominios y por los mapas $m(m\wedge1)$ y $m(1\wedge m)\alpha$. La coherencia de las identificaciones de desplazamientos y la asociatividad de $m$ identifican esos recorridos; el producto es asociativo.
+
+La clase $[u]\in\pi_0(\mathcal R)$ es unidad: los dos productos con un representante $f$ se reducen a $f$ por los axiomas izquierdo y derecho de unidad, junto con la naturalidad de $\lambda$ y $\rho$.
+
+La simetría de $\sh^p\mathbb S\wedge\sh^q\mathbb S$, identificada con $\sh^{p+q}\mathbb S$, actúa por $(-1)^{pq}$. Esta es la regla de signos obtenida del intercambio de dos esferas de dimensión uno, de grado $-1$, extendida por la coherencia y la invertibilidad de la suspensión a todos los enteros $p,q$. Usando $mB=m$ y la naturalidad de $B$, obtenemos
+\[
+xy=(-1)^{pq}yx,
+\qquad x\in\pi_p(\mathcal R),\quad y\in\pi_q(\mathcal R).
+\]
+Así se cumple la conmutatividad graduada. La suma directa permite extender las operaciones a elementos con un número finito de componentes homogéneas.
+\end{sol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Comparación con los coeficientes de la cohomología}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P12--P14; 54:29--01:01:31.
+Sea $\widetilde h^{\,*}$ la teoría representada por $\mathcal R$, con el producto inducido por $m$. Aditivamente tenemos
+\[
+\pi_n(\mathcal R)\cong\widetilde h^{-n}(S^0)=h^{-n}(\mathrm{pt}).
+\]
+El producto de la derecha es el producto interno obtenido por la diagonal, tal como se demostró en el \myref{ejer:c24-cup}. Para representantes $f\colon\mathbb S\to\sh^{-p}\mathcal R$ y $g\colon\mathbb S\to\sh^{-q}\mathcal R$, el recorrido que lo define es
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\Sigma^\infty S^0\arrow[r,"\Sigma^\infty\Delta"]\arrow[dddrr,"f\smile g",description]&
+\Sigma^\infty(S^0\wedge S^0)\arrow[r,"\cong"]&\mathbb S\wedge\mathbb S\arrow[d,"f\wedge g"]\\
+&&\sh^{-p}\mathcal R\wedge\sh^{-q}\mathcal R\arrow[d,"\cong"]\\
+&&\sh^{-p-q}(\mathcal R\wedge\mathcal R)\arrow[d,"\sh^{-p-q}m"]\\
+&&\sh^{-p-q}\mathcal R.
+\end{tikzcd}
+\]
+La diagonal $S^0\to S^0\wedge S^0$ es el inverso de la identificación con la unidad. Por ello coincide con la identificación utilizada al definir el producto de homotopía.
+
+\begin{prop}\label{prop:c25-coeficientes-anillo}
+Las identificaciones anteriores dan un isomorfismo de anillos graduados
+\[
+\pi_*(\mathcal R)\cong\widetilde h^{\,-*}(S^0)\cong h^{-*}(\mathrm{pt}).
+\]
+\end{prop}
+\begin{proof}
+Ponemos $a=p+q$, $\delta=\Sigma^\infty\Delta$ y $\mathcal R^{\wedge2}=\mathcal R\wedge\mathcal R$. Los dos productos se comparan siguiendo todas las operaciones del diagrama:
+\[
+\begin{tikzcd}[column sep=1.7em,row sep=large,ampersand replacement=\&]
+{[\mathbb S,\sh^{-p}\mathcal R]_s}\otimes{[\mathbb S,\sh^{-q}\mathcal R]_s}
+ \arrow[r,"\cong"]\arrow[d,"\wedge"']\&
+{[\sh^p\mathbb S,\mathcal R]_s}\otimes{[\sh^q\mathbb S,\mathcal R]_s}\arrow[d,"\wedge"]\\
+{[\mathbb S\wedge\mathbb S,\sh^{-p}\mathcal R\wedge\sh^{-q}\mathcal R]_s}\arrow[d,"\cong"']\&
+{[\sh^p\mathbb S\wedge\sh^q\mathbb S,\mathcal R^{\wedge2}]_s}\arrow[d,"\cong"]\\
+{[\mathbb S\wedge\mathbb S,\sh^{-a}(\mathcal R^{\wedge2})]_s}
+ \arrow[r,"\cong"]\arrow[d,"\delta^*"']\&
+{[\sh^a(\mathbb S\wedge\mathbb S),\mathcal R^{\wedge2}]_s}\arrow[d,"(\sh^a\delta)^*"]\\
+{[\mathbb S,\sh^{-a}(\mathcal R^{\wedge2})]_s}
+ \arrow[r,"\cong"]\arrow[d,"(\sh^{-a}m)_*"']\&
+{[\sh^a\mathbb S,\mathcal R^{\wedge2}]_s}\arrow[d,"m_*"]\\
+{[\mathbb S,\sh^{-a}\mathcal R]_s}\arrow[r,"\cong"]\&{[\sh^a\mathbb S,\mathcal R]_s}.
+\end{tikzcd}
+\]
+El primer rectángulo compara conjuntamente los dos pasos verticales: no se necesita introducir una flecha horizontal entre las celdas de la segunda fila. La compatibilidad de desplazamientos y smash hace conmutar ese rectángulo. El siguiente cuadrado conmuta por la naturalidad respecto de $\delta$, y el último porque desplazar es un funtor y respeta la composición con $m$.
+
+Así, los recorridos completos definen el mismo producto bajo los isomorfismos de los extremos. La clase de unidad también coincide: en ambos casos es $[u]\in[\mathbb S,\mathcal R]_s$. Esto demuestra el isomorfismo multiplicativo, con la inversión de grados indicada.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La clase de Bott y los grados positivos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P14--P15; 01:01:35--01:08:35.
+Para $HR$, la construcción recupera $\pi_*(HR)\cong R$, concentrado en grado cero y con el producto original de $R$. Consideremos ahora la teoría K compleja.
+
+En la graduación módulo dos se utiliza
+\[
+K^0(S^2)\cong\mathbb Z[H]/(H-1)^2,
+\qquad K^1(S^2)=0,
+\]
+donde $H$ es la clase del fibrado lineal canónico sobre $S^2=\mathbb{CP}^1$. En particular,
+\[
+K^0(S^2)=\mathbb Z\cdot1\oplus\mathbb Z\cdot H,
+\qquad\widetilde K^0(S^2)=\mathbb Z\cdot(H-1).
+\]
+La aplicación de aumento toma el rango y envía tanto $1$ como $H$ a $1$. La clase reducida de Bott es $H-1$. Por suspensión determina
+\[
+\beta\in\widetilde K^{-2}(S^0)\cong\pi_2(KU).
+\]
+Usaremos también $\beta$ para su representante $H-1$ en $\widetilde K^0(S^2)$ cuando se indique el grupo. La descripción módulo dos no es la suma de todos los grupos $K^j$: estos últimos conservan por separado los grados que se repiten periódicamente.
+
+Para calcular $\beta^2$ comparamos los productos mediante
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\pi_2(KU)\otimes\pi_2(KU)\arrow[r]\arrow[d,"\cong"']&\pi_4(KU)\arrow[d,"\cong"]\\
+\widetilde K^{-2}(S^0)\otimes\widetilde K^{-2}(S^0)\arrow[r]\arrow[d,"\cong"']&
+\widetilde K^{-4}(S^0)\arrow[d,"\cong"]\\
+\widetilde K^0(S^2)\otimes\widetilde K^0(S^2)\arrow[r,"\times"]&\widetilde K^0(S^4)\\
+\widetilde K^0(S^2)\arrow[u,"\beta\otimes(-)"]\arrow[ur,"B_\beta","\simeq"']&
+\end{tikzcd}
+\]
+La periodicidad de Bott, en su forma multiplicativa, afirma que
+\[
+B_\beta\colon\widetilde K^0(X)\longrightarrow\widetilde K^0(S^2\wedge X),
+\qquad a\longmapsto\beta\times a,
+\]
+es un isomorfismo para los espacios considerados; aquí basta aplicarla a esferas. Este teorema se utiliza sin demostración en clase. Su forma precisa se demuestra en \cite[teorema~2.11]{hatcher2017vbkt} para espacios compactos Hausdorff.
+
+Como $\beta$ genera $\widetilde K^0(S^2)$, su imagen $\beta\times\beta$ genera $\widetilde K^0(S^4)$. Por el diagrama, $\beta^2$ genera $\pi_4(KU)$. Iterando la periodicidad se obtiene que $\beta^n$ genera $\pi_{2n}(KU)$ para $n\geq0$.
+
+Es esencial distinguir los productos: la relación $(H-1)^2=0$ es un producto interno en $K^0(S^2)$. El producto de los coeficientes se calcula aquí como producto externo hacia $S^2\wedge S^2=S^4$, donde $\beta\times\beta$ no es cero.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El inverso de Bott y el anillo de Laurent}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% P16; 01:08:35--01:11:28.
+Para los grados negativos empleamos el mismo argumento, ahora con
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\widetilde K^2(S^0)\otimes\widetilde K^{-2}(S^0)\arrow[r]\arrow[d,"\cong"']&
+\widetilde K^0(S^0)\arrow[d,"\cong"]\\
+\widetilde K^2(S^0)\otimes\widetilde K^0(S^2)\arrow[r,"\times"]&\widetilde K^2(S^2)\\
+\widetilde K^2(S^0)\arrow[u,"(-)\otimes\beta"]\arrow[ur,"B_\beta","\simeq"']&
+\end{tikzcd}
+\]
+La flecha oblicua es un isomorfismo por periodicidad. Elijamos un generador $\gamma$ de $\pi_{-2}(KU)$. Entonces $\gamma\beta$ genera $\pi_0(KU)=\mathbb Z\cdot1$, de modo que
+\[
+\gamma\beta=\pm1.
+\]
+Si es $-1$, reemplazamos $\gamma$ por $-\gamma$; obtenemos $\beta^{-1}\beta=1$. La conmutatividad graduada da también $\beta\beta^{-1}=1$, pues los dos grados son pares. Sus potencias generan los grupos $\pi_{-2n}(KU)$ para $n\geq0$.
+
+Así, cada grado par tiene el generador indicado y los impares son cero. No hay relaciones adicionales entre grados distintos, y concluimos como anillos graduados:
+\[
+\pi_*(KU)\cong\mathbb Z[\beta,\beta^{-1}],
+\qquad |\beta|=2.
+\]
+
+El siguiente problema es construir espectros que se comporten como módulos y disponer de un producto tensorial que utilice esa acción. El smash de los espectros subyacentes no incorpora por sí solo la relación de balanceo sobre el espectro anillo, del mismo modo que $M\otimes_{\mathbb Z}N$ no es, en general, $M\otimes_RN$. Esta necesidad motiva introducir un smash relativo y coherencias antes de pasar a la categoría homotópica.
+
+El teorema de imposibilidad de Lewis figuraba en el anuncio inicial de la clase, pero no se enunció ni demostró en su desarrollo. El cierre reserva para la clase siguiente la discusión de los módulos y del cambio de modelo de espectros.

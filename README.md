@@ -8,22 +8,22 @@ La versión compilada más reciente está disponible en [`build/main.pdf`](build
 
 ## Contenido y estado actual
 
-El documento reúne las **clases 1–24**. La última incorporada es la **clase 24, del 4 de noviembre de 2026**, y el PDF completo tiene **358 páginas**. La clase 24 ocupa las páginas 341–356 del visor, incluida su portadilla; la bibliografía se encuentra en las páginas 357–358.
+El documento reúne las **clases 1–25**. La última incorporada es la **clase 25, del 5 de noviembre de 2026**, y el PDF completo tiene **373 páginas**. La clase 25 ocupa las páginas 358–371 del visor, incluida su portadilla; la bibliografía se encuentra en las páginas 372–373.
 
-La [clase 24](Apuntes/C24.tex) desarrolla los siguientes temas:
+La [clase 25](Apuntes/C25.tex) desarrolla los siguientes temas:
 
-- Cubiertas conexas, torre de Whitehead y teoría K conectiva.
-- Espectros de cobordismo y teorías cromáticas, cuadrados de fractura, periodicidad y telescopios.
-- Productos externos, producto cup y sus compatibilidades cohomológicas.
-- Multiplicación del espectro representante, morfismos superfantasmas y objetos anillo en homotopía.
+- Espectros anillo en homotopía y un criterio de anulación de mapas fantasmas.
+- Construcción de la multiplicación de Eilenberg–MacLane por niveles y sus compatibilidades estructurales.
+- Unidad y axiomas multiplicativos de `HR`, mediante homología y detección de mapas en grado cero.
+- Anillos graduados de coeficientes, comparación con la cohomología y cálculo de los coeficientes de `KU` mediante la clase de Bott.
 
-Incluye los ejercicios 48–52 con sus soluciones. Las correcciones respecto a la exposición y los resultados utilizados sin demostración se identifican en el texto.
+Incluye los ejercicios 53–54 con sus soluciones. Las correcciones respecto a la exposición y los resultados utilizados sin demostración se identifican en el texto. El teorema de imposibilidad de Lewis se anunció al comienzo, pero su desarrollo quedó pospuesto.
 
 La clase 21 mantiene una versión elaborada únicamente a partir de las pizarras, pendiente de ampliación cuando se disponga de su transcripción. Las pizarras y transcripciones originales se conservan por separado del repositorio de apuntes; la transcripción de la clase 24 se fusionó a partir de tres partes, preservando los originales y documentando los empalmes y los tiempos estimados.
 
 ## Criterios editoriales
 
-La exposición utiliza redacción matemática directa y conserva la notación y la estrategia de los argumentos de clase. Se incluyen los diagramas de las pizarras, salvo los que solo representan evaluaciones, y se resuelven los ejercicios propuestos. Las correcciones, los complementos editoriales y las cuestiones abiertas se distinguen del contenido demostrado en clase.
+La exposición utiliza redacción matemática directa y conserva la notación y la estrategia de los argumentos de clase. Se incluyen los diagramas de las pizarras, reacomodándolos cuando es necesario para que encajen sin desbordarse; las flechas que solo representan evaluaciones pueden escribirse aparte. Se resuelven los ejercicios propuestos. Las correcciones, los complementos editoriales y las cuestiones abiertas se distinguen del contenido demostrado en clase.
 
 Cada introducción incorpora una orientación bibliográfica breve con localizadores comprobados en las fuentes consultadas. Se distingue entre referencias a enunciados, ejercicios y demostraciones disponibles.
 
