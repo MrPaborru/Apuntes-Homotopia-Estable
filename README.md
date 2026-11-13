@@ -8,22 +8,22 @@ La versión compilada más reciente está disponible en [`build/main.pdf`](build
 
 ## Contenido y estado actual
 
-El documento reúne las **clases 1–25**. La última incorporada es la **clase 25, del 5 de noviembre de 2026**, y el PDF completo tiene **373 páginas**. La clase 25 ocupa las páginas 358–371 del visor, incluida su portadilla; la bibliografía se encuentra en las páginas 372–373.
+El documento reúne las **clases 1–26**. La última incorporada es la **clase 26, del 11 de noviembre de 2026**, y el PDF completo tiene **388 páginas**. La clase 26 ocupa las páginas 372–386 del visor, incluida su portadilla. La bibliografía se encuentra en las páginas 387–388.
 
-La [clase 25](Apuntes/C25.tex) desarrolla los siguientes temas:
+La [clase 26](Apuntes/C26.tex) desarrolla estos temas.
 
-- Espectros anillo en homotopía y un criterio de anulación de mapas fantasmas.
-- Construcción de la multiplicación de Eilenberg–MacLane por niveles y sus compatibilidades estructurales.
-- Unidad y axiomas multiplicativos de `HR`, mediante homología y detección de mapas en grado cero.
-- Anillos graduados de coeficientes, comparación con la cohomología y cálculo de los coeficientes de `KU` mediante la clase de Bott.
+- Módulos de Eilenberg–MacLane y el problema de construir un producto smash relativo.
+- Teorema de imposibilidad de Lewis y la operación de Hopf que detecta la contradicción.
+- Categorías enriquecidas, diagramas basados y su identificación con los espectros secuenciales sobre la categoría esfera.
+- Espacios de morfismos del modelo simétrico y sus acciones de permutación.
 
-Incluye los ejercicios 53–54 con sus soluciones. Las correcciones respecto a la exposición y los resultados utilizados sin demostración se identifican en el texto. El teorema de imposibilidad de Lewis se anunció al comienzo, pero su desarrollo quedó pospuesto.
+Incluye los ejercicios 55–58 con sus soluciones. La composición de la categoría que indiza los espectros simétricos queda pendiente para la clase siguiente.
 
-La clase 21 mantiene una versión elaborada únicamente a partir de las pizarras, pendiente de ampliación cuando se disponga de su transcripción. Las pizarras y transcripciones originales se conservan por separado del repositorio de apuntes; la transcripción de la clase 24 se fusionó a partir de tres partes, preservando los originales y documentando los empalmes y los tiempos estimados.
+La clase 21 mantiene una versión elaborada únicamente a partir de las pizarras, pendiente de ampliación cuando se disponga de su transcripción. Las pizarras y transcripciones originales se conservan por separado del repositorio de apuntes. La transcripción de la clase 26 se fusionó a partir de tres tramos, con cortes en los minutos 30 y 60.
 
 ## Criterios editoriales
 
-La exposición utiliza redacción matemática directa y conserva la notación y la estrategia de los argumentos de clase. Se incluyen los diagramas de las pizarras, reacomodándolos cuando es necesario para que encajen sin desbordarse; las flechas que solo representan evaluaciones pueden escribirse aparte. Se resuelven los ejercicios propuestos. Las correcciones, los complementos editoriales y las cuestiones abiertas se distinguen del contenido demostrado en clase.
+La exposición utiliza redacción matemática directa y conserva la notación y la estrategia de los argumentos de clase. Cada diagrama de la pizarra se presenta completo en una figura, con la disposición ajustada cuando hace falta. Si el diagrama tiene varias regiones, se pueden numerar y justificar debajo. Las flechas que solo representan evaluaciones pueden escribirse aparte. Se resuelven los ejercicios propuestos. Las correcciones, los complementos editoriales y las cuestiones abiertas se distinguen del contenido demostrado en clase.
 
 Cada introducción incorpora una orientación bibliográfica breve con localizadores comprobados en las fuentes consultadas. Se distingue entre referencias a enunciados, ejercicios y demostraciones disponibles.
 

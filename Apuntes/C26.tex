@@ -1,0 +1,682 @@
+% Clase 26, 11/11/2026. Fuentes: Estable1111.pdf, P01--P22 y C26.txt fusionado.
+% Cortes de la grabación en 00:30:00 y 01:00:00. El TXT conserva el reloj de grabación.
+
+En la clase 25 construimos la multiplicación de $HR$ y calculamos anillos graduados de coeficientes. Extendemos primero la construcción de Eilenberg--MacLane a los módulos y examinamos la dificultad de formar un producto smash relativo a partir de clases de mapas.
+
+El teorema de Lewis precisa qué propiedades de una categoría de espectros son incompatibles. Después describimos los espectros secuenciales como diagramas enriquecidos sobre la categoría esfera. Una variante de sus espacios de morfismos servirá para definir los espectros simétricos.
+
+Para la obstrucción, véanse \cite[§§~1--2, teorema~1.1 y lema~2.4]{lewis1991} y la demostración del resultado sobre monoides topológicos en \cite[proposiciones~3.2 y~3.6]{may1972gils}. La construcción de los diagramas y del smash relativo se desarrolla en \cite[§§~1--2, ejemplos~4.1--4.4 y §~22, ecuación~(22.2)]{mandell_may_schwede_shipley2001}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Módulos y producto smash relativo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La acción sobre los coeficientes de Eilenberg--MacLane}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P01.
+Sea $R$ un anillo conmutativo con unidad y $M$ un $R$-módulo. La acción $R\otimes_{\mathbb Z}M\to M$ da el producto cruzado
+\[
+\widetilde H^m(X;R)\otimes_{\mathbb Z}\widetilde H^n(Y;M)
+\longrightarrow \widetilde H^{m+n}(X\wedge Y;M).
+\]
+Se usa la construcción del producto ordinario con la acción escalar en el paso de cambio de coeficientes. En particular, tomando $m,n\geq1$, la acción determina, mediante Künneth, Hurewicz y coeficientes universales, la clase de una aplicación
+\[
+K(R,m)\wedge K(M,n)\longrightarrow K(M,m+n).
+\]
+Las comparaciones naturales de la clase 25 se aplican con $M$ en el segundo factor y en el codominio. La clase de cada compuesto con las funciones estructurales corresponde a la misma acción escalar. Así se obtiene un morfismo $\mu_M\colon HR\wedge HM\to HM$ en $\Ho(\Sp^{\mathbb N})$. Los dos recorridos de la asociatividad inducen $(rs)x$ y $r(sx)$ en $\pi_0$. La unidad induce $x\mapsto1_Rx$. Estos cálculos detectan las igualdades requeridas, por el argumento del \myref{ejer:c25-deteccion-pi0}, aplicado ahora a mapas con codominio $HM$.
+
+Decimos que $HM$ es un $HR$-módulo en la categoría homotópica. Si $A$ y $B$ son dos módulos de este tipo, un morfismo de módulos es un mapa estable $f\colon A\to B$ para el cual conmuta
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+HR\wedge A\arrow[r,"1\wedge f"]\arrow[d,"\mu_A"']&
+HR\wedge B\arrow[d,"\mu_B"]\\
+A\arrow[r,"f"']&B.
+\end{tikzcd}
+\]
+Las acciones y la igualdad de los dos recorridos están dadas en $\Ho(\Sp^{\mathbb N})$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El coecualizador de las dos acciones}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P02--P03.
+Para módulos $M$ y $N$ sobre un anillo conmutativo $R$, el tensor sobre $R$ es el coecualizador
+\[
+\begin{tikzcd}[column sep=large]
+R\otimes_{\mathbb Z}M\otimes_{\mathbb Z}N
+\arrow[r,shift left=.55ex,"\mu_M\otimes1"]
+\arrow[r,shift right=.55ex,"(1\otimes\mu_N)(B\otimes1)"']&
+M\otimes_{\mathbb Z}N\arrow[r]&M\otimes_RN.
+\end{tikzcd}
+\]
+Las dos flechas envían $r\otimes x\otimes y$ a $rx\otimes y$ y a $x\otimes ry$, respectivamente. El cociente impone la relación de balanceo entre ambas acciones.
+
+Para un espectro anillo conmutativo $R$ y módulos $A,B$ sobre él, buscamos un objeto $A\wedge_R B$ mediante el mismo patrón
+\[
+\begin{tikzcd}[column sep=large]
+R\wedge A\wedge B
+\arrow[r,shift left=.55ex,"\mu_A\wedge1"]
+\arrow[r,shift right=.55ex,"(1\wedge\mu_B)(B_{R,A}\wedge1)"']&
+A\wedge B\arrow[r,dashed]&A\wedge_R B.
+\end{tikzcd}
+\]
+Se sobreentienden los asociadores. La simetría permite usar la acción izquierda de $A$ como acción derecha de $R$. La última flecha indica el cociente que queremos construir.
+
+La categoría homotópica estable carece, en general, de los límites y colímites ordinarios que requiere esta estrategia. Los límites y colímites homotópicos se construyen a partir de diagramas de espectros con mapas efectivos. Para obtener las propiedades de un producto relativo, también hacen falta las compatibilidades de las acciones. Un modelo de espectros con smash simétrico monoidal permite formularlas antes de localizar. Al localizar, buscamos una equivalencia con $\Ho(\Sp^{\mathbb N})$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{El teorema de imposibilidad de Lewis}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La estabilización de un espacio punteado}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P03--P04.
+Para un espacio punteado $X$, la construcción clásica de Lewis es
+\[
+QX=\varinjlim\nolimits_n\Omega^n\Sigma^n X
+\simeq_{\mathrm w}\operatorname*{hocolim}_n\Omega^n\Sigma^n X .
+\]
+La transición $t_n$ se obtiene tomando la adjunta $b_n$ de la identidad y aplicándole $\Omega^n$:
+\[
+\begin{tikzcd}[column sep={15mm,between origins},row sep={14.8mm,between origins},
+    cells={nodes={inner sep=2pt}}]
+|[anchor=east]| \Sigma^{n+1}X\arrow[rr,start anchor=east,end anchor=west,"\id"]
+& {}\arrow[d,mapsto,start anchor=center,end anchor=center,shorten <=2.5mm,shorten >=5mm,
+    "\text{adjunción}"]
+& |[anchor=west]| \Sigma^{n+1}X\\
+|[anchor=east]| \Sigma^nX\arrow[rr,start anchor=east,end anchor=west,"b_n"]
+& {}\arrow[d,mapsto,start anchor=center,end anchor=center,shorten <=2.5mm,shorten >=5mm,"\Omega^n"]
+& |[anchor=west]| \Omega\Sigma^{n+1}X\\
+|[anchor=east]| \Omega^n\Sigma^n X\arrow[rr,start anchor=east,end anchor=west,"t_n"]
+& {}
+& |[anchor=west]| \Omega^{n+1}\Sigma^{n+1}X
+\end{tikzcd}
+\]
+La etapa de índice cero da la aplicación natural $\iota_X\colon X\to QX$. En el modelo secuencial de la clase 10, el espacio de nivel cero de $R\Sigma^\infty X$ es el telescopio de esas transiciones. La comparación del telescopio con el colímite ordinario da el mismo tipo débil para el sistema clásico. En particular, para $S^0$ las etapas son espacios de lazos de esferas y sus inclusiones son cerradas. Los grupos de homotopía se calculan por el mismo colímite en ambos modelos. La identificación con el nivel cero de un reemplazo se entiende hasta equivalencia débil.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Los axiomas y la coherencia monoidal}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P04--P05.
+\begin{samepage}
+\begin{teo}[Lewis]\label{teo:c26-lewis}
+Ninguna categoría $\Sp$ satisface a la vez los axiomas \textup{(A0)--(A5)}.
+\begin{enumerate}[label=\textup{(A\arabic*)},start=0,leftmargin=3.2em]
+\item Existen los funtores
+\[
+\Sigma^\infty\colon\Topstar\to\Sp,\qquad
+\Omega^\infty\colon\Sp\to\Topstar,\qquad
+\wedge\colon\Sp\times\Sp\to\Sp.
+\]
+\item El producto $\wedge$ dota a $\Sp$ de una estructura simétrica monoidal.
+\item El funtor $\Sigma^\infty$ es adjunto izquierdo de $\Omega^\infty$.
+\item La unidad monoidal de $\Sp$ es $\Sigma^\infty S^0$.
+\item El funtor $\Omega^\infty$ es simétrico monoidal laxo con valores en $(\Topstar,\wedge,S^0)$. Sus mapas de estructura son la transformación natural
+\[
+\phi_{D,E}\colon \Omega^\infty D\wedge\Omega^\infty E
+\longrightarrow \Omega^\infty(D\wedge E)
+\]
+y $\eta_{S^0}\colon S^0\to\Omega^\infty\Sigma^\infty S^0$, dada por la unidad $\eta$ de la adjunción.
+\item Hay una equivalencia débil natural $\theta_X\colon \Omega^\infty\Sigma^\infty X\to QX$ que hace conmutar
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X\arrow[r,"\eta_X"]\arrow[dr,"\iota_X"']&
+\Omega^\infty\Sigma^\infty X\arrow[d,"\theta_X"]\\
+&QX .
+\end{tikzcd}
+\]
+\end{enumerate}
+\end{teo}
+\end{samepage}
+
+\begin{nota}
+El artículo de Lewis se publicó en 1991. La pizarra lo fecha en 1990, año de su revisión. En el enunciado de clase, la corrección oral de (A4) sustituyó $\Sigma^\infty$ por $\Omega^\infty$. La formulación comonoidal laxa para $\Sigma^\infty$ es equivalente por adjunción, según \cite[§~2, lema~2.2]{lewis1991}.
+\end{nota}
+
+El cuadrado de la unidad izquierda expresa la compatibilidad de $\phi$ con $\eta_{S^0}$
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\Omega^\infty\Sigma^\infty S^0\wedge\Omega^\infty E
+\arrow[r,"\phi_{\Sigma^\infty S^0,E}"]&
+\Omega^\infty(\Sigma^\infty S^0\wedge E)\arrow[d,"\Omega^\infty(\lambda_E)"]\\
+S^0\wedge\Omega^\infty E\arrow[u,"\eta_{S^0}\wedge1"]
+\arrow[r,"\lambda_{\Omega^\infty E}"']&\Omega^\infty E .
+\end{tikzcd}
+\]
+El axioma de la unidad derecha se expresa con $\rho$ y con $1\wedge\eta_{S^0}$.
+
+\begin{ejer}\label{ejer:c26-coherencia-a4}
+Escribir las condiciones de (A4) correspondientes a la simetría y a la asociatividad.
+\end{ejer}
+\begin{sol}
+La simetría exige que conmute el cuadrado
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\Omega^\infty D\wedge \Omega^\infty E\arrow[r,"\phi_{D,E}"]\arrow[d,"B_{\Omega^\infty D,\Omega^\infty E}"']&
+\Omega^\infty(D\wedge E)\arrow[d,"\Omega^\infty(B_{D,E})"]\\
+\Omega^\infty E\wedge \Omega^\infty D\arrow[r,"\phi_{E,D}"']&\Omega^\infty(E\wedge D).
+\end{tikzcd}
+\]
+Para la asociatividad se comparan las dos maneras de aplicar $\phi$ dos veces.
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+(\Omega^\infty D\wedge \Omega^\infty E)\wedge \Omega^\infty F
+\arrow[d,"\phi_{D,E}\wedge1"']
+\arrow[r,"\alpha"]&
+\Omega^\infty D\wedge(\Omega^\infty E\wedge \Omega^\infty F)\arrow[d,"1\wedge\phi_{E,F}"]\\
+\Omega^\infty(D\wedge E)\wedge \Omega^\infty F\arrow[d,"\phi_{D\wedge E,F}"']&
+\Omega^\infty D\wedge \Omega^\infty(E\wedge F)\arrow[d,"\phi_{D,E\wedge F}"]\\
+\Omega^\infty((D\wedge E)\wedge F)\arrow[r,"\Omega^\infty(\alpha_{D,E,F})"']&
+\Omega^\infty(D\wedge(E\wedge F)).
+\end{tikzcd}
+\]
+La condición es la igualdad de los recorridos del contorno. Los asociadores cambian la parentización antes o después de las dos aplicaciones de $\phi$.
+\end{sol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El monoide topológico de un anillo estricto}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P06--P09. Aquí empieza la demostración del teorema de Lewis.
+Supongamos que existe una categoría con esos axiomas. Un \emph{espectro anillo estricto}, en la terminología de Lewis, es un monoide conmutativo en $\Sp$. Tiene mapas $m\colon E\wedge E\to E$ y $u\colon\Sigma^\infty S^0\to E$ que satisfacen los diagramas de anillo como igualdades de morfismos en $\Sp$.
+
+Sea $u^\perp\colon S^0\to\Omega^\infty E$ la adjunta de $u$. Si $S^0=\{1,-1\}$ con punto base $1$, la unidad del monoide topológico será $e=u^\perp(-1)$. Su multiplicación se define por
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\Omega^\infty E\times\Omega^\infty E\arrow[rr,"\widetilde m"]
+\arrow[d,"q"']&&\Omega^\infty E\\
+\Omega^\infty E\wedge\Omega^\infty E\arrow[r,"\phi_{E,E}"']&
+\Omega^\infty(E\wedge E)\arrow[ur,"\Omega^\infty m"']& {}
+\end{tikzcd}
+\]
+Aquí $q$ es el cociente del producto cartesiano al smash. Verificamos que $\widetilde m$ y $e$ hacen de $\Omega^\infty E$ un monoide conmutativo en $(\Top,\times,*)$.
+
+\begin{samepage}
+La conmutatividad se obtiene del diagrama
+\[
+\begin{tikzcd}[column sep={40mm,between origins},row sep={20mm,between origins}]
+\Omega^\infty E\times\Omega^\infty E
+  \arrow[r,"q"]\arrow[d,"B^\times"']
+  \arrow[rrr,rojoCIMATdiagramas,start anchor=north,end anchor=north,
+    out=31,in=149,looseness=.6,"\widetilde m"]
+& \Omega^\infty E\wedge\Omega^\infty E
+  \arrow[r,"\phi_{E,E}"]\arrow[d,"B"]
+& \Omega^\infty(E\wedge E)
+  \arrow[r,"\Omega^\infty m"]\arrow[d,"\Omega^\infty(B_{E,E})"]
+& \Omega^\infty E\\
+\Omega^\infty E\times\Omega^\infty E
+  \arrow[r,"q"']
+  \arrow[urrr,rojoCIMATdiagramas,start anchor=south,end anchor=south,
+    out=-22,in=-87,looseness=.88,"\widetilde m"'{pos=.45}]
+& \Omega^\infty E\wedge\Omega^\infty E\arrow[r,"\phi_{E,E}"']
+& \Omega^\infty(E\wedge E)
+  \arrow[ur,"\Omega^\infty m"'{pos=.55}]
+&
+\arrow[phantom,from=1-1,to=2-2,"\color{grisCIMAT}\mathrm{(i)}"{description,fill=none}]
+\arrow[phantom,from=1-2,to=2-3,"\color{grisCIMAT}\mathrm{(ii)}"{description,fill=none}]
+\arrow[phantom,from=1-3,to=1-4,"\color{grisCIMAT}\mathrm{(iii)}"{description,fill=none,xshift=-5mm,yshift=-6mm}]
+\end{tikzcd}
+\]
+\begin{enumerate}[label=\textup{(\roman*)},font=\color{grisCIMAT},leftmargin=2.6em,itemsep=0pt]
+\item La simetría cartesiana preserva el subespacio que $q$ colapsa e induce la simetría del smash.
+\item El cuadrado central expresa la compatibilidad de $\phi$ con la simetría en (A4).
+\item El triángulo se obtiene al aplicar $\Omega^\infty$ al axioma de conmutatividad de $E$.
+\end{enumerate}
+Las dos flechas exteriores son la multiplicación $\widetilde m$. Se sigue que $\widetilde m B^\times=\widetilde m$.
+
+\end{samepage}
+
+\begin{samepage}
+Para la unidad izquierda, sea $j\colon *\to S^0$ la inclusión del punto $-1$, de modo que $e=u^\perp j$. El diagrama compara $\widetilde m(e\times1)$ con la proyección canónica.
+\[
+\begin{tikzcd}[column sep={37mm,between origins},row sep={18mm,between origins}]
+& *\times\Omega^\infty E
+  \arrow[dl,"j\times1"']\arrow[dr,"e\times1"]
+&\\
+S^0\times\Omega^\infty E\arrow[d,"q"']
+&& \Omega^\infty E\times\Omega^\infty E\arrow[dd,"q"]\\
+S^0\wedge\Omega^\infty E
+  \arrow[d,"\eta_{S^0}\wedge1"']
+  \arrow[drr,"u^\perp\wedge1"]
+  \arrow[ddd,rojoCIMATdiagramas,start anchor=west,end anchor=west,
+    to path={(\tikztostart) .. controls +(-39mm,-6mm) and +(-44mm,8mm)
+      .. (\tikztotarget) \tikztonodes},"\lambda_{\Omega^\infty E}"']
+&&\\
+\Omega^\infty\Sigma^\infty S^0\wedge\Omega^\infty E
+  \arrow[rr,"\Omega^\infty u\wedge1"']
+  \arrow[d,"\phi_{\Sigma^\infty S^0,E}"]
+&& \Omega^\infty E\wedge\Omega^\infty E\arrow[d,"\phi_{E,E}"]\\
+\Omega^\infty(\Sigma^\infty S^0\wedge E)
+  \arrow[rr,"\Omega^\infty(u\wedge1)"]
+  \arrow[d,"\Omega^\infty(\lambda_E)"]
+&& \Omega^\infty(E\wedge E)\arrow[d,"\Omega^\infty m"]\\
+\Omega^\infty E\arrow[rr,equal]
+&& \Omega^\infty E
+\arrow[phantom,from=2-1,to=2-3,"\color{grisCIMAT}\mathrm{(i)}"{description,fill=none,yshift=-9mm}]
+\arrow[phantom,from=3-1,to=4-3,"\color{grisCIMAT}\mathrm{(ii)}"{description,fill=none,xshift=-10mm,yshift=-4mm}]
+\arrow[phantom,from=4-1,to=5-3,"\color{grisCIMAT}\mathrm{(iii)}"{description,fill=none}]
+\arrow[phantom,from=3-1,to=6-1,"\color{grisCIMAT}\mathrm{(iv)}"{description,fill=none,xshift=-21mm}]
+\arrow[phantom,from=5-1,to=6-3,"\color{grisCIMAT}\mathrm{(v)}"{description,fill=none}]
+\end{tikzcd}
+\]
+\end{samepage}
+\begin{enumerate}[label=\textup{(\roman*)},font=\color{grisCIMAT},leftmargin=2.6em,itemsep=0pt]
+\item Se usa $e=u^\perp j$ y la naturalidad del cociente $q$ respecto de $u^\perp$.
+\item La adjunta de $u$ es $u^\perp=\Omega^\infty u\circ\eta_{S^0}$.
+\item El cuadrado es la naturalidad de $\phi$ respecto de $u$ en el primer factor.
+\item El contorno izquierdo es la compatibilidad de (A4) con la unidad izquierda.
+\item El cuadrado inferior es la imagen bajo $\Omega^\infty$ del axioma de unidad izquierda de $E$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\Sigma^\infty S^0\wedge E\arrow[d,"u\wedge1"']\arrow[dr,"\lambda_E"]&\\
+E\wedge E\arrow[r,"m"']&E .
+\end{tikzcd}
+\]
+\end{enumerate}
+\begin{nota}
+En el diagrama de clase se usa $S^0\times\Omega^\infty E$ también en el lugar del smash. El cociente $q$ distingue los dos dominios.
+\end{nota}
+El recorrido izquierdo del contorno es la proyección $\lambda^\times_{\Omega^\infty E}$, pues envía $(*,z)$ a $[-1,z]$ y luego a $z$. El recorrido derecho es $\widetilde m(e\times1)$. Así se obtiene el triángulo de unidad
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+*\times\Omega^\infty E\arrow[d,"e\times1"']\arrow[dr,"\lambda^\times_{\Omega^\infty E}"]&\\
+\Omega^\infty E\times\Omega^\infty E\arrow[r,"\widetilde m"']&\Omega^\infty E .
+\end{tikzcd}
+\]
+La simetría y la conmutatividad implican la unidad derecha. Para la asociatividad, ambos recorridos desde $(\Omega^\infty E)^3$ pasan por el cociente al smash triple. La naturalidad de $\phi$ permite aplicar $\Omega^\infty$ a las multiplicaciones interiores después de las dos comparaciones de (A4). El diagrama de asociatividad del \myref{ejer:c26-coherencia-a4} identifica estas comparaciones tras el asociador. La asociatividad de $m$ identifica las aplicaciones finales.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La componente de la unidad y la contradicción}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P09--P10. El primer empalme cae en el enunciado del resultado de May.
+Denotemos por $\Omega^\infty_1 E$ la componente por caminos de $e$ en $\Omega^\infty E$. Como $\widetilde m(e,z)=z$, la multiplicación lleva $\{e\}\times\Omega^\infty_1 E$ a $\Omega^\infty_1 E$. El producto $\Omega^\infty_1 E\times\Omega^\infty_1 E$ es conexo por caminos y contiene $(e,e)$. Su imagen por $\widetilde m$ queda, por tanto, en la misma componente. La restricción es un monoide topológico conmutativo y conexo por caminos.
+
+\begin{teo}[Moore--May]\label{teo:c26-monoide-may}
+Un monoide topológico conmutativo y conexo por caminos tiene el tipo de homotopía débil de un producto de espacios de Eilenberg--MacLane. En particular,
+\[
+\Omega^\infty_1 E\simeq_{\mathrm w}
+\prod_{n\geq1} K\bigl(\pi_n(\Omega^\infty_1 E,e),n\bigr).
+\]
+\end{teo}
+
+\begin{nota}
+En clase se enunció este resultado bajo el nombre de May y se indicó la idea de pasar a grupos abelianos simpliciales y a complejos de cadenas. Se utilizó sin demostración. Lewis lo invoca en el lema~2.4 y remite tanto a Moore como a la proposición~3.6 de \cite{may1972gils}.
+\end{nota}
+
+Por (A3), $\Sigma^\infty S^0$ es un espectro anillo estricto. Su multiplicación es el isomorfismo de unidad izquierda y su unidad es la identidad de $\Sigma^\infty S^0$, cuya adjunta es $\eta_{S^0}$.
+
+Por (A5), $\theta_{S^0}$ lleva la unidad al punto $\iota_{S^0}(-1)$ de $QS^0$, que representa la identidad estable. La restricción de $\theta_{S^0}$ induce la equivalencia débil entre las componentes
+\[
+\Omega^\infty_1\Sigma^\infty S^0\xrightarrow{\ \theta_{S^0}\ }\,(QS^0)_1.
+\]
+Para $n\geq1$, los grupos $\pi_n((QS^0)_1)$ se identifican con $\pi_n(\mathbb S)$. Se pasa a la componente de grado cero por traslación en el espacio de lazos infinitos $QS^0$, con el cambio de punto base correspondiente. Esta equivalencia respeta la precomposición por aplicaciones de esferas. En la componente de grado cero, la adjunción derivada de la clase 10 convierte la precomposición por una aplicación de esferas en la precomposición por su suspensión infinita.
+
+Sea $\eta_{\mathrm H}\colon S^3\to S^2$ la aplicación de Hopf y escribamos también $\eta_{\mathrm H}$ para su clase estable. Para un producto $P=\prod_{n\geq1}K(A_n,n)$, es nula la operación
+\[
+\eta_{\mathrm H}^*\colon \pi_2(P)\longrightarrow\pi_3(P).
+\]
+Toda clase de $\pi_2(P)$ se concentra en el factor $K(A_2,2)$ y este factor tiene $\pi_3=0$. En $(QS^0)_1$, la precomposición corresponde al producto estable con $\eta_{\mathrm H}$. Envía $\eta_{\mathrm H}^2$ a $\eta_{\mathrm H}^3$, el elemento de orden dos de $\pi_3(\mathbb S)\cong\mathbb Z/24$ \cite[§~4.2, p.~385]{hatcher2002}. Esta operación es natural bajo equivalencias débiles. Por tanto, $(QS^0)_1$ no puede tener el tipo débil que impone el \myref{teo:c26-monoide-may}. La contradicción demuestra el \myref{teo:c26-lewis}.
+
+\begin{nota}
+En clase se indicó la contradicción en grados $2$ y $3$ en términos de la estructura de anillo. La operación $\eta_{\mathrm H}^*$ desarrolla ese paso y se detecta en el espacio. Los grupos abstractos sí podrían coincidir con los de un producto de Eilenberg--MacLane. La prueba obtiene la contradicción a partir de (A0)--(A5), antes de pedir una equivalencia entre categorías homotópicas de espectros.
+\end{nota}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Categorías enriquecidas y diagramas basados}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Composición e identidades enriquecidas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P11--P14.
+En una categoría enriquecida sobre $(\Top,\times,*)$, los morfismos entre dos objetos forman un espacio y la composición es continua. El producto cartesiano que aparece en el dominio de la composición es el producto monoidal de $\Top$. Podemos reemplazarlo por el producto de otra categoría monoidal.
+
+\begin{defi}\label{defi:c26-enriquecida}
+Sea $(\mathcal V,\otimes,\mathbf1)$ una categoría monoidal. Una categoría $\mathcal C$ enriquecida sobre $\mathcal V$ tiene objetos $a,b,\ldots$ y, para cada par, un objeto $\hom_{\mathcal C}(a,b)$ de $\mathcal V$. Sus composiciones $c$ y unidades $i_a$ son morfismos de $\mathcal V$:
+\[
+c\colon \hom_{\mathcal C}(a,b)\otimes\hom_{\mathcal C}(b,d)
+\longrightarrow \hom_{\mathcal C}(a,d),
+\qquad
+i_a\colon\mathbf1\longrightarrow\hom_{\mathcal C}(a,a).
+\]
+La composición es asociativa tras identificar las parentizaciones por el asociador. Las unidades son neutras por ambos lados con respecto a los isomorfismos de unidad de $\mathcal V$.
+\end{defi}
+
+La neutralidad de la identidad como primer factor se expresa por
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\mathbf1\otimes \hom_{\mathcal C}(a,b)
+\arrow[d,"i_a\otimes1"']&
+\hom_{\mathcal C}(a,b)\arrow[l,"\lambda_{\hom_{\mathcal C}(a,b)}^{-1}"']\arrow[d,equal]\\
+\hom_{\mathcal C}(a,a)\otimes \hom_{\mathcal C}(a,b)\arrow[r,"c"']&\hom_{\mathcal C}(a,b).
+\end{tikzcd}
+\]
+Para la identidad como segundo factor se usan $i_b$ y la unidad derecha. Si $\mathcal V$ es localmente pequeña, la categoría ordinaria subyacente tiene los mismos objetos y conjuntos de morfismos $\hom_{\mathcal V}(\mathbf1,\hom_{\mathcal C}(a,b))$. Su composición se obtiene por $\lambda_{\mathbf1}^{-1}\colon\mathbf1\to\mathbf1\otimes\mathbf1$, el tensor de los dos mapas y $c$. Los axiomas de $\mathcal C$ dan la asociatividad y las identidades de esta categoría.
+
+\begin{defi}
+Una \emph{categoría basada} es una categoría enriquecida sobre $(\Topstar,\wedge,S^0)$.
+\end{defi}
+Cada $\hom_{\mathcal C}(a,b)$ es un espacio punteado. La unidad $i_a\colon S^0\to \hom_{\mathcal C}(a,a)$ selecciona la identidad como imagen del punto no base. El punto base de cada espacio de morfismos se compone en cualquier posición como un morfismo cero, pues la composición pasa por el smash. El cuadrado de unidad para este enriquecimiento se escribe
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+S^0\wedge \hom_{\mathcal C}(a,b)\arrow[r,"\lambda_{\hom_{\mathcal C}(a,b)}"]\arrow[d,"i_a\wedge1"']&
+\hom_{\mathcal C}(a,b)\arrow[d,equal]\\
+\hom_{\mathcal C}(a,a)\wedge \hom_{\mathcal C}(a,b)\arrow[r,"c"']&\hom_{\mathcal C}(a,b).
+\end{tikzcd}
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La categoría esfera}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P14--P15.
+\begin{ejem}\label{ejem:c26-categoria-esfera}
+La categoría esfera $\mathcal S$ tiene por objetos los números naturales, incluido el cero, y
+\[
+\hom_{\mathcal S}(m,n)=
+\begin{cases}
+S^{n-m},&m\leq n,\\
+*,&m>n.
+\end{cases}
+\]
+Tomamos $S^d=(S^1)^{\wedge d}$ con $S^0$ como potencia cero. Para $m\leq n\leq k$, la composición es la concatenación de las coordenadas en los dos bloques:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+S^{n-m}\wedge S^{k-n}\arrow[r,"c"]\arrow[d,equal]&S^{k-m}\arrow[d,equal]\\
+(S^1)^{\wedge(n-m)}\wedge(S^1)^{\wedge(k-n)}
+\arrow[r,"\simeq"]&(S^1)^{\wedge(k-m)} .
+\end{tikzcd}
+\]
+El mismo mapa puede describirse con las compactificaciones por un punto de los espacios euclidianos. Allí se concatenan las coordenadas de $\mathbb R^{n-m}$ y $\mathbb R^{k-n}$.
+
+Si $m\leq n$ y $n>k$, el dominio de la composición es $S^{n-m}\wedge *\cong *$. Hay dos codominios posibles:
+\[
+\begin{tikzcd}[column sep={49mm,between origins},row sep={12mm,between origins},
+    labels={sloped,inner sep=2pt}]
+S^{n-m}\wedge *
+\arrow[r,"\text{constante si }m>k"]
+\arrow[dr,"\text{punto base si }m\leq k"']&*\\
+&S^{k-m}.
+\end{tikzcd}
+\]
+El caso $m>n$ se trata por la misma regla, pues el primer factor del smash es un punto. En el segundo caso del diagrama, la esfera tiene exponente $k-m$, dado por los objetos inicial y final.
+
+La unidad $i_m\colon S^0\to\hom_{\mathcal S}(m,m)$ es la identidad de $S^0$. Su compatibilidad con la composición queda expresada por
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+S^0\wedge\hom_{\mathcal S}(m,n)
+\arrow[d,"i_m\wedge1"']&
+\hom_{\mathcal S}(m,n)\arrow[l,"\lambda^{-1}"']\arrow[d,equal]\\
+\hom_{\mathcal S}(m,m)\wedge\hom_{\mathcal S}(m,n)
+\arrow[r,"c"']&\hom_{\mathcal S}(m,n).
+\end{tikzcd}
+\]
+Para $m\leq n$, el recorrido envía $z$ primero a $[-1,z]$ y después a $z$, porque el primer bloque tiene longitud cero. La unidad del otro lado añade un bloque vacío al final. La asociatividad resulta de que concatenar tres bloques en cualquiera de las dos parentizaciones conserva su orden. Si un factor es el punto base, ambos recorridos dan el punto base.
+\end{ejem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Funtores enriquecidos y sus adjuntas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P15--P17.
+\begin{defi}\label{defi:c26-diagrama-basado}
+Sea $J$ una categoría basada. Un \emph{diagrama basado con forma $J$} es un funtor enriquecido $X\colon J\to\Topstar$. Asigna un espacio punteado $X(j)$ a cada objeto y, a cada par de objetos, una aplicación punteada
+\[
+X_{j,k}\colon\hom_J(j,k)\longrightarrow\Map_*(X(j),X(k)).
+\]
+Estas aplicaciones preservan la composición y la unidad.
+\end{defi}
+
+La categoría $\Topstar$ se enriquece sobre sí misma mediante el espacio de aplicaciones punteadas, con la topología compactamente generada. Su punto base es la aplicación constante. La composición con una aplicación constante punteada sigue siendo constante, de modo que la composición continua pasa por el smash de los espacios de aplicaciones.
+
+La compatibilidad con la composición se expresa por el cuadrado
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\hom_J(j,k)\wedge\hom_J(k,\ell)
+\arrow[r,"X_{j,k}\wedge X_{k,\ell}"]\arrow[d,"c"']&
+\Map_*(X(j),X(k))\wedge\Map_*(X(k),X(\ell))
+\arrow[d,"c"]\\
+\hom_J(j,\ell)\arrow[r,"X_{j,\ell}"']&\Map_*(X(j),X(\ell)).
+\end{tikzcd}
+\]
+
+\begin{ejer}\label{ejer:c26-unidad-diagrama}
+Expresar la preservación de la unidad de $J$ por un diagrama basado $X$.
+\end{ejer}
+\begin{sol}
+Si $i_j\colon S^0\to \hom_J(j,j)$ es la unidad, el compuesto con $X_{j,j}$ debe seleccionar la identidad de $X(j)$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+S^0\arrow[r,"i_j"]\arrow[dr,"i_{X(j)}"']&
+\hom_J(j,j)\arrow[d,"X_{j,j}"]\\
+&\Map_*(X(j),X(j)).
+\end{tikzcd}
+\]
+En efecto, ambos mapas del triángulo que parten de $S^0$ deben enviar el punto no base a $\id_{X(j)}$. El punto base se envía a la aplicación constante por ser mapas punteados.
+\end{sol}
+
+La adjunción del smash con el espacio de aplicaciones da los mapas $X_{j,k}^\perp$:
+\[
+\begin{tikzcd}[column sep={13.5mm,between origins},row sep={15mm,between origins},
+    cells={nodes={inner sep=2pt}}]
+|[anchor=east]| \hom_J(j,k)\arrow[rr,start anchor=east,end anchor=west,"X_{j,k}"]
+& {}\arrow[d,mapsto,start anchor=center,end anchor=center,shorten <=3.15mm,shorten >=1.1mm,
+    "\text{adjunción}"]
+& |[anchor=west]| \Map_*(X(j),X(k))\\
+|[anchor=east]| X(j)\wedge\hom_J(j,k)
+    \arrow[rr,start anchor=east,end anchor=west,"X_{j,k}^\perp"']
+& {}
+& |[anchor=west]| X(k)
+\end{tikzcd}
+\]
+El mapa adjunto se obtiene aplicando la evaluación después de $1\wedge X_{j,k}$.
+
+La unidad exige que conmute el diagrama
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X(j)\arrow[r,"1"]\arrow[d,"\rho_{X(j)}^{-1}"']&X(j)\\
+X(j)\wedge S^0\arrow[d,"1\wedge i_j"']&\\
+X(j)\wedge\hom_J(j,j)\arrow[uur,"X_{j,j}^{\perp}"']& {}
+\end{tikzcd}
+\]
+El axioma de composición se expresa por el siguiente cuadrado, con el asociador implícito.
+\[
+\begin{tikzcd}[column sep={35mm,between origins},row sep={16mm,between origins}]
+& X(j)\wedge\hom_J(j,k)\wedge\hom_J(k,\ell)
+    \arrow[dl,"X_{j,k}^\perp\wedge1"'{pos=.57}]
+    \arrow[dr,"1\wedge c"{pos=.57}]
+&\\[8mm]
+X(k)\wedge\hom_J(k,\ell)\arrow[dr,"X_{k,\ell}^\perp"']
+&& X(j)\wedge\hom_J(j,\ell)\arrow[dl,"X_{j,\ell}^\perp"]\\
+& X(\ell) &
+\end{tikzcd}
+\]
+
+\begin{ejer}\label{ejer:c26-adjuntas-diagrama}
+Probar que los dos diagramas de evaluación equivalen a los axiomas de un diagrama basado.
+\end{ejer}
+\begin{sol}
+La adjunta de $X_{j,j}i_j$ es $X_{j,j}^{\perp}(1\wedge i_j)$, por naturalidad en el dominio de $X_{j,j}$. La adjunta de $i_{X(j)}$ es $\rho_{X(j)}$, de modo que su igualdad es precisamente la primera condición.
+
+Para la composición, tomamos adjuntas de los dos recorridos del cuadrado. La adjunta de $X_{j,\ell}c$ es $X_{j,\ell}^{\perp}(1\wedge c)$.
+
+Por la definición de la composición en el espacio de aplicaciones, su evaluación se factoriza evaluando primero en $X(k)$ y después en $X(\ell)$. Por ello la adjunta del otro recorrido es $X_{k,\ell}^{\perp}(X_{j,k}^{\perp}\wedge1)$, con el asociador correspondiente. Como la adjunción es una biyección de conjuntos de mapas, la igualdad de estas adjuntas equivale a la igualdad original.
+\end{sol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Transformaciones naturales enriquecidas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P18--P20. El segundo empalme precede la construcción del espectro.
+Denotamos por $\Topstar^J$ la categoría de diagramas basados con forma $J$. Un morfismo $\eta\colon X\to Y$ tiene componentes punteadas $\eta_j\colon X(j)\to Y(j)$. La naturalidad exige que conmute el cuadrado de espacios de morfismos.
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\hom_J(j,k)\arrow[r,"X_{j,k}"]\arrow[d,"Y_{j,k}"']&
+\Map_*(X(j),X(k))\arrow[d,"(\eta_k)_*"]\\
+\Map_*(Y(j),Y(k))\arrow[r,"\eta_j^*"']&\Map_*(X(j),Y(k)).
+\end{tikzcd}
+\]
+Aquí $(\eta_k)_*$ es postcomposición y $\eta_j^*$ es precomposición. La composición y las identidades de transformaciones se calculan componente a componente. En $\Topstar^J$ se requiere que la acción de $J$ sea continua en las variables de morfismos y preserve sus puntos base. Al pasar a la categoría subyacente de $J$, un funtor ordinario puede perder ambas condiciones.
+
+Por naturalidad de la adjunción, la condición equivale a la igualdad de los mapas
+\[
+\begin{tikzcd}[column sep=large]
+X(j)\wedge\hom_J(j,k)
+\arrow[r,shift left=.65ex,"\eta_k\circ X_{j,k}^{\perp}"]
+\arrow[r,shift right=.65ex,"Y_{j,k}^{\perp}\circ(\eta_j\wedge1)"']&Y(k).
+\end{tikzcd}
+\]
+En particular, para $J=\mathcal S$, $j=m$ y $k=m+1$, la condición se convierte en
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X(m)\wedge\hom_{\mathcal S}(m,m+1)
+\arrow[r,"X_{m,m+1}^{\perp}"]\arrow[d,"\eta_m\wedge1"']&
+X(m+1)\arrow[d,"\eta_{m+1}"]\\
+Y(m)\wedge\hom_{\mathcal S}(m,m+1)
+\arrow[r,"Y_{m,m+1}^{\perp}"']&Y(m+1).
+\end{tikzcd}
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{De los espectros secuenciales a los simétricos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El isomorfismo con los diagramas sobre la categoría esfera}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P18--P20.
+\begin{prop}\label{prop:c26-espectros-diagrama}
+Hay un isomorfismo de categorías $\Topstar^{\mathcal S}\cong\Sp^{\mathbb N}$.
+\end{prop}
+\begin{proof}
+A un diagrama $X$ le asignamos el espectro de niveles $X_n=X(n)$ y funciones estructurales $\xi_n=X_{n,n+1}^{\perp}$. Los dominios coinciden porque $\hom_{\mathcal S}(n,n+1)=S^1$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X_n\wedge S^1\arrow[r,"\xi_n"]\arrow[d,equal]&X_{n+1}\arrow[d,equal]\\
+X(n)\wedge\hom_{\mathcal S}(n,n+1)
+\arrow[r,"X_{n,n+1}^{\perp}"']&X(n+1).
+\end{tikzcd}
+\]
+El cuadrado de naturalidad para índices consecutivos muestra que las componentes de una transformación enriquecida forman un morfismo de espectros. Las identidades y composiciones se preservan porque en ambas categorías se calculan por niveles. Esto define un funtor $\Topstar^{\mathcal S}\to\Sp^{\mathbb N}$.
+
+Recíprocamente, para un espectro $E$ tomamos $E(n)=E_n$ y definimos $E_{n,m}$ por su adjunta.
+
+Para $m\geq n+2$, la adjunta se obtiene por el siguiente recorrido.
+\[
+\begin{tikzcd}[column sep={0mm,between origins},row sep={11mm,between origins},
+    cells={nodes={inner sep=2pt}}]
+&[16.7mm] |[anchor=east]| \hom_{\mathcal S}(n,m)
+    \arrow[rr,start anchor=east,end anchor=west,"E_{n,m}"]
+&[25mm] {}\arrow[d,mapsto,start anchor=center,end anchor=center,shorten <=2.5mm,shorten >=6mm,
+    "\text{adjunción}"]
+&[25mm] |[anchor=west]| \Map_*(E(n),E(m))
+&[5.5mm]\\[4mm]
+& |[anchor=east]| E(n)\wedge\hom_{\mathcal S}(n,m)
+    \arrow[rr,start anchor=east,end anchor=west,"E_{n,m}^\perp"]
+    \arrow[dl,equal,start anchor=south,end anchor=north,
+      to path={(\tikztostart -| \tikztotarget) -- (\tikztotarget) \tikztonodes}]
+& {}
+& |[anchor=west]| E(m)
+    \arrow[dr,equal,start anchor=south,end anchor=north,
+      to path={(\tikztostart -| \tikztotarget) -- (\tikztotarget) \tikztonodes}]
+&\\[1.5mm]
+E_n\wedge(S^1)^{\wedge(m-n)}
+    \arrow[rrrr,"\text{composición de las }\xi_i"{sloped}]
+    \arrow[d,"\xi_n\wedge1"']
+&&&& E_m\\
+E_{n+1}\wedge(S^1)^{\wedge(m-n-1)}\arrow[d,"\xi_{n+1}\wedge1"']
+&&&&\\
+E_{n+2}\wedge(S^1)^{\wedge(m-n-2)}
+    \arrow[to=3-5,dashed,start anchor=east,end anchor=south west,"\text{iterar}"{sloped,pos=.56}]
+&&&&
+\end{tikzcd}
+\]
+La cadena termina al agotar las coordenadas. Si $m=n+1$, se aplica $\xi_n$. Si $n=m$, se usa la unidad derecha. Para $n>m$, se toma el único mapa desde el punto. Componer dos evaluaciones iteradas concatena las listas de funciones estructurales. Esto verifica los diagramas de composición y de unidad del \myref{ejer:c26-adjuntas-diagrama}.
+
+Todo diagrama $X$ recupera sus evaluaciones mediante esta construcción. Si $n<m$, la composición de $\mathcal S$ identifica el smash de los $m-n$ espacios de morfismos consecutivos con $S^{m-n}$. Aplicar repetidamente el axioma de evaluación de $X$ da entonces la evaluación original.
+
+Queda por comprobar que se recuperan todos los morfismos. La comprobación se formula a continuación y da plenitud. La fidelidad es inmediata, porque una transformación queda determinada por sus componentes. Las dos construcciones son inversas en objetos y en morfismos.
+\end{proof}
+
+\begin{ejer}\label{ejer:c26-naturaleza-consecutiva}
+Explicar por qué la naturalidad para todos los pares consecutivos $(n,n+1)$ basta para que una familia $(\eta_n)$ sea una transformación natural enriquecida.
+\end{ejer}
+\begin{sol}
+Si $n<m$, escribimos ambas evaluaciones de $(n,m)$ como iteraciones de las evaluaciones consecutivas, con las coordenadas de la esfera en orden.
+
+A cada cuadrado consecutivo se le aplica el smash con las coordenadas restantes. Al pegar estos cuadrados, los lados intermedios son $\eta_{n+1}\wedge1$, $\eta_{n+2}\wedge1$ y así sucesivamente. El contorno compara $\eta_mX_{n,m}^{\perp}$ con $Y_{n,m}^{\perp}(\eta_n\wedge1)$. Si $m=n$, la igualdad es la naturalidad de $\rho$ y, si $m<n$, ambos mapas parten del punto. Por adjunción, esta comprobación da todos los cuadrados de naturalidad enriquecida.
+\end{sol}
+
+\begin{samepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Los espacios de morfismos para el modelo simétrico}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P20--P22.
+La categoría basada $\mathcal S^\Sigma$ conserva $\mathbb N$ como conjunto de objetos. Para construir sus espacios de morfismos, sea $\Sigma_n$ el grupo simétrico en $n$ letras. Se define
+\[
+\hom_{\mathcal S^\Sigma}(m,n)=
+\begin{cases}
+(\Sigma_n)_+\wedge_{\Sigma_{n-m}}S^{n-m},&m\leq n,\\
+*,&m>n.
+\end{cases}
+\]
+El símbolo $(\Sigma_n)_+$ indica que se añade un punto base disjunto. La acción izquierda de $\Sigma_{n-m}$ sobre $S^{n-m}=(S^1)^{\wedge(n-m)}$ permuta las coordenadas y fija el punto base. La acción derecha sobre $\Sigma_n$ es $\sigma\cdot\tau=\sigma i(\tau)$, donde $i\colon\Sigma_{n-m}\hookrightarrow\Sigma_n$ extiende por la identidad fuera de las primeras $n-m$ letras:
+\[
+i(\tau)(k)=
+\begin{cases}
+\tau(k),&1\leq k\leq n-m,\\
+k,&n-m<k\leq n.
+\end{cases}
+\]
+\end{samepage}
+La acción derecha se extiende fijando el punto base de $(\Sigma_n)_+$. En el smash balanceado se identifican $[\sigma i(\tau),z]$ y $[\sigma,\tau z]$. Equivalentemente, se toman órbitas para la acción izquierda
+\[
+\tau\cdot[\sigma,z]=[\sigma i(\tau)^{-1},\tau z].
+\]
+Elegir un representante de cada coset $\sigma i(\Sigma_{n-m})$ permite identificar el espacio de morfismos con una cuña de $n!/(n-m)!$ esferas $S^{n-m}$. La acción derecha sobre las permutaciones es libre, de modo que cada órbita tiene un único representante en la copia de la esfera correspondiente al coset elegido, fuera del punto base común. En particular, los endomorfismos en el nivel $n$ forman $(\Sigma_n)_+$ porque $\Sigma_0$ es trivial.
+
+La composición de $\mathcal S^\Sigma$ se construirá en la clase siguiente. La categoría análoga $\mathcal S^O$ usa grupos ortogonales, cuya topología forma parte de los espacios de morfismos.
+
+Las tres categorías de índices dan lugar a los siguientes diagramas basados
+\[
+\begin{tikzcd}[column sep=large,row sep=normal]
+\mathcal S\arrow[r,rightsquigarrow]&\text{espectros secuenciales}\\
+\mathcal S^\Sigma\arrow[r,rightsquigarrow]&\text{espectros simétricos}\\
+\mathcal S^O\arrow[r,rightsquigarrow]&\text{espectros ortogonales}.
+\end{tikzcd}
+\]
+
+\begin{samepage}
+Para motivar la acción simétrica, recordemos que el modelo de Adams de la clase 10 elige un camino de pares de índices. Si queremos conservar todas las descomposiciones del grado, en grados dos y tres intervienen los siguientes bloques
+\[
+\begin{array}{c|l}
+\text{grado}&\text{bloques que se combinan}\\ \hline
+2& X_1\wedge Y_1,\quad X_2\wedge Y_0,\quad X_0\wedge Y_2\\
+3& X_2\wedge Y_1,\quad X_1\wedge Y_2,\quad X_3\wedge Y_0,\quad X_0\wedge Y_3 .
+\end{array}
+\]
+Los grupos $\Sigma_n$ actúan en los niveles correspondientes de las sucesiones. La categoría de índices de estas sucesiones solo tiene los endomorfismos indicados:
+\[
+\begin{tikzcd}[column sep=large]
+1\arrow[out=130,in=50,loop,"\Sigma_1"]&
+2\arrow[out=130,in=50,loop,"\Sigma_2"]&
+3\arrow[out=130,in=50,loop,"\Sigma_3"]&\cdots .
+\end{tikzcd}
+\]
+El bloque $X_p\wedge Y_q$ con $p+q=n$ lleva la acción de $\Sigma_p\times\Sigma_q$ y se incorpora en el grado $n$ mediante el espacio inducido
+\[
+(\Sigma_n)_+\wedge_{\Sigma_p\times\Sigma_q}(X_p\wedge Y_q).
+\]
+Esto describe los sumandos del producto de \emph{sucesiones simétricas}. Para pasar al smash de espectros simétricos se toma el coecualizador de las dos acciones del espectro esfera \cite[ejemplo~4.2 y §~22, ecuación~(22.2)]{mandell_may_schwede_shipley2001}.
+
+La presentación por módulos sobre el espectro esfera parte de la categoría con solo los grupos $\Sigma_n$ en los endomorfismos. La presentación por diagramas sobre $\mathcal S^\Sigma$ incorpora también las esferas en los espacios de morfismos. Véase la comparación entre estas dos descripciones en \cite[teorema~2.2 y ejemplo~4.2]{mandell_may_schwede_shipley2001}.
+
+\end{samepage}
