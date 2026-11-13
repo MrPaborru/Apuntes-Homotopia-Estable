@@ -1,0 +1,389 @@
+% Clase 27, 12/11/2026. Fuentes: Estable1112.pdf, P01--P14 y C27.txt fusionado.
+
+En la clase 26 describimos los espacios de morfismos de la categoría esfera simétrica. Aquí los escribimos como cuñas de esferas indizadas por encajes, lo que permite definir la composición mediante el transporte de coordenadas. A partir de las evaluaciones de un diagrama basado obtenemos las acciones de los grupos simétricos y las funciones estructurales. La equivariancia de estas funciones da la descripción de los espectros simétricos.
+
+Los espacios de morfismos y su composición se construyen en \cite[definición~6.1.6 y ecuación~(6.1.7)]{malkiewich}, cuyo lema~6.1.8 enuncia el isomorfismo y remite al ejercicio~6.6.4. La construcción inversa usa el transporte de coordenadas de \cite[§~1.2, definición~1.9]{hausmann2019}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Los espacios de morfismos y los encajes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El smash balanceado como cuña de esferas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P01--P03.
+La categoría $\mathcal S^\Sigma$ tiene un objeto por cada $n\geq 0$. Sus espacios de morfismos son
+\[
+\hom_{\mathcal S^\Sigma}(m,n)=
+\begin{cases}
+(\Sigma_n)_+\wedge_{\Sigma_{n-m}}S^{n-m},&m\leq n,\\
+*,&m>n.
+\end{cases}
+\]
+Consideremos $m\leq n$. El subgrupo $\Sigma_{n-m}\subseteq\Sigma_n$ permuta las primeras $n-m$ letras. En la esfera $S^{n-m}=(S^1)^{\wedge(n-m)}$ usamos la acción izquierda que pone $a_j$ en la posición $\tau(j)$ al aplicar $\tau$. Así, la coordenada de índice $i$ de $\tau a$ es $a_{\tau^{-1}(i)}$.
+
+Antes de imponer la relación balanceada, el smash con $(\Sigma_n)_+$ se obtiene identificando los puntos base de las copias de la esfera:
+\[
+(\Sigma_n)_+\wedge S^{n-m}
+\cong \frac{\Sigma_n\times S^{n-m}}{\Sigma_n\times\{*\}}
+\cong\bigvee_{\sigma\in\Sigma_n}S^{n-m}.
+\]
+Denotamos por $[a]_\sigma$ el punto $a$ en el sumando de índice $\sigma$. La relación del cociente se expresa por
+\[
+\begin{tikzcd}[column sep=large,row sep=normal]
+{[a]_{\sigma\tau}}\arrow[r,mapsto]\arrow[d,"\sim"']&
+{[\sigma\tau,a]}\arrow[d,equal]\\
+{[\tau a]_\sigma}\arrow[r,mapsto]&{[\sigma,\tau a]}.
+\end{tikzcd}
+\]
+El cociente lleva los dos puntos de la columna izquierda a una misma clase. Para cada clase lateral $\sigma\Sigma_{n-m}$, las copias de la esfera que aparecen en ella se identifican por homeomorfismos. Al elegir un representante por clase queda una cuña con $n!/(n-m)!$ sumandos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La inclusión final y las esferas de coordenadas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P02, P04--P06.
+Escribimos $\underline n=\{1,\ldots,n\}$, con $\underline 0=\varnothing$. Los \emph{encajes} de $\underline m$ en $\underline n$ son las funciones inyectivas entre estos conjuntos. El grupo $\Sigma_n$ actúa sobre ellos por poscomposición.
+
+La acción es transitiva. Dados $e_1$ y $e_2$, una permutación que lleve $e_1$ a $e_2$ se obtiene tomando $e_1(i)\mapsto e_2(i)$ y completando con cualquier biyección entre los complementos de sus imágenes.
+
+Tomemos la inclusión final
+\[
+\operatorname{fin}_{m,n}\colon\underline m\lhook\joinrel\longrightarrow\underline n,
+\qquad i\longmapsto n-m+i.
+\]
+Su estabilizador consta de las permutaciones que fijan las últimas $m$ letras, precisamente $\Sigma_{n-m}$. Se obtiene así la biyección
+\[
+\Sigma_n/\Sigma_{n-m}\longrightarrow
+\operatorname{Encajes}(\underline m,\underline n),
+\qquad \sigma\Sigma_{n-m}\longmapsto\sigma\operatorname{fin}_{m,n}.
+\]
+
+Para $A\subseteq\underline n$, sea $\mathbb R^A$ el subespacio de $\mathbb R^n$ cuyas coordenadas de índice fuera de $A$ son cero. Su compactificación por un punto es $S^A$, con punto base $\infty$. En el modelo de círculos se toma un factor $S^1$ para $i\in A$ y un factor $S^0$ para $i\notin A$, con el punto no base de $S^0$ insertado como el $1$ del círculo. Aquí $S^1=\mathbb R\cup\{\infty\}$ se identifica con el círculo de modo que $0$ corresponde a $1$. La esfera del encaje $e$ es $S^{\underline n\setminus e(\underline m)}$. Sus coordenadas variables están fuera de la imagen de $e$.
+
+La aplicación $\Phi$ de la cuña de copias de $S^{n-m}$ a $S^n$ se obtiene, en el sumando $\sigma$, colocando $a_j$ en la posición $\sigma(j)$ para $1\leq j\leq n-m$ y poniendo $1$ en las demás posiciones. Escribimos $\sigma_*a$ para la tupla así formada. La igualdad $\sigma_*(\tau a)=(\sigma\tau)_*a$ muestra que $\Phi$ pasa al cociente:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\displaystyle\bigvee_{\sigma\in\Sigma_n}S^{n-m}
+\arrow[r,"\Phi"]\arrow[d,"q"']&S^n\\
+(\Sigma_n)_+\wedge_{\Sigma_{n-m}}S^{n-m}
+\arrow[ur,"\overline{\Phi}"']&
+\end{tikzcd}
+\qquad
+\begin{tikzcd}[column sep=large,row sep=normal]
+{[a]_{\sigma\tau}}\arrow[r,mapsto]\arrow[d,"\sim"']&(\sigma\tau)_*a\\
+{[\tau a]_\sigma}\arrow[ur,mapsto]&
+\end{tikzcd}
+\]
+La aplicación $\overline{\Phi}$ también se puede describir como el mapa que, en cada sumando indizado por un encaje, incluye la esfera correspondiente en $S^n$. El triángulo de comparación es
+\[
+\begin{tikzcd}[column sep=55mm,row sep=small]
+(\Sigma_n)_+\wedge_{\Sigma_{n-m}}S^{n-m}
+  \arrow[r,"\overline{\Phi}"]\arrow[d,"\cong"']&S^n\\
+\displaystyle\bigvee_{e:\underline m\hookrightarrow\underline n}
+S^{\underline n\setminus e(\underline m)}
+  \arrow[ur,end anchor=south,shorten >=1pt,"\text{inclusiones}"'{sloped,pos=.62}]&
+\end{tikzcd}
+\]
+La flecha vertical envía $[\sigma,a]$ al punto $\sigma_*a$ en el sumando de $\sigma\operatorname{fin}_{m,n}$. En cada clase lateral, la restricción a la copia de un representante es un homeomorfismo con la esfera de coordenadas del encaje. Esto prueba que la flecha vertical es un homeomorfismo de espacios punteados. Dos encajes con la misma imagen conservan sus sumandos separados en la cuña.
+
+\begin{nota}
+En clase se colocó $a_j$ en la posición $\sigma^{-1}(j)$ y se usó $\sigma^{-1}\operatorname{fin}_{m,n}$ para el encaje asociado. Con la relación balanceada $[\sigma\tau,a]=[\sigma,\tau a]$ de la clase 26, $\sigma$ transporta las coordenadas y el encaje en el sentido indicado arriba. Si se rotula cada copia por $g=\sigma^{-1}$, se recuperan las fórmulas de clase y la relación se escribe $[a]_{\tau^{-1}g}\sim[\tau a]_g$. Esta es la rotulación que se usará para la acción derecha.
+\end{nota}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Composición en la categoría esfera simétrica}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Transporte y reunión de coordenadas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P07--P08.
+Para $m\leq n\leq k$ la composición se define sumando a sumando. El smash de las dos cuñas se distribuye en una cuña indizada por pares de encajes.
+
+Las identificaciones que definen la composición son
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\begin{gathered}
+\hom_{\mathcal S^\Sigma}(m,n)\\[-2pt]
+{}\wedge\hom_{\mathcal S^\Sigma}(n,k)
+\end{gathered}
+  \arrow[r,"c"]\arrow[d,"\cong"']&
+\hom_{\mathcal S^\Sigma}(m,k)\arrow[d,"\cong"]\\
+\begin{gathered}
+\bigvee_e S^{\underline n\setminus e(\underline m)}\\[-2pt]
+{}\wedge\bigvee_f S^{\underline k\setminus f(\underline n)}
+\end{gathered}
+  \arrow[r]\arrow[d,"\cong"']&
+\displaystyle\bigvee_g S^{\underline k\setminus g(\underline m)}\\
+\displaystyle\bigvee_{e,f}
+\bigl(S^{\underline n\setminus e(\underline m)}
+\wedge S^{\underline k\setminus f(\underline n)}\bigr)
+  \arrow[ur]&
+\end{tikzcd}
+\]
+Dados $e\colon\underline m\hookrightarrow\underline n$ y $f\colon\underline n\hookrightarrow\underline k$, el codominio del sumando $(e,f)$ se coloca en el sumando de $fe$. La descomposición del complemento es
+\[
+\underline k\setminus fe(\underline m)
+=f\bigl(\underline n\setminus e(\underline m)\bigr)
+\sqcup \bigl(\underline k\setminus f(\underline n)\bigr).
+\]
+La restricción de $f$ al primer complemento es una biyección con su imagen. El homeomorfismo $\widetilde f$ correspondiente transporta cada coordenada de índice $a$ a la de índice $f(a)$. Después se juntan esas coordenadas con las del segundo factor:
+\[
+\begin{tikzcd}[column sep={24mm,between borders},row sep=large]
+S^{\underline n\setminus e(\underline m)}
+ \wedge S^{\underline k\setminus f(\underline n)}
+ \arrow[d,"\widetilde f\wedge1"']
+ \arrow[dr,"c"]&\\
+S^{f(\underline n\setminus e(\underline m))}
+ \wedge S^{\underline k\setminus f(\underline n)}
+ \arrow[r,"\text{juntar coordenadas}"'{sloped}]&
+S^{\underline k\setminus fe(\underline m)} .
+\end{tikzcd}
+\]
+Por ejemplo, si las coordenadas activas del primer factor ya transportado son $3,4,5$ y las del segundo son $1,2,6$, se reúnen las seis coordenadas en sus posiciones. La operación es la compactificación por un punto de la suma directa de los dos subespacios de coordenadas. Es un homeomorfismo punteado en cada par de sumandos. Si $m>n$ o $n>k$, el dominio de la composición es un punto y se toma el único mapa punteado.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Asociatividad e identidades}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Para tres encajes composables $e,f,h$, las dos parentizaciones acaban en el sumando de $hfe$. Las coordenadas del primer factor se transportan por $hf$, las del segundo por $h$ y las del tercero conservan su índice. Los tres conjuntos de posiciones son disjuntos y cubren el complemento de la imagen de $hfe$. Por tanto, los dos recorridos coinciden. Si alguno de los factores es el punto base, ambos dan el punto base.
+
+La identidad de $n$ es el punto no base de $S^\varnothing$ en el sumando de $\id_{\underline n}$. La esfera de complemento vacío aporta el factor unidad $S^0$, y el transporte por el encaje identidad deja fijas todas las coordenadas. Las identidades son neutras por los dos lados. Así, $\mathcal S^\Sigma$ es una categoría basada.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Acciones y funciones estructurales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evaluación y acción del grupo simétrico}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P09--P10.
+Un diagrama basado $X\colon\mathcal S^\Sigma\to\Topstar$ da un espacio punteado $X_n=X(n)$ en cada nivel. Por adjunción, sus aplicaciones sobre los espacios de morfismos se expresan mediante las evaluaciones
+\[
+\ev\colon X_m\wedge\hom_{\mathcal S^\Sigma}(m,n)\longrightarrow X_n.
+\]
+Estas satisfacen los diagramas de composición e identidad de la clase 26. Para $m=n$, el espacio de morfismos se identifica con $(\Sigma_n)_+$. Rotulamos por $g$ el morfismo cuyo encaje es $g^{-1}$ y escribimos $x\cdot g$ para su evaluación en $x$.
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X_n\wedge(\Sigma_n)_+\arrow[r,"\ev"]&X_n\\
+\dfrac{X_n\times\Sigma_n}{\{x_0\}\times\Sigma_n}\arrow[u,equal]&\\
+X_n\times\Sigma_n\arrow[u,"q"]\arrow[uur,bend right=16]&
+\end{tikzcd}
+\]
+El compuesto lleva $(x,g)$ a $x\cdot g$. Como $q$ colapsa $\{x_0\}\times\Sigma_n$, se tiene $x_0\cdot g=x_0$.
+
+La composición de dos endomorfismos rotulados por $g$ y $h$, en ese orden, corresponde al encaje $h^{-1}g^{-1}=(gh)^{-1}$. El compuesto queda rotulado por $gh$. Por ello, el cuadrado de evaluación da $(x\cdot g)\cdot h=x\cdot(gh)$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X_n\wedge(\Sigma_n)_+\wedge(\Sigma_n)_+
+  \arrow[r,"\ev\wedge1"]\arrow[d,"1\wedge c"']&
+X_n\wedge(\Sigma_n)_+\arrow[d,"\ev"]\\
+X_n\wedge(\Sigma_n)_+\arrow[r,"\ev"']&X_n
+\end{tikzcd}
+\]
+Los recorridos sobre elementos son
+\[
+\begin{tikzcd}[column sep=large,row sep=normal,
+    arrows={rojoCIMAT},cells={nodes={text=rojoCIMAT}}]
+{[x,g,h]}\arrow[r,mapsto]\arrow[d,mapsto]&{[x\cdot g,h]}\arrow[d,mapsto]\\
+{[x,gh]}\arrow[r,mapsto]&(x\cdot g)\cdot h=x\cdot(gh).
+\end{tikzcd}
+\]
+La unidad se comprueba mediante
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X_n\wedge(\Sigma_n)_+\arrow[r,"\ev"]&X_n\\
+X_n\wedge S^0\arrow[u,"1\wedge i_n"]\arrow[ur,"\rho_{X_n}"']&
+\end{tikzcd}
+\]
+El mapa $i_n$ lleva el punto no base de $S^0$ a la permutación identidad. El triángulo da $x\cdot 1=x$. Tenemos, por tanto, una acción derecha punteada. La acción izquierda que usaremos es $g\cdot x=x\cdot g^{-1}$, es decir, la evaluación del encaje $g$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La función estructural y los dos órdenes de evaluación}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P11--P12.
+Como $\Sigma_1$ es trivial, $\hom_{\mathcal S^\Sigma}(n,n+1)\cong(\Sigma_{n+1})_+\wedge S^1$. La inclusión final $\operatorname{fin}_{n,n+1}$ tiene complemento $\{1\}$ y corresponde al sumando de la identidad en esta presentación. La función estructural que se obtiene de ese sumando se escribe $\xi_n^{\mathrm{fin}}$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X_n\wedge(\Sigma_{n+1})_+\wedge S^1\arrow[r,"\ev"]&X_{n+1}\\
+X_n\wedge S^1\arrow[u,hook]\arrow[ur,"\xi_n^{\mathrm{fin}}"']&
+\end{tikzcd}
+\]
+La inclusión envía $[x,z]$ a $[x,1,z]$. Para estudiar la equivariancia, se pueden evaluar primero un endomorfismo de $n$ o, en el otro orden, un endomorfismo de $n+1$:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X_n\wedge(\Sigma_n)_+\wedge(\Sigma_{n+1})_+\wedge S^1
+  \arrow[d,"\ev\wedge1"']\arrow[dr,"r"]&\\
+X_n\wedge(\Sigma_{n+1})_+\wedge S^1\arrow[r,"\ev"']&X_{n+1}.
+\end{tikzcd}
+\]
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X_n\wedge(\Sigma_{n+1})_+\wedge S^1\wedge(\Sigma_{n+1})_+
+  \arrow[d,"\ev\wedge1"']\arrow[dr,"s"]&\\
+X_{n+1}\wedge(\Sigma_{n+1})_+\arrow[r,"\ev"']&X_{n+1}.
+\end{tikzcd}
+\]
+Los valores que se comparan son
+\[
+r[x,g,1,z]=\xi_n^{\mathrm{fin}}[x\cdot g,z],
+\qquad
+s[x,1,z,h]=\xi_n^{\mathrm{fin}}[x,z]\cdot h.
+\]
+La clase $\textcolor{rojoCIMAT}{[g,1,z]}$ se compone por la flecha superior. El segundo recorrido usa la composición inferior:
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+\hom_{\mathcal S^\Sigma}(n,n)\wedge\hom_{\mathcal S^\Sigma}(n,n+1)
+  \arrow[dr,"c"]&\\
+&\hom_{\mathcal S^\Sigma}(n,n+1)\\
+\hom_{\mathcal S^\Sigma}(n,n+1)\wedge\hom_{\mathcal S^\Sigma}(n+1,n+1)
+  \arrow[ur,"c"']&
+\end{tikzcd}
+\]
+La comparación se hace en $X_n\wedge(\Sigma_n)_+\wedge S^1$. Hacia el dominio de $r$ se inserta el endomorfismo identidad en el factor de $\Sigma_{n+1}$ que rotula el círculo. Hacia el de $s$ se inserta la misma identidad y se lleva $g$ a una extensión $h\in\Sigma_{n+1}$ que se determinará a continuación.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{La permutación del bloque correcto}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P13--P14. Corrección de la demostración interrumpida.
+La primera composición se calcula con los encajes $g^{-1}$ y $\operatorname{fin}_{n,n+1}$. El complemento del primero es vacío. El del compuesto es $\{1\}$, igual al de la inclusión final, de modo que la coordenada $z$ no se mueve:
+\[
+\begin{tikzcd}[column sep=large,row sep=normal]
+\hom_{\mathcal S^\Sigma}(n,n)\wedge\hom_{\mathcal S^\Sigma}(n,n+1)
+  \arrow[r,"c"]&
+\hom_{\mathcal S^\Sigma}(n,n+1)\\
+\underbrace{S^\varnothing}_{g^{-1}}\wedge
+\underbrace{S^{\{1\}}}_{\operatorname{fin}_{n,n+1}}
+  \arrow[u,hook,rojoCIMAT]\arrow[r,"\simeq"]&
+\underbrace{S^{\{1\}}}_{\operatorname{fin}_{n,n+1}g^{-1}}
+  \arrow[u,hook].
+\end{tikzcd}
+\]
+
+\begin{nota}
+La prueba se interrumpió en clase al intentar conmutar $g^{-1}$ con la inclusión final mediante la extensión que permuta las primeras $n$ letras. Esa extensión actúa sobre $\{1,\ldots,n\}$, mientras que la imagen de $\operatorname{fin}_{n,n+1}$ es $\{2,\ldots,n+1\}$. La corrección consiste en extender $g^{-1}$ sobre ese segundo bloque. La formulación anunciada en clase, con la acción en las primeras $n$ letras, se obtiene mediante la inclusión inicial.
+\end{nota}
+
+Escribimos $1\oplus g$ para la permutación que fija $1$ y envía $i+1$ a $g(i)+1$. La igualdad correcta es
+\[
+\operatorname{fin}_{n,n+1}\,g^{-1}
+=(1\oplus g^{-1})\,\operatorname{fin}_{n,n+1}.
+\]
+Ambos lados envían $i$ a $g^{-1}(i)+1$. La composición del segundo recorrido con $h=1\oplus g$ tiene el mismo encaje y deja fija la coordenada $1$. Así, ambos recorridos llevan la coordenada $z$ al mismo punto del mismo sumando. Al evaluar se obtiene
+\[
+\xi_n^{\mathrm{fin}}[x\cdot g,z]
+=\xi_n^{\mathrm{fin}}[x,z]\cdot(1\oplus g).
+\]
+Pasando a las acciones izquierdas, esto es equivariancia respecto del bloque final.
+
+Para la convención usual, sea $\iota_{m,n}\colon\underline m\hookrightarrow\underline n$ la inclusión inicial $i\mapsto i$. La permutación $\rho\in\Sigma_{n+1}$ dada por $\rho(1)=n+1$ y $\rho(i+1)=i$ lleva $\operatorname{fin}_{n,n+1}$ a $\iota_{n,n+1}$ y transporta la coordenada $1$ a la coordenada $n+1$. Denotemos por $\xi_n$ la evaluación en el sumando de $\iota_{n,n+1}$, con esta identificación del círculo. La composición con $\rho$ da
+\[
+\xi_n[x,z]=\rho\cdot\xi_n^{\mathrm{fin}}[x,z].
+\]
+Como $\rho(1\oplus g)\rho^{-1}=g\oplus1$, resulta
+\[
+\xi_n[g\cdot x,z]=(g\oplus1)\cdot\xi_n[x,z].
+\]
+La misma igualdad se obtiene directamente de $\iota_{n,n+1}g=(g\oplus1)\iota_{n,n+1}$, pues $g\oplus1$ fija la coordenada del círculo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La categoría de espectros simétricos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Funciones estructurales iteradas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% P14.
+\begin{defi}\label{defi:c27-espectro-simetrico}
+Un \emph{espectro simétrico} es un espectro secuencial $(X_m,\xi_m)$ con una acción izquierda punteada de $\Sigma_m$ sobre $X_m$ para cada $m\geq 0$. Para todo $m,r\geq 0$, se exige la equivariancia de
+\[
+\xi_{m,r}\colon X_m\wedge S^r\longrightarrow X_{m+r}.
+\]
+En el dominio, $\Sigma_m\times\Sigma_r$ actúa factor a factor. En el codominio actúa por la inclusión de bloques
+$\Sigma_m\times\Sigma_r\hookrightarrow\Sigma_{m+r}$.
+\end{defi}
+
+Para $r\geq2$, los primeros pasos de la iteración son
+\[
+\begin{tikzcd}[column sep=large,row sep=large]
+X_m\wedge S^r
+  \arrow[r,"\xi_m\wedge1"]\arrow[drr,"\xi_{m,r}"',bend right=18]&
+X_{m+1}\wedge S^{r-1}\arrow[r,"\xi_{m+1}\wedge1"]&
+X_{m+2}\wedge S^{r-2}\arrow[d,dashed]\\
+&&X_{m+r}.
+\end{tikzcd}
+\]
+Se identifica $S^r$ con el smash ordenado de $r$ círculos. Para $r=1$ la función es $\xi_m$ y para $r=0$ se usa el isomorfismo de unidad. En el enunciado de clase se escribió $m\leq r$ para los índices de la iteración. La condición se exige para todos $m,r\geq0$.
+
+\begin{defi}
+Un morfismo de espectros simétricos es un morfismo de los espectros secuenciales subyacentes cuyas componentes $X_m\to Y_m$ son $\Sigma_m$-equivariantes. Denotamos por $\Sp^\Sigma$ la categoría de espectros simétricos.
+\end{defi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{El isomorfismo con los diagramas basados}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{samepage}
+\begin{prop}\label{prop:c27-simetricos-diagramas}
+Hay un isomorfismo de categorías $\Topstar^{\mathcal S^\Sigma}\cong\Sp^\Sigma$.
+\end{prop}
+
+\begin{nota}
+La proposición se enunció en clase y quedó sin demostración. La demostración siguiente completa la comparación mediante los mismos encajes y esferas de complemento. Para reconstruir la evaluación a partir de un espectro simétrico se usa el transporte de coordenadas de las aplicaciones estructurales generalizadas de \cite[definición~1.9]{hausmann2019}.
+\end{nota}
+\end{samepage}
+
+\begin{proof}
+\emph{Del diagrama al espectro.} Las inclusiones iniciales consecutivas se componen en $\iota_{m,m+r}$. Al componer los morfismos correspondientes, se conservan en orden las coordenadas nuevas $m+1,\ldots,m+r$. La preservación de la composición implica que la evaluación en ese sumando es $\xi_{m,r}$.
+
+Para $g\in\Sigma_m$ y $\tau\in\Sigma_r$, se cumple
+\[
+\iota_{m,m+r}g=(g\oplus\tau)\iota_{m,m+r}.
+\]
+En el recorrido que usa el endomorfismo $g$ antes de la inclusión, colocamos $\tau z$ en el complemento. En el que usa $g\oplus\tau$ después de la inclusión, colocamos $z$ y el endomorfismo lo transporta a $\tau z$. Los dos compuestos son el mismo punto del mismo sumando. Al evaluar se obtiene
+\[
+\xi_{m,r}[g\cdot x,\tau z]=(g\oplus\tau)\cdot\xi_{m,r}[x,z].
+\]
+Una transformación natural enriquecida conmuta con las evaluaciones de las permutaciones y de las inclusiones iniciales consecutivas. Sus componentes dan un morfismo de espectros simétricos.
+
+\emph{Del espectro al diagrama.} Sea $X$ un espectro simétrico y sea $e\colon\underline m\hookrightarrow\underline n$. Elijamos $\pi\in\Sigma_n$ con $\pi\iota_{m,n}=e$. Para $z\in S^{\underline n\setminus e(\underline m)}$ definimos la evaluación por
+\[
+[x,z]\longmapsto
+\pi\cdot\xi_{m,n-m}[x,(\pi^{-1})_*z].
+\]
+Aquí $(\pi^{-1})_*z$ se lee en las últimas $n-m$ coordenadas, en su orden usual. Otra elección es de la forma $\pi(1_m\oplus\tau)$ con $\tau\in\Sigma_{n-m}$. La nueva coordenada en la fórmula es $\tau^{-1}(\pi^{-1})_*z$. Por equivariancia de $\xi_{m,n-m}$, la acción adicional de $1_m\oplus\tau$ cancela exactamente ese cambio. La evaluación está bien definida, es continua y punteada en cada sumando, y las evaluaciones se reúnen en el mapa de toda la cuña. Si $m>n$, se toma la aplicación constante punteada.
+
+Para comprobar la composición, dados $e\colon\underline m\hookrightarrow\underline n$ y $f\colon\underline n\hookrightarrow\underline k$, escribimos $e=\pi\iota_{m,n}$ y $f=\sigma\iota_{n,k}$. Llamemos $v,w$ a las coordenadas de los dos puntos después de transportarlas por $\pi^{-1}$ y $\sigma^{-1}$, respectivamente. Evaluar primero en $e$ y luego en $f$ da
+\[
+\begin{aligned}
+\sigma\cdot\xi_{n,k-n}[\pi\cdot\xi_{m,n-m}[x,v],w]
+&=\sigma(\pi\oplus1_{k-n})\cdot
+\xi_{n,k-n}[\xi_{m,n-m}[x,v],w]\\
+&=\sigma(\pi\oplus1_{k-n})\cdot\xi_{m,k-m}[x,[v,w]].
+\end{aligned}
+\]
+La primera igualdad usa la equivariancia por bloques y la segunda la iteración de las funciones estructurales. La permutación $\sigma(\pi\oplus1_{k-n})$ prolonga el encaje $fe$. Transporta el primer bloque de coordenadas de $[v,w]$ por $f$ después de $\pi$ y el segundo por $\sigma$. Es el transporte de la composición en $\mathcal S^\Sigma$, por lo que la última expresión es la evaluación en el compuesto. Para la identidad se usa $\pi=1$ y $\xi_{m,0}=\rho_{X_m}$. Los casos en que aparece un punto base se verifican porque todas las aplicaciones son punteadas.
+
+Un morfismo de espectros simétricos conmuta con las iteraciones y con las acciones de las permutaciones. La fórmula de evaluación muestra que conmuta con la evaluación en cada encaje y, por adjunción, define una transformación natural enriquecida.
+
+Las construcciones se recuperan mutuamente. Las permutaciones y las inclusiones iniciales consecutivas recuperan las acciones y las funciones estructurales. En sentido inverso, todo encaje se factoriza como una inclusión inicial seguida de una permutación. La compatibilidad con la composición obliga a que su evaluación sea la fórmula anterior. En ambos sentidos los morfismos se calculan con las mismas componentes por niveles.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conjuntos finitos y el paso a los espectros ortogonales}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Los conjuntos $\underline n$ forman un esqueleto de los conjuntos finitos con biyecciones. En la formulación con encajes se puede tomar cualquier conjunto finito $A$ como índice de $X(A)$ y usar $S^{B\setminus e(A)}$ para un encaje $e\colon A\hookrightarrow B$. Las biyecciones recuperan las acciones de los grupos de automorfismos. El paso de la formulación esquelética a esta versión se puede hacer por transporte a través de biyecciones \cite[§~1.2]{hausmann2019}.
+
+Para los espectros ortogonales se puede trabajar con los $\mathbb R^n$ o con todos los espacios euclidianos de dimensión finita. En la versión por diagramas, los encajes se sustituyen por isometrías lineales y los complementos ortogonales forman un fibrado sobre el espacio de encajes. El espacio de morfismos es su espacio de Thom. Los endomorfismos isométricos de $V$ proporcionan una acción de $O(V)$ en el nivel $X(V)$ \cite[definición~6.1.9]{malkiewich}.
+
+\begin{nota}
+La construcción ortogonal se anunció para la clase siguiente. En la discusión final se señalaron las suspensiones y los espectros de Thom como fuentes de ejemplos. También se explicó que, para un grupo finito, la representación regular es de permutación y sus múltiplos contienen cualquier representación real de dimensión finita. Esto motiva el uso de espectros simétricos en el caso finito. Los detalles de homotopía estable equivariante quedaron fuera de la clase \cite[introducción]{hausmann2019}.
+\end{nota}

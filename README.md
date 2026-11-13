@@ -8,18 +8,18 @@ La versión compilada más reciente está disponible en [`build/main.pdf`](build
 
 ## Contenido y estado actual
 
-El documento reúne las **clases 1–26**. La última incorporada es la **clase 26, del 11 de noviembre de 2026**, y el PDF completo tiene **388 páginas**. La clase 26 ocupa las páginas 372–386 del visor, incluida su portadilla. La bibliografía se encuentra en las páginas 387–388.
+El documento reúne las **clases 1–27**. La última incorporada es la **clase 27, del 12 de noviembre de 2026**, y el PDF completo tiene **398 páginas**. La clase 27 ocupa las páginas 388–396 del visor, incluida su portadilla. La bibliografía se encuentra en las páginas 397–398.
 
-La [clase 26](Apuntes/C26.tex) desarrolla estos temas.
+La [clase 27](Apuntes/C27.tex) desarrolla estos temas.
 
-- Módulos de Eilenberg–MacLane y el problema de construir un producto smash relativo.
-- Teorema de imposibilidad de Lewis y la operación de Hopf que detecta la contradicción.
-- Categorías enriquecidas, diagramas basados y su identificación con los espectros secuenciales sobre la categoría esfera.
-- Espacios de morfismos del modelo simétrico y sus acciones de permutación.
+- Espacios de morfismos de la categoría esfera simétrica como cuñas indizadas por encajes.
+- Composición por transporte de coordenadas, acciones de los grupos simétricos y equivariancia de las funciones estructurales.
+- Definición de espectro simétrico y demostración del isomorfismo entre espectros simétricos y diagramas basados.
+- Formulación por conjuntos finitos y paso a los espectros ortogonales.
 
-Incluye los ejercicios 55–58 con sus soluciones. La composición de la categoría que indiza los espectros simétricos queda pendiente para la clase siguiente.
+La demostración corrige el cálculo de equivariancia que quedó pendiente en clase, precisando sobre qué bloque actúa la permutación.
 
-La clase 21 mantiene una versión elaborada únicamente a partir de las pizarras, pendiente de ampliación cuando se disponga de su transcripción. Las pizarras y transcripciones originales se conservan por separado del repositorio de apuntes. La transcripción de la clase 26 se fusionó a partir de tres tramos, con cortes en los minutos 30 y 60.
+La clase 21 mantiene una versión elaborada únicamente a partir de las pizarras, pendiente de ampliación cuando se disponga de su transcripción. Las pizarras y transcripciones originales se conservan por separado del repositorio de apuntes. La transcripción de la clase 27 se fusionó a partir de tres tramos, con cortes en los minutos 30 y 60.
 
 ## Criterios editoriales
 
