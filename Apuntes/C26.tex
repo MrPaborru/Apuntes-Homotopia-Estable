@@ -47,7 +47,7 @@ Para módulos $M$ y $N$ sobre un anillo conmutativo $R$, el tensor sobre $R$ es 
 \begin{tikzcd}[column sep=large]
 R\otimes_{\mathbb Z}M\otimes_{\mathbb Z}N
 \arrow[r,shift left=.55ex,"\mu_M\otimes1"]
-\arrow[r,shift right=.55ex,"(1\otimes\mu_N)(B\otimes1)"']&
+\arrow[r,shift right=.55ex,"(1\otimes\mu_N)(B_{R,M}\otimes1)"']&
 M\otimes_{\mathbb Z}N\arrow[r]&M\otimes_RN.
 \end{tikzcd}
 \]
@@ -315,7 +315,7 @@ Por (A5), $\theta_{S^0}$ lleva la unidad al punto $\iota_{S^0}(-1)$ de $QS^0$, q
 \[
 \Omega^\infty_1\Sigma^\infty S^0\xrightarrow{\ \theta_{S^0}\ }\,(QS^0)_1.
 \]
-Para $n\geq1$, los grupos $\pi_n((QS^0)_1)$ se identifican con $\pi_n(\mathbb S)$. Se pasa a la componente de grado cero por traslación en el espacio de lazos infinitos $QS^0$, con el cambio de punto base correspondiente. Esta equivalencia respeta la precomposición por aplicaciones de esferas. En la componente de grado cero, la adjunción derivada de la clase 10 convierte la precomposición por una aplicación de esferas en la precomposición por su suspensión infinita.
+Para $n\geq1$, los grupos $\pi_n((QS^0)_1)$ se identifican con $\pi_n(\mathbb S)$. La traslación en el espacio de lazos infinitos $QS^0$ identifica sus componentes, con el cambio de punto base correspondiente, y respeta la precomposición por aplicaciones de esferas. En el modelo $QS^0$, la adjunción derivada de la clase 10 convierte la precomposición por una aplicación de esferas en la precomposición por su suspensión infinita.
 
 Sea $\eta_{\mathrm H}\colon S^3\to S^2$ la aplicación de Hopf y escribamos también $\eta_{\mathrm H}$ para su clase estable. Para un producto $P=\prod_{n\geq1}K(A_n,n)$, es nula la operación
 \[
@@ -663,7 +663,7 @@ Para motivar la acción simétrica, recordemos que el modelo de Adams de la clas
 3& X_2\wedge Y_1,\quad X_1\wedge Y_2,\quad X_3\wedge Y_0,\quad X_0\wedge Y_3 .
 \end{array}
 \]
-Los grupos $\Sigma_n$ actúan en los niveles correspondientes de las sucesiones. La categoría de índices de estas sucesiones solo tiene los endomorfismos indicados:
+Los grupos $\Sigma_n$ actúan en los niveles correspondientes de las sucesiones. Conservar todas las descomposiciones repite cada bloque, y elegir una sola haría depender la construcción del camino. La acción de $\Sigma_n$ identifica las repeticiones, de modo que cada bloque cuenta una sola vez. La categoría de índices de estas sucesiones solo tiene los endomorfismos indicados:
 \[
 \begin{tikzcd}[column sep=large]
 1\arrow[out=130,in=50,loop,"\Sigma_1"]&

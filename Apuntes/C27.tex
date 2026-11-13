@@ -65,25 +65,25 @@ Para $A\subseteq\underline n$, sea $\mathbb R^A$ el subespacio de $\mathbb R^n$ 
 La aplicación $\Phi$ de la cuña de copias de $S^{n-m}$ a $S^n$ se obtiene, en el sumando $\sigma$, colocando $a_j$ en la posición $\sigma(j)$ para $1\leq j\leq n-m$ y poniendo $1$ en las demás posiciones. Escribimos $\sigma_*a$ para la tupla así formada. La igualdad $\sigma_*(\tau a)=(\sigma\tau)_*a$ muestra que $\Phi$ pasa al cociente:
 \[
 \begin{tikzcd}[column sep=large,row sep=large]
-\displaystyle\bigvee_{\sigma\in\Sigma_n}S^{n-m}
+\textstyle\bigvee\nolimits_{\sigma\in\Sigma_n}S^{n-m}
 \arrow[r,"\Phi"]\arrow[d,"q"']&S^n\\
 (\Sigma_n)_+\wedge_{\Sigma_{n-m}}S^{n-m}
 \arrow[ur,"\overline{\Phi}"']&
 \end{tikzcd}
 \qquad
-\begin{tikzcd}[column sep=large,row sep=normal]
+\begin{tikzcd}[column sep=large,row sep=large]
 {[a]_{\sigma\tau}}\arrow[r,mapsto]\arrow[d,"\sim"']&(\sigma\tau)_*a\\
-{[\tau a]_\sigma}\arrow[ur,mapsto]&
+{[\tau a]_\sigma}\arrow[ur,mapsto,end anchor=west]&
 \end{tikzcd}
 \]
 La aplicación $\overline{\Phi}$ también se puede describir como el mapa que, en cada sumando indizado por un encaje, incluye la esfera correspondiente en $S^n$. El triángulo de comparación es
 \[
-\begin{tikzcd}[column sep=55mm,row sep=small]
+\begin{tikzcd}[column sep=22mm,row sep=13mm]
 (\Sigma_n)_+\wedge_{\Sigma_{n-m}}S^{n-m}
   \arrow[r,"\overline{\Phi}"]\arrow[d,"\cong"']&S^n\\
-\displaystyle\bigvee_{e:\underline m\hookrightarrow\underline n}
+\textstyle\bigvee\nolimits_{e\colon\underline m\hookrightarrow\underline n}
 S^{\underline n\setminus e(\underline m)}
-  \arrow[ur,end anchor=south,shorten >=1pt,"\text{inclusiones}"'{sloped,pos=.62}]&
+  \arrow[ur,"\text{inclusiones}"'{sloped,pos=.62}]&
 \end{tikzcd}
 \]
 La flecha vertical envía $[\sigma,a]$ al punto $\sigma_*a$ en el sumando de $\sigma\operatorname{fin}_{m,n}$. En cada clase lateral, la restricción a la copia de un representante es un homeomorfismo con la esfera de coordenadas del encaje. Esto prueba que la flecha vertical es un homeomorfismo de espacios punteados. Dos encajes con la misma imagen conservan sus sumandos separados en la cuña.
@@ -106,19 +106,14 @@ Para $m\leq n\leq k$ la composición se define sumando a sumando. El smash de la
 Las identificaciones que definen la composición son
 \[
 \begin{tikzcd}[column sep=large,row sep=large]
-\begin{gathered}
-\hom_{\mathcal S^\Sigma}(m,n)\\[-2pt]
-{}\wedge\hom_{\mathcal S^\Sigma}(n,k)
-\end{gathered}
+\hom_{\mathcal S^\Sigma}(m,n)\wedge\hom_{\mathcal S^\Sigma}(n,k)
   \arrow[r,"c"]\arrow[d,"\cong"']&
 \hom_{\mathcal S^\Sigma}(m,k)\arrow[d,"\cong"]\\
-\begin{gathered}
-\bigvee_e S^{\underline n\setminus e(\underline m)}\\[-2pt]
-{}\wedge\bigvee_f S^{\underline k\setminus f(\underline n)}
-\end{gathered}
+\textstyle\bigvee\nolimits_e S^{\underline n\setminus e(\underline m)}
+\wedge\textstyle\bigvee\nolimits_f S^{\underline k\setminus f(\underline n)}
   \arrow[r]\arrow[d,"\cong"']&
-\displaystyle\bigvee_g S^{\underline k\setminus g(\underline m)}\\
-\displaystyle\bigvee_{e,f}
+\textstyle\bigvee\nolimits_g S^{\underline k\setminus g(\underline m)}\\
+\textstyle\bigvee\nolimits_{e,f}
 \bigl(S^{\underline n\setminus e(\underline m)}
 \wedge S^{\underline k\setminus f(\underline n)}\bigr)
   \arrow[ur]&
@@ -171,7 +166,7 @@ Estas satisfacen los diagramas de composición e identidad de la clase 26. Para 
 \begin{tikzcd}[column sep=large,row sep=large]
 X_n\wedge(\Sigma_n)_+\arrow[r,"\ev"]&X_n\\
 \dfrac{X_n\times\Sigma_n}{\{x_0\}\times\Sigma_n}\arrow[u,equal]&\\
-X_n\times\Sigma_n\arrow[u,"q"]\arrow[uur,bend right=16]&
+X_n\times\Sigma_n\arrow[u,"q"]\arrow[uur,bend right=16,"x\cdot g"']&
 \end{tikzcd}
 \]
 El compuesto lleva $(x,g)$ a $x\cdot g$. Como $q$ colapsa $\{x_0\}\times\Sigma_n$, se tiene $x_0\cdot g=x_0$.
@@ -258,10 +253,10 @@ La primera composición se calcula con los encajes $g^{-1}$ y $\operatorname{fin
 \hom_{\mathcal S^\Sigma}(n,n)\wedge\hom_{\mathcal S^\Sigma}(n,n+1)
   \arrow[r,"c"]&
 \hom_{\mathcal S^\Sigma}(n,n+1)\\
-\underbrace{S^\varnothing}_{g^{-1}}\wedge
-\underbrace{S^{\{1\}}}_{\operatorname{fin}_{n,n+1}}
-  \arrow[u,hook,rojoCIMAT]\arrow[r,"\simeq"]&
-\underbrace{S^{\{1\}}}_{\operatorname{fin}_{n,n+1}g^{-1}}
+\underbrace{S^\varnothing}_{\textcolor{rojoCIMAT}{g^{-1}}}\wedge
+\underbrace{S^{\{1\}}}_{\textcolor{rojoCIMAT}{\operatorname{fin}_{n,n+1}}}
+  \arrow[u,hook]\arrow[r,"\simeq"]&
+\underbrace{S^{\{1\}}}_{\textcolor{rojoCIMAT}{\operatorname{fin}_{n,n+1}g^{-1}}}
   \arrow[u,hook].
 \end{tikzcd}
 \]
@@ -286,7 +281,9 @@ Para la convención usual, sea $\iota_{m,n}\colon\underline m\hookrightarrow\und
 \[
 \xi_n[x,z]=\rho\cdot\xi_n^{\mathrm{fin}}[x,z].
 \]
-Como $\rho(1\oplus g)\rho^{-1}=g\oplus1$, resulta
+El sumando de $\iota_{n,n+1}$ es el de rótulo $\rho^{-1}$, de modo que
+$\xi_n[x,z]=\xi_n^{\mathrm{fin}}[x,z]\cdot\rho^{-1}$; con la acción izquierda, esto es la
+igualdad anterior. Como $\rho(1\oplus g)\rho^{-1}=g\oplus1$, resulta
 \[
 \xi_n[g\cdot x,z]=(g\oplus1)\cdot\xi_n[x,z].
 \]
@@ -310,7 +307,7 @@ En el dominio, $\Sigma_m\times\Sigma_r$ actúa factor a factor. En el codominio 
 $\Sigma_m\times\Sigma_r\hookrightarrow\Sigma_{m+r}$.
 \end{defi}
 
-Para $r\geq2$, los primeros pasos de la iteración son
+Esta formulación es la de \cite[definición~6.1.2]{malkiewich}. Para $r\geq2$, los primeros pasos de la iteración son
 \[
 \begin{tikzcd}[column sep=large,row sep=large]
 X_m\wedge S^r
@@ -325,6 +322,10 @@ Se identifica $S^r$ con el smash ordenado de $r$ círculos. Para $r=1$ la funci�
 \begin{defi}
 Un morfismo de espectros simétricos es un morfismo de los espectros secuenciales subyacentes cuyas componentes $X_m\to Y_m$ son $\Sigma_m$-equivariantes. Denotamos por $\Sp^\Sigma$ la categoría de espectros simétricos.
 \end{defi}
+
+\begin{nota}
+La definición no requiere la maquinaria de diagramas basados de las secciones anteriores. Esa construcción explica de dónde proceden las acciones y las equivarianzas, pero un espectro simétrico puede definirse directamente por sus niveles, sus acciones y sus funciones estructurales.
+\end{nota}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{El isomorfismo con los diagramas basados}

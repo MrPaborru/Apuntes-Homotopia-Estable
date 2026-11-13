@@ -8,7 +8,7 @@ La versión compilada más reciente está disponible en [`build/main.pdf`](build
 
 ## Contenido y estado actual
 
-El documento reúne las **clases 1–27**. La última incorporada es la **clase 27, del 12 de noviembre de 2026**, y el PDF completo tiene **398 páginas**. La clase 27 ocupa las páginas 388–396 del visor, incluida su portadilla. La bibliografía se encuentra en las páginas 397–398.
+El documento reúne las **clases 1–27**. La última incorporada es la **clase 27, del 12 de noviembre de 2026**, y el PDF completo tiene **399 páginas**. La clase 27 ocupa las páginas 388–397 del visor, incluida su portadilla. La bibliografía se encuentra en las páginas 398–399.
 
 La [clase 27](Apuntes/C27.tex) desarrolla estos temas.
 
@@ -18,6 +18,8 @@ La [clase 27](Apuntes/C27.tex) desarrolla estos temas.
 - Formulación por conjuntos finitos y paso a los espectros ortogonales.
 
 La demostración corrige el cálculo de equivariancia que quedó pendiente en clase, precisando sobre qué bloque actúa la permutación.
+
+Las clases 26 y 27 se revisaron el 13 de noviembre de 2026. La revisión corrigió la notación de un rótulo en la clase 26, restituyó dos motivaciones de clase y recompuso los diagramas de la clase 27 con nodos de una sola línea, de modo que las flechas guarden proporción con los objetos que conectan. El PDF de este repositorio incorpora esa revisión.
 
 La clase 21 mantiene una versión elaborada únicamente a partir de las pizarras, pendiente de ampliación cuando se disponga de su transcripción. Las pizarras y transcripciones originales se conservan por separado del repositorio de apuntes. La transcripción de la clase 27 se fusionó a partir de tres tramos, con cortes en los minutos 30 y 60.
 
